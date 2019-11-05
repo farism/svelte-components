@@ -1,12 +1,11 @@
 <script>
-  </script>
+</script>
 
-  <style>
-    .klass {
+<style>
+  .klass {
 
-    }
-  </style>
+  }
+</style>
 
-  <div class="klass">
-
-  </div>
+<div class="klass">
+</div>
