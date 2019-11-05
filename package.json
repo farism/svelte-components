@@ -1,0 +1,29 @@
+{
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "devDependencies": {
+    "rollup": "1.26.3",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-livereload": "1.0.4",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-svelte": "5.1.0",
+    "rollup-plugin-terser": "5.1.2",
+    "rollup-plugin-typescript2": "0.24.3",
+    "svelte": "3.12.1",
+    "typescript": "3.6.4"
+  },
+  "dependencies": {
+    "@procore/core-icons": "^7.21.1",
+    "@types/lodash": "4.14.144",
+    "lodash": "4.17.15",
+    "lodash.throttle": "4.1.1",
+    "sirv-cli": "0.4.5"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public --single",
+    "start:dev": "sirv public --single --dev"
+  }
+}

@@ -1,0 +1,30 @@
+<script>
+	import Search from './Search'
+	
+	export let onSearch
+	export let search = true
+</script>
+
+<style>
+	.header {}
+	.search{}
+	.options{}
+	.footer{]
+</style>
+
+<div>
+	<div class="header">
+		<slot name="header" />
+	</div>
+	{#if onSearch}
+		<div class="search">
+			<Search />
+		</div>
+	{/if}
+	<div class="options">
+		<slot name="options" />
+	</div>
+	<div class="footer">	
+		<slot name="footer" />	
+	</div>
+</div>
