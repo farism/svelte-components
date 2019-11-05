@@ -28,6 +28,7 @@
   }
 
   .icon {
+    display: flex;
     padding: 0 var(--size-lg)
   }
 
