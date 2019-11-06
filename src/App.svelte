@@ -9,6 +9,7 @@
   import RadioButton from './components/RadioButton'
   import Input from './components/Input'
   import OverlayTrigger from './components/OverlayTrigger'
+  import Modal from './components/Modal'
   import Search from './components/Search'
   import Theme from './context/Theme'
   import ZIndex from './context/ZIndex'
@@ -186,6 +187,22 @@
         <h1>Link</h1>
 
         <Link>Hello world</Link>
+      </div>
+
+      <div>
+        <h1>Modal</h1>
+
+        <Modal>
+          <div slot="title">
+            Modal Title
+          </div>
+          <div slot="body">
+            Modal Body
+          </div>
+          <div slot="footer">
+
+          </div>
+        </Modal>
       </div>
 
       <div>

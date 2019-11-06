@@ -73,16 +73,16 @@
     /* accent1 color is for the background, button text, and close icon */
     /* accent2 color is for the stripe and icon color */
 
-    --banner-accent1-color: var(--color-gray-20);
     --banner-accent1-color-action: var(--color-yellow-10);
     --banner-accent1-color-error: var(--color-red-20);
     --banner-accent1-color-info: var(--color-blue-10);
     --banner-accent1-color-success: var(--color-green-10);
-    --banner-accent2-color: var(--color-gray-100);
+    --banner-accent1-color: var(--color-gray-20);
     --banner-accent2-color-action: var(--color-yellow-70);
     --banner-accent2-color-error: var(--color-red-70);
     --banner-accent2-color-info: var(--color-blue-65);
     --banner-accent2-color-success: var(--color-green-70);
+    --banner-accent2-color: var(--color-gray-100);
     --banner-background-color: var(--banner-accent-1-color);
     --banner-border-radius: var(--border-radius-md);
     --banner-box-shadow: var(--shadow-20);
