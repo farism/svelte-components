@@ -1,41 +1,32 @@
 <script>
   import paths from '@procore/core-icons/dist/paths.json'
 
-  export let clickable = true
+  let className = ''
+  export { className as class };
   export let icon = ''
   export let size = 'sm'
 </script>
 
 <style>
-  :root {
-    --icon-sm-width: 16px;
-    --icon-md-width: 24px;
-    --icon-lg-width: 26px;
-  }
-
   .icon {
+    cursor: inherit;
     display: inline-flex;
     pointer-events: none;
   }
 
   .icon--sm svg {
-    height: var(--icon-sm-width);
-    width: var(--icon-sm-width);
+    height: var(--icon-sm-size);
+    width: var(--icon-sm-size);
   }
 
   .icon--md svg {
-    height: var(--icon-md-width);
-    width: var(--icon-md-width);
+    height: var(--icon-md-size);
+    width: var(--icon-md-size);
   }
 
   .icon--lg svg {
-    height: var(--icon-lg-width);
-    width: var(--icon-lg-width);
-  }
-
-  .icon--clickable-true {
-    cursor: pointer;
-    pointer-events: all;
+    height: var(--icon-lg-size);
+    width: var(--icon-lg-size);
   }
 
   svg path {
@@ -43,7 +34,7 @@
   }
 </style>
 
-<span class="icon icon--{size} icon--clickable-{clickable}">
+<span class="icon icon--{size} {className}">
   <svg focusable="false" viewBox="0 0 1024 1024">
     <path d="{paths[icon]}" />
   </svg>

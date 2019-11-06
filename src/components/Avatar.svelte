@@ -13,10 +13,13 @@
 
 <style>
   .avatar {
+    --icon-sm-size: var(--avatar-sm-icon-size);
+    --icon-md-size: var(--avatar-md-icon-size);
+    --icon-lg-size: var(--avatar-lg-icon-size);
+
     align-items: center;
     background-color: var(--avatar-background-color);
     border-radius: 100%;
-    color: var(--avatar-label-color);
     display: inline-flex;
     flex: 0 0 auto;
     justify-content: center;
@@ -24,21 +27,18 @@
   }
 
   .avatar--sm {
-    font-size: var(--avatar-font-size-sm);
-    height: var(--avatar-width-sm);
-    width: var(--avatar-width-sm);
+    height: var(--avatar-sm-size);
+    width: var(--avatar-sm-size);
   }
 
   .avatar--md {
-    font-size: var(--avatar-font-size-md);
-    height: var(--avatar-width-md);
-    width: var(--avatar-width-md);
+    height: var(--avatar-md-size);
+    width: var(--avatar-md-size);
   }
 
   .avatar--lg {
-    font-size: var(--avatar-font-size-lg);
-    height: var(--avatar-width-lg);
-    width: var(--avatar-width-lg);
+    height: var(--avatar-lg-size);
+    width: var(--avatar-lg-size);
   }
 
   .icon, .image, .label {
@@ -61,14 +61,14 @@
 
 <div class="avatar avatar--{size}">
   {#if icon}
-    <span class="icon">
-      <Icon icon={icon} />
+    <span class="icon icon--{size}">
+      <Icon icon={icon} {size} />
     </span>
   {/if}
   {#if image}
     <div class="image" style="background-image: url({backgroundImage});" />
   {/if}
   {#if label}
-    <span class="label">{label}</span>
+    <span class="label label--{size}">{label}</span>
   {/if}
 </div>
