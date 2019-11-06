@@ -1,4 +1,5 @@
 <script>
+  import Clear from './Clear'
   import Icon from './Icon'
 
   export let icon = ''
@@ -18,6 +19,8 @@
 
 <style>
   .banner {
+    --clear-hover-color: var(--banner-accent1-color);
+
     align-items: center;
     background: var(--banner-accent1-color);
     border-radius: var(--banner-border-radius);
@@ -74,7 +77,7 @@
     margin-left: var(--banner-spacing);
   }
 
-  .dismiss {
+  /* .dismiss {
     background-color: transparent;
     border: none;
     border-radius: 100%;
@@ -90,7 +93,7 @@
   .dismiss:hover {
     background-color: var(--banner-dismiss-hover-background-color);
     color: var(--banner-accent1-color);
-  }
+  } */
 </style>
 
 <div class="banner banner--{variant}">
@@ -105,7 +108,7 @@
       <slot name="message" />
     </div>
   </div>
-  <button class="dismiss" on:click={onDismiss}>
-    <Icon icon="x" size="md" />
-  </button>
+  <div class="dismiss" on:click={onDismiss}>
+    <Clear size="md" />
+  </div>
 </div>

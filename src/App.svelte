@@ -7,12 +7,15 @@
   import Icon from './components/Icon'
   import Link from './components/Link'
   import RadioButton from './components/RadioButton'
+  import Input from './components/Input'
   import OverlayTrigger from './components/OverlayTrigger'
+  import Search from './components/Search'
   import Theme from './context/Theme'
   import ZIndex from './context/ZIndex'
 
   let checkboxValue = true
   let radioValue = 0
+  let searchValue = 'test'
 
   let el;
 </script>
@@ -33,184 +36,220 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,500,700,900" rel="stylesheet">
 </svelte:head>
 
-<Theme>
-  <ZIndex initial={10}>
-    <div>
-      <h1>Icon</h1>
+<div style="padding: 100px 50px;">
+  <Theme>
+    <ZIndex initial={10}>
       <div>
-        <Icon size="sm" icon="x" />
-        <Icon size="md" icon="rotate-right" />
-        <Icon size="lg" icon="cog" />
-      </div>
-      <div>
-        <Icon size="sm" icon="x" />
-        <Icon size="md" icon="rotate-right" />
-        <Icon size="lg" icon="cog" />
-      </div>
-    </div>
-
-    <div>
-      <h1>Avatar</h1>
-      <div>
-        <Avatar size="sm" label="FM" />
-        <Avatar size="sm" icon="cog" />
-        <Avatar size="sm" image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
-      </div>
-      <div>
-        <Avatar label="FM" />
-        <Avatar icon="cog" />
-        <Avatar image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
-      </div>
-      <div>
-        <Avatar size="lg" label="FM" />
-        <Avatar size="lg" icon="cog" />
-        <Avatar size="lg" image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
-      </div>
-    </div>
-
-    <div>
-      <h1>Banner</h1>
-      <Banner icon="warning-triangle-o" on:dismiss={console.log}>
-        <span slot="title">
-          This is a banner title
-        </span>
-        <span slot="message">
-          This is a banner body this is a banner body this is a banner body this is a
-          banner body this is a banner body this is a banner body this is a banner body
-        </span>
-      </Banner>
-      <Banner variant="action">
-        <span slot="title">
-          This is a banner title
-        </span>
-        <span slot="message">
-          This is a banner body this is a banner body this is a banner body this is a
-          banner body this is a banner body this is a banner body this is a banner body
-        </span>
-      </Banner>
-      <Banner variant="error">
-        <span slot="title">
-          This is a banner title
-        </span>
-        <span slot="message">
-          This is a banner body this is a banner body this is a banner body this is a
-          banner body this is a banner body this is a banner body this is a banner body
-        </span>
-      </Banner>
-      <Banner variant="info">
-        <span slot="title">
-          This is a banner title
-        </span>
-        <span slot="message">
-          This is a banner body this is a banner body this is a banner body this is a
-          banner body this is a banner body this is a banner body this is a banner body
-        </span>
-      </Banner>
-      <Banner variant="success">
-        <span slot="title">
-          This is a banner title
-        </span>
-        <span slot="message">
-          This is a banner body this is a banner body this is a banner body this is a
-          banner body this is a banner body this is a banner body this is a banner body
-        </span>
-      </Banner>
-    </div>
-
-    <div>
-      <h1>Breadcrumbs</h1>
-      <div>
-        <Breadcrumbs crumbs={['Level 1', 'Level 2', 'Level 3']} let:crumb>
-          <a>
-            {crumb}
-          </a>
-        </Breadcrumbs>
-      </div>
-    </div>
-
-    <h1>Button</h1>
-    <h1>ButtonGroup</h1>
-    <h1>Calendar</h1>
-
-    <div>
-      <h1>Card</h1>
-      <Card>
-        <div style="padding: 10px">
-          This is a card!
+        <h1>Icon</h1>
+        <div>
+          <Icon size="sm" icon="x" />
+          <Icon size="md" icon="rotate-right" />
+          <Icon size="lg" icon="cog" />
         </div>
-      </Card>
-      <br />
-      <Card level={40}>
-        <div style="padding: 10px">
-          This is a card!
+        <div>
+          <Icon size="sm" icon="x" />
+          <Icon size="md" icon="rotate-right" />
+          <Icon size="lg" icon="cog" />
         </div>
-      </Card>
-    </div>
+      </div>
 
-    <div>
-      <h1>Checkbox</h1>
-      <Checkbox bind:checked={checkboxValue}>
-        hello world
-      </Checkbox>
+      <div>
+        <h1>Avatar</h1>
+        <div>
+          <Avatar size="sm" label="FM" />
+          <Avatar size="sm" icon="cog" />
+          <Avatar size="sm" image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        </div>
+        <div>
+          <Avatar label="FM" />
+          <Avatar icon="cog" />
+          <Avatar image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        </div>
+        <div>
+          <Avatar size="lg" label="FM" />
+          <Avatar size="lg" icon="cog" />
+          <Avatar size="lg" image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        </div>
+      </div>
 
-      <br />
+      <div>
+        <h1>Banner</h1>
+        <Banner icon="warning-triangle-o" on:dismiss={console.log}>
+          <span slot="title">
+            This is a banner title
+          </span>
+          <span slot="message">
+            This is a banner body this is a banner body this is a banner body this is a
+            banner body this is a banner body this is a banner body this is a banner body
+          </span>
+        </Banner>
+        <Banner variant="action">
+          <span slot="title">
+            This is a banner title
+          </span>
+          <span slot="message">
+            This is a banner body this is a banner body this is a banner body this is a
+            banner body this is a banner body this is a banner body this is a banner body
+          </span>
+        </Banner>
+        <Banner variant="error">
+          <span slot="title">
+            This is a banner title
+          </span>
+          <span slot="message">
+            This is a banner body this is a banner body this is a banner body this is a
+            banner body this is a banner body this is a banner body this is a banner body
+          </span>
+        </Banner>
+        <Banner variant="info">
+          <span slot="title">
+            This is a banner title
+          </span>
+          <span slot="message">
+            This is a banner body this is a banner body this is a banner body this is a
+            banner body this is a banner body this is a banner body this is a banner body
+          </span>
+        </Banner>
+        <Banner variant="success">
+          <span slot="title">
+            This is a banner title
+          </span>
+          <span slot="message">
+            This is a banner body this is a banner body this is a banner body this is a
+            banner body this is a banner body this is a banner body this is a banner body
+          </span>
+        </Banner>
+      </div>
 
-      <Checkbox bind:checked={checkboxValue} />
+      <div>
+        <h1>Breadcrumbs</h1>
+        <div>
+          <Breadcrumbs crumbs={['Level 1', 'Level 2', 'Level 3']} let:crumb>
+            <a>
+              {crumb}
+            </a>
+          </Breadcrumbs>
+        </div>
+      </div>
 
-      <br />
+      <h1>Button</h1>
+      <h1>ButtonGroup</h1>
+      <h1>Calendar</h1>
 
-      <Checkbox bind:checked={checkboxValue} indeterminate={true} />
+      <div>
+        <h1>Card</h1>
+        <Card>
+          <div style="padding: 10px">
+            This is a card!
+          </div>
+        </Card>
+        <br />
+        <Card level={40}>
+          <div style="padding: 10px">
+            This is a card!
+          </div>
+        </Card>
+      </div>
 
-      checked: {checkboxValue}
-    </div>
+      <div>
+        <h1>Checkbox</h1>
+        <Checkbox bind:checked={checkboxValue}>
+          hello world
+        </Checkbox>
 
-    <div>
-      <h1>RadioButton</h1>
-      <RadioButton bind:group={radioValue} value={0}>
-        hello world
-      </RadioButton>
+        <br />
 
-      <br />
+        <Checkbox bind:checked={checkboxValue} />
 
-      <RadioButton bind:group={radioValue} value={1} />
+        <br />
 
-      <br />
+        <Checkbox bind:checked={checkboxValue} indeterminate={true} />
 
-      <RadioButton bind:group={radioValue} value={2} />
+        checked: {checkboxValue}
+      </div>
 
-      selected: {radioValue}
-    </div>
+      <div>
+        <h1>Input</h1>
 
-    <div>
-      <h1>Link</h1>
+        <Input />
 
-      <Link>Hello world</Link>
-    </div>
+        <Input value="some value" />
 
-    <div>
-      <h1>OverlayTrigger</h1>
-      <OverlayTrigger trigger="click" placement={['bottom', 'left']}>
-        <button slot="trigger">
-          click
-        </button>
-        <ul slot="overlay" style="cursor: pointer;">
-          <li>item 1</li>
-          <li>item 2</li>
-          <li>item 3</li>
-        </ul>
-      </OverlayTrigger>
+        <Input disabled value="disabled" />
 
-      <OverlayTrigger trigger="click" placement="right-top">
-        <button slot="trigger">
-          hover
-        </button>
-        <ul slot="overlay">
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
-      </OverlayTrigger>
-    </div>
+        <Input error value="has error" />
 
-  </ZIndex>
-</Theme>
+        <Input disabled error value="disabled and error" />
+      </div>
+
+      <div>
+        <h1>Link</h1>
+
+        <Link>Hello world</Link>
+      </div>
+
+      <div>
+        <h1>OverlayTrigger</h1>
+        <OverlayTrigger trigger="click" placement={['bottom', 'left']}>
+          <button slot="trigger">
+            click
+          </button>
+          <ul slot="overlay" style="cursor: pointer;">
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+          </ul>
+        </OverlayTrigger>
+
+        <OverlayTrigger trigger="click" placement="right-top">
+          <button slot="trigger">
+            hover
+          </button>
+          <ul slot="overlay">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+        </OverlayTrigger>
+      </div>
+
+      <div>
+        <h1>RadioButton</h1>
+        <RadioButton bind:group={radioValue} value={0}>
+          hello world
+        </RadioButton>
+
+        <br />
+
+        <RadioButton bind:group={radioValue} value={1} />
+
+        <br />
+
+        <RadioButton bind:group={radioValue} value={2} />
+
+        selected: {radioValue}
+      </div>
+
+      <div>
+        <h1>Search</h1>
+
+        <Search
+          bind:value={searchValue}
+          onChange={console.log}
+          onClear={console.log}
+          onSearch={console.log}
+        />
+
+        <div>search value: {searchValue}</div>
+
+        <Search
+          typeahead
+          onChange={console.log}
+          onClear={console.log}
+          onSearch={console.log}
+        />
+
+      </div>
+    </ZIndex>
+  </Theme>
+</div>

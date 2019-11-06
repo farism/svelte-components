@@ -92,12 +92,13 @@
     --banner-spacing: var(--size-lg);
     --banner-stripe-size: var(--size-sm);
 
-    /* --card-box-shadow: var() */
-
     --card-background-color: var(--color-white-100);
     --card-border-radius: var(--border-radius-md);
     --card-box-shadow: var(--shadow-20);
     --card-transition: box-shadow 0.2s ease-in-out;
+
+    --clear-hover-background-color: var(--color-gray-100);
+    --clear-hover-color: var(--color-white-100);
 
     --link-color: var(--color-blue-65);
     --link-color-hover: var(--link-color);
