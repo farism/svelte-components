@@ -75,6 +75,8 @@
   function onKeyDown(e) {
     if (isEventSource(triggerNode, e)) {
       if (['ArrowDown', 'Down'].includes(e.key)) {
+        e.preventDefault();
+
         show()
       } else if (['Escape', 'Esc'].includes(e.key)) {
         hide()

@@ -1,7 +1,11 @@
 <script>
   import { fade } from 'svelte/transition';
+  import { easing } from 'ts-easing'
+
+  const { inOutCubic } = easing
 
   import { portal } from '../actions/portal'
+  import { fly } from '../transitions/fly'
   import { checkSlot } from '../utils/checkSlot'
   import Card from './Card'
   import Clear from './Clear'
@@ -36,37 +40,44 @@
     position: relative;
   }
 
-  .layout {
-    align-items: center;
+  .overlay {
     bottom: 0;
-    display: flex;
-    justify-content: center;
     left: 0;
-    position: fixed;
     right: 0;
     top: 0;
+  }
+
+  .wrapper {
+    position: fixed;
   }
 
   .scrim {
     background-color: rgba(0,0,0,0.3);
-    bottom: 0;
-    left: 0;
     position: absolute;
-    right: 0;
-    top: 0;
     z-index: 1;
   }
 
   .container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .container > :global(div) {
     background-color: var(--modal-container-background-color);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     min-width: var(--modal-container-min-width);
     max-height: var(--modal-container-max-height);
+    max-width: var(--modal-container-max-width);
     padding: var(--modal-container-padding);
+    pointer-events: initial;
     position: relative;
-    z-index: 2;
+    width: 100%;
   }
 
   .header {
@@ -112,10 +123,10 @@
 
 {#if open}
   <div class="modal" bind:this={ref} use:portal transition:fade>
-    <div class="layout">
-      <div class="scrim" on:click={onClickScrim} />
-      <Card>
-        <div class="container">
+    <div class="overlay wrapper">
+      <div class="overlay scrim" on:click={onClickScrim} />
+      <div class="overlay container" transition:fly="{{y: 24, duration: 500}}">
+        <Card>
           <div class="header">
             <div class="title">
               <slot name="title" />
@@ -137,8 +148,8 @@
               </div>
             </div>
           {/if}
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   </div>
 {/if}

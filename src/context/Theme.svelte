@@ -1,5 +1,5 @@
 <style>
-  .theme {
+  :root {
     /* UTILITIES */
     --size-3xs: 1px;
     --size-2xs: 2px;
@@ -62,14 +62,17 @@
     --focus-outline: none;
 
     /* COMPONENTS */
-
     --avatar-background-color: var(--color-gray-100);
+    --avatar-background-color-disabled: var(--color-gray-50);
+    --avatar-color: var(--color-white-100);
     --avatar-font-size-lg: 40px;
     --avatar-font-size-md: 14px;
     --avatar-font-size-sm: 14px;
     --avatar-font-size: var(--avatar-font-size-md);
-    --avatar-icon-color: var(--color-white-100);
     --avatar-label-color: var(--color-white-100);
+    --avatar-overlay-background-color-disabled: rgba(255, 255, 255, 0.5);
+    --avatar-overlay-background-color-hover: rgba(0, 0, 0, 0.5);
+    --avatar-overlay-background-color: rgba(0, 0, 0, 0);
     --avatar-size-lg: 96px;
     --avatar-size-md: 40px;
     --avatar-size-sm: 32px;
@@ -175,6 +178,13 @@
     --clear-color: var(--color-gray-70);
     --clear-color-hover: var(--color-white-100);
 
+    --empty-state-buttons-spacing: var(--size-xl);
+    --empty-state-image-max-width: 200px;
+    --empty-state-message-spacing: var(--size-lg);
+    --empty-state-spacing-botom: 64px;
+    --empty-state-spacing-top: 128px;
+    --empty-state-title-spacing: var(--size-xl);
+
     --icon-size-lg: 26px;
     --icon-size-md: 24px;
     --icon-size-sm: 16px;
@@ -208,6 +218,7 @@
     --modal-container-background-color: var(--color-white-100);
     --modal-container-max-height: 90vh;
     --modal-container-min-width: 344px;
+    --modal-container-max-width: 640px;
     --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
     --modal-footer-margin-top: var(--size-3xl);
 
@@ -253,6 +264,22 @@
     --textarea-placeholder-color: var(--input-placeholder-color);
     --textarea-h-padding: var(--input-h-padding);
     --textarea-v-padding: var(--input-v-padding);
+
+    --toast-background-color: var(--color-gray-70);
+    --toast-border-radius: var(--border-radius-md);
+    --toast-box-shadow: var(--shadow-50);
+    --toast-color: var(--color-white-100);
+    --toast-error-background-color: var(--color-red-70);
+    --toast-font-size: 16px;
+    --toast-font-style: bold;
+    --toast-line-height: 20px;
+    --toast-message-max-lines: 3;
+    --toast-min-height: var(--size-3xl);
+    --toast-padding-h: var(--size-xl);
+    --toast-padding-v: var(--size-md);
+    --toast-spacing: var(--size-lg);
+    --toast-success-background-color: var(--color-green-70);
+    --toast-width: 550px;
 
     --token-background-color: var(--color-blue-65);
     --token-background-color-hover: var(--color-blue-85);

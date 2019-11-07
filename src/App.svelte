@@ -5,6 +5,7 @@
   import Button from './components/Button'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
+  import Ellipses from './components/Ellipses'
   import EmptyState from './components/EmptyState'
   import Icon from './components/Icon'
   import Link from './components/Link'
@@ -14,6 +15,8 @@
   import Modal from './components/Modal'
   import Search from './components/Search'
   import Spinner from './components/Spinner'
+  import TextArea from './components/TextArea'
+  import Toast from './components/Toast'
   import Token from './components/Token'
   import Theme from './context/Theme'
   import ZIndex from './context/ZIndex'
@@ -22,7 +25,8 @@
   let checkboxValue = true
   let radioValue = 0
   let searchValue = 'test'
-  let modalOpen = false;
+  let shortModalOpen = false;
+  let tallModalOpen = false;
 </script>
 
 <style>
@@ -58,6 +62,21 @@
           <Avatar lg label="FM" />
           <Avatar lg icon="cog" />
           <Avatar lg image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        </div>
+        <div>
+          <Avatar lg disabled label="FM" />
+          <Avatar lg disabled icon="cog" />
+          <Avatar lg disabled image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        </div>
+        <div>
+          <Avatar lg disabled clickable label="FM" />
+          <Avatar lg disabled clickable icon="cog" />
+          <Avatar lg disabled clickable image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        </div>
+        <div>
+          <Avatar lg clickable label="FM" />
+          <Avatar lg clickable icon="cog" />
+          <Avatar lg clickable image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
         </div>
       </div>
 
@@ -257,19 +276,79 @@
       </div>
 
       <div>
+        <h1>Ellipses</h1>
+        <div>
+          <Ellipses width="150px">
+            a very short label is in here
+          </Ellipses>
+
+          <br />
+
+          <Ellipses width="300px">
+            this is a single line test that should ellipses this is a single
+            line test that should ellipses
+          </Ellipses>
+
+          <br />
+
+          <Ellipses maxLines={2} width="300px">
+            this is a two line test that should ellipses this is two a two line
+            test that should ellipses this is a two line test that should
+            ellipses this is a two line test that should ellipses
+          </Ellipses>
+
+          <br /><br />
+
+          <Ellipses md icon="rotate-right" />
+
+          <br /><br />
+
+          <Ellipses lg icon="cog" />
+        </div>
+      </div>
+
+      <div>
+        <h1>Empty State</h1>
+        <div>
+          <EmptyState>
+            <img slot="image" alt="empty image" src="https://core.procore.com/latest/assets/empty_state.png" />
+            <div slot="title">
+              This is a slot based empty state title
+            </div>
+            <div slot="message">
+              this is a slot based empty state message
+            </div>
+            <div slot="buttons">
+              <Button>Click Here</Button>
+            </div>
+          </EmptyState>
+
+          <EmptyState
+            image="https://core.procore.com/latest/assets/empty_state.png"
+            title="This is an prop based empty state title"
+            message="this is a prop based empty state message"
+          >
+            <div slot="buttons">
+              <Button>Click Here</Button>
+            </div>
+          </EmptyState>
+        </div>
+      </div>
+
+      <div>
         <h1>Icon</h1>
         <div>
-          <Icon size="sm" icon="x" />
-          <Icon size="md" icon="rotate-right" />
-          <Icon size="lg" icon="cog" />
+          <Icon sm icon="x" />
+          <Icon md icon="rotate-right" />
+          <Icon lg icon="cog" />
         </div>
 
         <br />
 
         <div>
-          <Icon size="sm" icon="x" />
-          <Icon size="md" icon="rotate-right" />
-          <Icon size="lg" icon="cog" />
+          <Icon sm icon="x" />
+          <Icon md icon="rotate-right" />
+          <Icon lg icon="cog" />
         </div>
       </div>
 
@@ -316,9 +395,27 @@
       <div>
         <h1>Modal</h1>
 
-        <button on:click={() => modalOpen = true}>open modal</button>
+        <button on:click={() => shortModalOpen = true}>open short modal</button>
 
-        <Modal bind:open={modalOpen}>
+        <button on:click={() => tallModalOpen = true}>open tall modal</button>
+
+        <Modal bind:open={shortModalOpen}>
+          <div slot="title">
+            Modal Title
+          </div>
+          <div slot="body">
+            Modal Body
+          </div>
+          <div slot="notation">
+            Modal Notation
+          </div>
+          <div slot="buttons">
+            <Button secondary>Cancel</Button>
+            <Button>Submit</Button>
+          </div>
+        </Modal>
+
+        <Modal bind:open={tallModalOpen}>
           <div slot="title">
             Modal Title
           </div>
@@ -418,11 +515,58 @@
       </div>
 
       <div>
+        <h1>Toast</h1>
+        <div>
+          <Toast>
+            wow it's multiple lines but it still ellipses at the end in everything except IE11
+            wow it's multiple lines but it still ellipses at the end in everything except IE11
+            wow it's multiple lines but it still ellipses at the end in everything except IE11
+          </Toast>
+
+          <br /><br />
+
+          <Toast error>This is an error toast</Toast>
+
+          <br /><br />
+
+          <Toast success>This is a success toast</Toast>
+        </div>
+      </div>
+
+      <div>
+        <h1>TextArea</h1>
+        <div>
+          <TextArea>This is some text</TextArea>
+
+          <br /><br />
+
+          <TextArea>This is some text</TextArea>
+
+          <br /><br />
+
+          <TextArea>This is some text</TextArea>
+
+          <br /><br />
+
+          <TextArea>This is some text</TextArea>
+        </div>
+      </div>
+
+      <div>
         <h1>Token</h1>
         <div>
           <Token>Token 1</Token>
+
+          <br /><br />
+
           <Token icon="cog">Token 1</Token>
+
+          <br /><br />
+
           <Token onClear={() => {}}>Token 1</Token>
+
+          <br /><br />
+
           <Token disabled onClear={() => {}}>Token 1</Token>
         </div>
       </div>

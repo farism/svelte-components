@@ -10,27 +10,27 @@
     transition: var(--card-transition);
   }
 
-  .card--10 {
+  .card-10 {
     --card-box-shadow: var(--shadow-10);
   }
 
-  .card--20 {
+  .card-20 {
     --card-box-shadow: var(--shadow-20);
   }
 
-  .card--30 {
+  .card-30 {
     --card-box-shadow: var(--shadow-30);
   }
 
-  .card--40 {
+  .card-40 {
     --card-box-shadow: var(--shadow-40);
   }
 
-  .card--50 {
+  .card-50 {
     --card-box-shadow: var(--shadow-50);
   }
 </style>
 
-<div class="card card--{level}">
+<div class="card card-{level}">
   <slot></slot>
 </div>

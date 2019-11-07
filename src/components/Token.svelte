@@ -44,7 +44,7 @@
     pointer-events: none;
   }
 
-  .token.clearable {
+  .token.showing-clear {
     --token-padding: 0 var(--size-xs) 0 var(--size-md) ;
   }
 
@@ -73,7 +73,7 @@
   }
 </style>
 
-<div bind:this={ref} class="token" class:disabled class:clearable={onClear}>
+<div bind:this={ref} class="token" class:disabled class:showing-clear={onClear}>
   {#if icon}
     <span class="icon">
       <Icon {icon} sm />

@@ -19,15 +19,36 @@
     --icon-size: var(--avatar-font-size);
 
     align-items: center;
-    background-color: var(--avatar-background-color);
     border-radius: 100%;
+    color: var(--avatar-color);
+    cursor: default;
     display: inline-flex;
     flex: 0 0 auto;
     font-size: var(--avatar-font-size);
     height: var(--avatar-size);
     justify-content: center;
     overflow: hidden;
+    user-select: none;
     width: var(--avatar-size);
+  }
+
+  .avatar:not(.has-image) {
+    background-color: var(--avatar-background-color);
+  }
+
+  .avatar.clickable {
+    cursor: pointer;
+  }
+
+  .avatar.clickable:hover {
+    --avatar-overlay-background-color: var(--avatar-overlay-background-color-hover);
+  }
+
+  .disabled, .avatar.disabled.clickable {
+    --avatar-background-color: var(--avatar-background-color-disabled);
+    --avatar-overlay-background-color: var(--avatar-overlay-background-color-disabled);
+
+    cursor: default;
   }
 
   .sm {
@@ -45,34 +66,41 @@
     --avatar-size: var(--avatar-size-lg);
   }
 
-  .icon, .image, .label {
-    display: flex;
-  }
-
-  .icon {
-    color: var(--avatar-icon-color);
-  }
-
   .image {
     height: 100%;
+    position: relative;
     width: 100%;
   }
 
-  .label {
-    color: var(--avatar-label-color);
+  .image-overlay {
+    background: var(--avatar-overlay-background-color);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 0.2s background-color;
+    width: 100%;
   }
 </style>
 
-<div class="avatar" class:sm class:md class:lg>
+<div
+  class="avatar"
+  class:sm
+  class:md
+  class:lg
+  class:disabled
+  class:clickable
+  class:has-image={image}
+>
   {#if icon}
-    <span class="icon">
-      <Icon icon={icon} />
-    </span>
+    <Icon icon={icon} />
   {/if}
   {#if image}
-    <div class="image" style="background-image: url({backgroundImage});" />
+    <div class="image" style="background-image: url({backgroundImage});">
+      <div class="image-overlay" />
+    </div>
   {/if}
   {#if label}
-    <span class="label">{label}</span>
+    {label}
   {/if}
 </div>
