@@ -3,6 +3,7 @@
   import Icon from './Icon'
   import Input from './Input'
 
+  export let ref = null
 	export let value = ''
   export let typeahead = false;
   export let onChange = noop
@@ -15,7 +16,6 @@
 
   $: iconCount = showSearch && !isEmpty ? 2 : 1
 
-  let nodes = {}
 
   function noop() {}
 
@@ -44,7 +44,7 @@
   function onClickClearIcon(e) {
     clear()
 
-    nodes.input.focus()
+    ref.focus()
   }
 
   function onClickSearchIcon(e) {
@@ -52,17 +52,11 @@
       onSearch(value, e)
     }
 
-    nodes.input.focus()
+    ref.focus()
   }
 </script>
 
 <style>
-  :root {
-    --search-icon-size: calc(var(--icon-sm-size) + var(--search-spacing));
-    --search-spacing: var(--size-sm);
-    --search-width: 248px;
-  }
-
 	.search {
     --clear-hover-background-color: var(--color-gray-70);
 
@@ -111,6 +105,8 @@
   }
 
   .search-icon {
+    color: var(--color-gray-70);
+    line-height: 0;
     margin-left: var(--search-spacing);
     pointer-events: initial;
   }
@@ -122,29 +118,20 @@
 
 <div class="search search--icon-count-{iconCount} search--typeahead-{typeahead}">
   <Input
-    class="foo"
-    bind:node={nodes['input']}
+    bind:ref
     bind:value={value}
     on:input={onInput}
     on:keydown={onKeydown}
   />
   <div class="icons">
     {#if !isEmpty}
-      <span
-        class="clear-icon"
-        bind:this={nodes['clearIcon']}
-        on:click={onClickClearIcon}
-      >
-        <Clear />
+      <span class="clear-icon" on:click={onClickClearIcon}>
+        <Clear sm />
       </span>
     {/if}
     {#if showSearch}
-      <span
-        class="search-icon"
-        bind:this={nodes['searchIcon']}
-        on:click={onClickSearchIcon}
-      >
-        <Icon icon="search" />
+      <span class="search-icon" on:click={onClickSearchIcon}>
+        <Icon icon="search" sm />
       </span>
     {/if}
   </div>

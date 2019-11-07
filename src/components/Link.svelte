@@ -1,4 +1,5 @@
 <script>
+  export let ref
   export let gray = false
   export let white = false
 </script>
@@ -30,7 +31,7 @@
   class="link"
   class:gray
   class:white
-  {...$$props}
+  bind:this={ref}
 >
   <slot />
 </a>

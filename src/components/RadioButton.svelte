@@ -10,16 +10,6 @@
   </script>
 
   <style>
-    :root {
-      --radio-checkmark-background-color: var(--color-white-100);
-      --radio-checkmark-border-color: var(--color-gray-60);
-      --radio-checkmark-border-style: solid;
-      --radio-checkmark-border-width: var(--size-2xs);
-      --radio-checkmark-color: var(--color-white-100);
-      --radio-checkmark-size: 18px; /* one-off size from the design system */
-      --radio-spacing: var(--size-sm);
-    }
-
     .radio {
       align-items: center;
       display: flex;

@@ -190,7 +190,7 @@
 >
   {#if icon}
     <span class="icon">
-      <Icon {icon} />
+      <Icon {icon} sm />
     </span>
   {/if}
   {#if hasLabel}
@@ -202,7 +202,7 @@
   {/if}
   {#if iconRight && !dropdown}
     <span class="icon">
-      <Icon icon={iconRight} />
+      <Icon icon={iconRight} sm />
     </span>
   {/if}
   {#if dropdown}

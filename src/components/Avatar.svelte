@@ -1,44 +1,48 @@
 <script>
   import Icon from './Icon'
 
+  export let ref = null
   export let clickable = false
   export let disabled = false
   export let icon = ''
   export let image = ''
   export let label = ''
-  export let size = 'md'
+  export let sm = false
+  export let lg = false
+  export let md = false
 
   const backgroundImage = JSON.stringify(image)
 </script>
 
 <style>
   .avatar {
-    --icon-sm-size: var(--avatar-sm-icon-size);
-    --icon-md-size: var(--avatar-md-icon-size);
-    --icon-lg-size: var(--avatar-lg-icon-size);
+    --icon-size: var(--avatar-font-size);
 
     align-items: center;
     background-color: var(--avatar-background-color);
     border-radius: 100%;
     display: inline-flex;
     flex: 0 0 auto;
+    font-size: var(--avatar-font-size);
+    height: var(--avatar-size);
     justify-content: center;
     overflow: hidden;
+    width: var(--avatar-size);
   }
 
-  .avatar--sm {
-    height: var(--avatar-sm-size);
-    width: var(--avatar-sm-size);
+  .sm {
+    --avatar-font-size: var(--avatar-font-size-sm);
+    --avatar-size: var(--avatar-size-sm);
   }
 
-  .avatar--md {
-    height: var(--avatar-md-size);
-    width: var(--avatar-md-size);
+  .md {
+    --avatar-font-size: var(--avatar-font-size-md);
+    --avatar-size: var(--avatar-size-md);
   }
 
-  .avatar--lg {
-    height: var(--avatar-lg-size);
-    width: var(--avatar-lg-size);
+  .lg {
+    --avatar-font-size: var(--avatar-font-size-lg);
+    --avatar-size: var(--avatar-size-lg);
   }
 
   .icon, .image, .label {
@@ -59,16 +63,16 @@
   }
 </style>
 
-<div class="avatar avatar--{size}">
+<div class="avatar" class:sm class:md class:lg>
   {#if icon}
-    <span class="icon icon--{size}">
-      <Icon icon={icon} {size} />
+    <span class="icon">
+      <Icon icon={icon} />
     </span>
   {/if}
   {#if image}
     <div class="image" style="background-image: url({backgroundImage});" />
   {/if}
   {#if label}
-    <span class="label label--{size}">{label}</span>
+    <span class="label">{label}</span>
   {/if}
 </div>

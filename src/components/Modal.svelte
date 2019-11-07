@@ -6,6 +6,7 @@
   import Card from './Card'
   import Clear from './Clear'
 
+  export let ref = null
   export let onClose = noop
   export let open = false
   export let scrimClose = true;
@@ -31,16 +32,6 @@
 </script>
 
 <style>
-  :root {
-    --modal-actions-spacing: var(--size-sm);
-    --modal-body-margin-top: var(--size-3xl);
-    --modal-container-background-color: var(--color-white-100);
-    --modal-container-max-height: 90vh;
-    --modal-container-min-width: 344px;
-    --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
-    --modal-footer-margin-top: var(--size-3xl);
-  }
-
   .modal {
     position: relative;
   }
@@ -68,6 +59,7 @@
 
   .container {
     background-color: var(--modal-container-background-color);
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     min-width: var(--modal-container-min-width);
@@ -78,7 +70,6 @@
   }
 
   .header {
-    background: green;
     align-items: center;
     display: flex;
     flex: 0 0 auto;
@@ -89,12 +80,10 @@
   }
 
   .title {
-    background: brown;
     flex: 1 1 auto;
   }
 
   .body {
-    background: blue;
     flex: 1 1 auto;
     margin-top: var(--modal-body-margin-top);
     overflow: auto;
@@ -102,7 +91,6 @@
 
   .footer {
     align-items: center;
-    background: red;
     display: flex;
     margin-top: var(--modal-footer-margin-top);
   }
@@ -112,18 +100,18 @@
     flex: 1 1 auto;
   }
 
-  .actions {
+  .buttons {
     display: flex;
     flex: 0 0 auto;
   }
 
-  .actions :global(button) {
-    margin-left: var(--modal-actions-spacing);
+  .buttons :global(button) {
+    margin-left: var(--modal-buttons-spacing);
   }
 </style>
 
 {#if open}
-  <div class="modal" use:portal transition:fade>
+  <div class="modal" bind:this={ref} use:portal transition:fade>
     <div class="layout">
       <div class="scrim" on:click={onClickScrim} />
       <Card>
@@ -133,7 +121,7 @@
               <slot name="title" />
             </div>
             <div class="dismiss" on:click={onClickDismiss}>
-              <Clear size="lg" />
+              <Clear lg />
             </div>
           </div>
           <div class="body">
@@ -144,8 +132,8 @@
               <div class="notation">
                 <slot name="notation" />
               </div>
-              <div class="actions">
-                <slot name="actions" />
+              <div class="buttons">
+                <slot name="buttons" />
               </div>
             </div>
           {/if}

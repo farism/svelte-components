@@ -1,8 +1,5 @@
 <script>
-  let className = ''
-
-  export { className as class }
-  export let node = null
+  export let ref = null
   export let value = ''
   export let disabled = false
   export let error = false
@@ -10,24 +7,6 @@
 
 
 <style>
-  :root {
-    --input-background-color: var(--color-white-100);
-    --input-border-color: var(--color-gray-50);
-    --input-border-radius: var(--size-2xs);
-    --input-border-style: solid;
-    --input-border-width: var(--size-3xs);
-    --input-color: var(--color-gray-95);
-    --input-disabled-border-color: var(--color-gray-20);
-    --input-disabled-color: var(--color-gray-60);
-    --input-error-background-color: var(--color-red-20);
-    --input-error-border-color: var(--color-red-70);
-    --input-font-size: 14px;
-    --input-height: var(--size-2xl);
-    --input-placeholder-color: var(--color-gray-75);
-    --input-h-padding: var(--size-md);
-    --input-v-padding: 0;
-  }
-
   .input {
     background-color: var(--input-background-color);
     border-color: var(--input-border-color);
@@ -45,15 +24,24 @@
     /* width: 100%; */
   }
 
-  .input:disabled {
-    border-color: var(--input-disabled-border-color);
-    color: var(--input-disabled-color);
+  .error {
+    background-color: var(--input-error-background-color);
+    border-color: var(--input-error-border-color);
+  }
+
+  .input::placeholder {
+    color: var(--input-placeholder-color);
   }
 
   .input:focus {
     border-color: var(--focus-border-color);
     box-shadow: var(--focus-box-shadow);
     outline: var(--focus-outline);
+  }
+
+  .input:disabled {
+    border-color: var(--input-disabled-border-color);
+    color: var(--input-disabled-color);
   }
 
   .input[type="number"] {
@@ -65,20 +53,13 @@
     -webkit-appearance: none;
     margin: 0;
   }
-
-  .input::placeholder {
-    color: var(--input-placeholder-color);
-  }
-
-  .input--error-true {
-    background-color: var(--input-error-background-color);
-    border-color: var(--input-error-border-color);
-  }
 </style>
 
-<input class="input input--error-{error} {className}"
+<input
+  class="input"
+  class:error
   type="text"
-  bind:this={node}
+  bind:this={ref}
   bind:value={value}
   on:blur
   on:change

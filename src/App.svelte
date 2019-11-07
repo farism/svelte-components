@@ -5,6 +5,7 @@
   import Button from './components/Button'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
+  import EmptyState from './components/EmptyState'
   import Icon from './components/Icon'
   import Link from './components/Link'
   import RadioButton from './components/RadioButton'
@@ -44,9 +45,9 @@
       <div>
         <h1>Avatar</h1>
         <div>
-          <Avatar size="sm" label="FM" />
-          <Avatar size="sm" icon="cog" />
-          <Avatar size="sm" image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+          <Avatar sm label="FM" />
+          <Avatar sm icon="cog" />
+          <Avatar sm image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
         </div>
         <div>
           <Avatar label="FM" />
@@ -54,58 +55,85 @@
           <Avatar image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
         </div>
         <div>
-          <Avatar size="lg" label="FM" />
-          <Avatar size="lg" icon="cog" />
-          <Avatar size="lg" image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+          <Avatar lg label="FM" />
+          <Avatar lg icon="cog" />
+          <Avatar lg image="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
         </div>
       </div>
 
       <div>
         <h1>Banner</h1>
-        <Banner icon="warning-triangle-o" on:dismiss={console.log}>
-          <span slot="title">
+        <Banner icon="warning-triangle-o" onDismiss={console.log}>
+          <div slot="title">
             This is a banner title
-          </span>
-          <span slot="message">
+          </div>
+          <div slot="message">
             This is a banner body this is a banner body this is a banner body this is a
             banner body this is a banner body this is a banner body this is a banner body
-          </span>
+          </div>
+          <div slot="buttons">
+            <Button>Button</Button>
+          </div>
         </Banner>
+
+        <br />
+
         <Banner variant="action">
-          <span slot="title">
+          <div slot="title">
             This is a banner title
-          </span>
-          <span slot="message">
+          </div>
+          <div slot="message">
             This is a banner body this is a banner body this is a banner body this is a
             banner body this is a banner body this is a banner body this is a banner body
-          </span>
+          </div>
+          <div slot="buttons">
+            <Button>Action</Button>
+          </div>
         </Banner>
+
+        <br />
+
         <Banner variant="error">
-          <span slot="title">
+          <div slot="title">
             This is a banner title
-          </span>
-          <span slot="message">
+          </div>
+          <div slot="message">
             This is a banner body this is a banner body this is a banner body this is a
             banner body this is a banner body this is a banner body this is a banner body
-          </span>
+          </div>
+          <div slot="buttons">
+            <Button>Error</Button>
+          </div>
         </Banner>
+
+        <br />
+
         <Banner variant="info">
-          <span slot="title">
+          <div slot="title">
             This is a banner title
-          </span>
-          <span slot="message">
+          </div>
+          <div slot="message">
             This is a banner body this is a banner body this is a banner body this is a
             banner body this is a banner body this is a banner body this is a banner body
-          </span>
+          </div>
+          <div slot="buttons">
+            <Button>Info</Button>
+          </div>
         </Banner>
+
+        <br />
+
         <Banner variant="success">
-          <span slot="title">
+          <div slot="title">
             This is a banner title
-          </span>
-          <span slot="message">
+          </div>
+          <div slot="message">
             This is a banner body this is a banner body this is a banner body this is a
             banner body this is a banner body this is a banner body this is a banner body
-          </span>
+          </div>
+          <div slot="buttons">
+            <Button>Success</Button>
+          </div>
         </Banner>
       </div>
 
@@ -129,6 +157,9 @@
           <Button sm form>Form</Button>
           <Button sm dropdown>Dropdown</Button>
         </div>
+
+        <br />
+
         <div>
           <Button>Primary (default)</Button>
           <Button secondary>Secondary</Button>
@@ -136,6 +167,9 @@
           <Button form>Form</Button>
           <Button dropdown>Dropdown</Button>
         </div>
+
+        <br />
+
         <div>
           <Button lg>Primary (default)</Button>
           <Button lg secondary>Secondary</Button>
@@ -143,6 +177,9 @@
           <Button lg form>Form</Button>
           <Button lg dropdown>Dropdown</Button>
         </div>
+
+        <br />
+
         <div>
           <Button sm primary icon="cog" />
           <Button sm secondary icon="cog" />
@@ -150,6 +187,9 @@
           <Button sm form icon="cog" />
           <Button sm dropdown icon="cog" />
         </div>
+
+        <br />
+
         <div>
           <Button primary icon="cog" />
           <Button secondary icon="cog" />
@@ -157,6 +197,9 @@
           <Button form icon="cog" />
           <Button dropdown icon="cog" />
         </div>
+
+        <br />
+
         <div>
           <Button lg primary icon="cog" />
           <Button lg secondary icon="cog" />
@@ -164,6 +207,9 @@
           <Button lg form icon="cog" />
           <Button lg dropdown icon="cog" />
         </div>
+
+        <br />
+
         <div>
           <Button primary icon="cog">Label goes here</Button>
           <Button secondary iconRight="cog">Label goes here</Button>
@@ -183,7 +229,9 @@
             This is a card!
           </div>
         </Card>
+
         <br />
+
         <Card level={40}>
           <div style="padding: 10px">
             This is a card!
@@ -215,6 +263,9 @@
           <Icon size="md" icon="rotate-right" />
           <Icon size="lg" icon="cog" />
         </div>
+
+        <br />
+
         <div>
           <Icon size="sm" icon="x" />
           <Icon size="md" icon="rotate-right" />
@@ -227,11 +278,19 @@
 
         <Input />
 
+        <br />
+
         <Input value="some value" />
+
+        <br />
 
         <Input disabled value="disabled" />
 
+        <br />
+
         <Input error value="has error" />
+
+        <br />
 
         <Input disabled error value="disabled and error" />
       </div>
@@ -239,9 +298,15 @@
       <div>
         <h1>Link</h1>
 
+        <br /><br />
+
         <Link>Default Link</Link>
 
+        <br /><br />
+
         <Link gray>Gray Link</Link>
+
+        <br /><br />
 
         <span style="background: black;">
           <Link white>White Link</Link>
@@ -263,10 +328,9 @@
           <div slot="notation">
             Modal Notation
           </div>
-          <div slot="actions">
-            <button>Action 1</button>
-            <button>Action 2</button>
-            <button>Action 3</button>
+          <div slot="buttons">
+            <Button secondary>Cancel</Button>
+            <Button>Submit</Button>
           </div>
         </Modal>
       </div>
@@ -284,7 +348,7 @@
           </ul>
         </OverlayTrigger>
 
-        <OverlayTrigger trigger="click" placement="right-top">
+        <OverlayTrigger trigger="hover" placement="right-top">
           <button slot="trigger">
             hover
           </button>
@@ -316,6 +380,8 @@
       <div>
         <h1>Search</h1>
 
+        <h3>Search</h3>
+
         <Search
           bind:value={searchValue}
           onChange={console.log}
@@ -324,6 +390,8 @@
        />
 
         <div>search value: {searchValue}</div>
+
+        <h3>Typeahead</h3>
 
         <Search
           typeahead
@@ -340,6 +408,7 @@
           <Spinner sm />
           <Spinner />
           <Spinner lg />
+
           <Spinner lg loading>
             <div style="padding-top: 1000px; background: red;">
               Spinner Body
@@ -357,6 +426,7 @@
           <Token disabled onClear={() => {}}>Token 1</Token>
         </div>
       </div>
+
     </ZIndex>
   </Theme>
 </div>

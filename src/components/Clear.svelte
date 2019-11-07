@@ -2,13 +2,17 @@
   import Icon from './Icon'
 
   export let ref = null
-  export let size = 'sm'
+  export let disabled = false
+  export let sm = false
+  export let lg = false
+  export let md = !sm && !lg
 </script>
 
 <style>
   button {
     background-color: transparent;
-    border-color: transparent;
+    border: 1px solid transparent;
+    box-sizing: border-box;
     border-radius: 100%;
     color: var(--clear-color);
     cursor: pointer;
@@ -29,6 +33,6 @@
   }
 </style>
 
-<button bind:this={ref} on:click>
-  <Icon icon="x" {size} />
+<button bind:this={ref} on:click {disabled}>
+  <Icon icon="x" {sm} {md} {lg} />
 </button>

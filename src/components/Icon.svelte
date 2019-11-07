@@ -1,10 +1,10 @@
 <script>
   import paths from '@procore/core-icons/dist/paths.json'
 
-  let className = ''
-  export { className as class };
   export let icon = ''
-  export let size = 'sm'
+  export let sm = false
+  export let lg = false
+  export let md = false
 </script>
 
 <style>
@@ -14,19 +14,21 @@
     pointer-events: none;
   }
 
-  .icon--sm svg {
-    height: var(--icon-sm-size);
-    width: var(--icon-sm-size);
+  .icon svg {
+    height: var(--icon-size);
+    width: var(--icon-size);
   }
 
-  .icon--md svg {
-    height: var(--icon-md-size);
-    width: var(--icon-md-size);
+  .sm {
+    --icon-size: var(--icon-size-sm);
   }
 
-  .icon--lg svg {
-    height: var(--icon-lg-size);
-    width: var(--icon-lg-size);
+  .md {
+    --icon-size: var(--icon-size-md);
+  }
+
+  .lg {
+    --icon-size: var(--icon-size-lg);
   }
 
   svg path {
@@ -34,7 +36,7 @@
   }
 </style>
 
-<span class="icon icon--{size} {className}">
+<span class="icon" class:sm class:md class:lg>
   <svg focusable="false" viewBox="0 0 1024 1024">
     <path d="{paths[icon]}" />
   </svg>

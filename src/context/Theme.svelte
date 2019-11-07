@@ -1,5 +1,6 @@
 <style>
-  :root {
+  .theme {
+    /* UTILITIES */
     --size-3xs: 1px;
     --size-2xs: 2px;
     --size-xs: 4px;
@@ -60,15 +61,19 @@
     --focus-box-shadow: 0 0 0 2px var(--color-blue-20);
     --focus-outline: none;
 
+    /* COMPONENTS */
+
     --avatar-background-color: var(--color-gray-100);
+    --avatar-font-size-lg: 40px;
+    --avatar-font-size-md: 14px;
+    --avatar-font-size-sm: 14px;
+    --avatar-font-size: var(--avatar-font-size-md);
     --avatar-icon-color: var(--color-white-100);
     --avatar-label-color: var(--color-white-100);
-    --avatar-lg-icon-size: 40px;
-    --avatar-lg-size: 96px;
-    --avatar-md-icon-size: 14px;
-    --avatar-md-size: 40px;
-    --avatar-sm-icon-size: 14px;
-    --avatar-sm-size: 32px;
+    --avatar-size-lg: 96px;
+    --avatar-size-md: 40px;
+    --avatar-size-sm: 32px;
+    --avatar-size: var(--avatar-size-md);
 
     /* accent1 color is for the background, button text, and close icon */
     /* accent2 color is for the stripe and icon color */
@@ -82,6 +87,7 @@
     --banner-accent2-color-info: var(--color-blue-65);
     --banner-accent2-color-success: var(--color-green-70);
     --banner-accent2-color: var(--color-gray-100);
+    --banner-action-spacing: var(--size-xs);
     --banner-background-color: var(--banner-accent-1-color);
     --banner-border-radius: var(--border-radius-md);
     --banner-box-shadow: var(--shadow-20);
@@ -90,6 +96,13 @@
     --banner-padding: var(--size-sm) var(--banner-spacing);
     --banner-spacing: var(--size-lg);
     --banner-stripe-size: var(--size-sm);
+
+    --breadcrumbs-active-color: var(--color-gray-95);
+    --breadcrumbs-color: var(--color-gray-70);
+    --breadcrumbs-crumb-color: var(--color-gray-75);
+    --breadcrumbs-crumb-hover-color: var(--color-gray-75);
+    --breadcrumbs-crumb-active-color: var(--color-gray-95);
+    --breadcrumbs-spacing: 0 var(--size-sm);
 
     --button-background-color: var(--button-primary-background-color);
     --button-border-color: transparent;
@@ -148,13 +161,40 @@
     --card-box-shadow: var(--shadow-20);
     --card-transition: box-shadow 0.2s ease-in-out;
 
-    --clear-background-color-hover: var(--color-gray-100);
-    --clear-color: inherit;
+    --checkbox-checkmark-background-color-checked: var(--color-blue-50);
+    --checkbox-checkmark-background-color: var(--color-white-100);
+    --checkbox-checkmark-border-color: var(--color-gray-60);
+    --checkbox-checkmark-border-radius: var(--border-radius-sm);
+    --checkbox-checkmark-border-style: solid;
+    --checkbox-checkmark-border-width: 2px;
+    --checkbox-checkmark-color: var(--color-white-100);
+    --checkbox-checkmark-size: var(--size-lg);
+    --checkbox-spacing: var(--size-sm);
+
+    --clear-background-color-hover: var(--color-gray-70);
+    --clear-color: var(--color-gray-70);
     --clear-color-hover: var(--color-white-100);
 
-    --icon-lg-size: 26px;
-    --icon-md-size: 24px;
-    --icon-sm-size: 16px;
+    --icon-size-lg: 26px;
+    --icon-size-md: 24px;
+    --icon-size-sm: 16px;
+    --icon-size: var(--icon-size-md);
+
+    --input-background-color: var(--color-white-100);
+    --input-border-color: var(--color-gray-50);
+    --input-border-radius: var(--size-2xs);
+    --input-border-style: solid;
+    --input-border-width: var(--size-3xs);
+    --input-color: var(--color-gray-95);
+    --input-disabled-border-color: var(--color-gray-20);
+    --input-disabled-color: var(--color-gray-60);
+    --input-error-background-color: var(--color-red-20);
+    --input-error-border-color: var(--color-red-70);
+    --input-font-size: 14px;
+    --input-height: var(--size-2xl);
+    --input-placeholder-color: var(--color-gray-75);
+    --input-h-padding: var(--size-md);
+    --input-v-padding: 0;
 
     --link-color: var(--color-blue-65);
     --link-color-hover: var(--color-blue-65);
@@ -162,6 +202,26 @@
     --link-gray-color-hover: var(--color-orange-60);
     --link-white-color: var(--color-white-100);
     --link-white-color-hover: var(--color-white-100);
+
+    --modal-body-margin-top: var(--size-3xl);
+    --modal-buttons-spacing: var(--size-sm);
+    --modal-container-background-color: var(--color-white-100);
+    --modal-container-max-height: 90vh;
+    --modal-container-min-width: 344px;
+    --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
+    --modal-footer-margin-top: var(--size-3xl);
+
+    --radio-checkmark-background-color: var(--color-white-100);
+    --radio-checkmark-border-color: var(--color-gray-60);
+    --radio-checkmark-border-style: solid;
+    --radio-checkmark-border-width: var(--size-2xs);
+    --radio-checkmark-color: var(--color-white-100);
+    --radio-checkmark-size: 18px; /* one-off size from the design system */
+    --radio-spacing: var(--size-sm);
+
+    --search-icon-size: calc(var(--icon-sm-size) + var(--search-spacing));
+    --search-spacing: var(--size-sm);
+    --search-width: 248px;
 
     --spinner-circle-border-color: var(--color-gray-50);
     --spinner-circle-border-width: 2px;
@@ -179,6 +239,21 @@
     --spinner-min-height: 150px;
     --spinner-overlay-background-color: var(--color-white-100);
 
+    --textarea-background-color: var(--input-background-color);
+    --textarea-border-color: var(--input-border-color);
+    --textarea-border-radius: var(--input-border-radius);
+    --textarea-border-style: var(--input-border-style);
+    --textarea-border-width: var(--input-border-width);
+    --textarea-color: var(--input-color);
+    --textarea-disabled-border-color: var(--input-disabled-border-color);
+    --textarea-disabled-color: var(--input-disabled-color);
+    --textarea-error-background-color: var(--input-error-background-color);
+    --textarea-error-border-color: var(--input-error-border-color);
+    --textarea-font-size: var(--input-font-size);
+    --textarea-placeholder-color: var(--input-placeholder-color);
+    --textarea-h-padding: var(--input-h-padding);
+    --textarea-v-padding: var(--input-v-padding);
+
     --token-background-color: var(--color-blue-65);
     --token-background-color-hover: var(--color-blue-85);
     --token-background-color-disabled: var(--color-gray-55);
@@ -192,6 +267,6 @@
   }
 </style>
 
-<div>
+<div class="theme">
   <slot />
 </div>

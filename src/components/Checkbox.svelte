@@ -8,21 +8,9 @@
 </script>
 
 <style>
-  :root {
+  .checkbox {
     --icon-sm-size: 20px;
 
-    --checkbox-checkmark-background-color-checked: var(--color-blue-50);
-    --checkbox-checkmark-background-color: var(--color-white-100);
-    --checkbox-checkmark-border-color: var(--color-gray-60);
-    --checkbox-checkmark-border-radius: var(--border-radius-sm);
-    --checkbox-checkmark-border-style: solid;
-    --checkbox-checkmark-border-width: 2px;
-    --checkbox-checkmark-color: var(--color-white-100);
-    --checkbox-checkmark-size: var(--size-lg);
-    --checkbox-spacing: var(--size-sm);
-  }
-
-  .checkbox {
     align-items: center;
     display: flex;
   }

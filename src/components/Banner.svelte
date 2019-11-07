@@ -1,9 +1,10 @@
 <script>
+  import { checkSlot } from '../utils/checkSlot'
   import Clear from './Clear'
   import Icon from './Icon'
 
   export let icon = ''
-  export let onDismiss = null
+  export let onDismiss
   export let size = 'sm'
   export let variant = 'none'
 
@@ -14,11 +15,22 @@
     success: 'check-circle',
   }
 
+  const hasButtons = checkSlot($$props, 'buttons')
+
   let iconName = icon || icons[variant]
+
+  function onClickDismiss(e) {
+    onDismiss()
+  }
 </script>
 
 <style>
   .banner {
+    --button-primary-background-color: var(--banner-accent1-color);
+    --button-primary-background-color-hover: var(--color-gray-95);
+    --button-primary-border-color: var(--color-gray-95);
+    --button-primary-color-hover: var(--banner-accent1-color);
+    --button-primary-color: var(--color-gray-95);
     --clear-hover-color: var(--banner-accent1-color);
 
     align-items: center;
@@ -72,8 +84,16 @@
     margin-top: var(--size-sm);
   }
 
-  .action {
+  .buttons {
     display: flex;
+    margin-left: var(--banner-spacing);
+  }
+
+  .buttons button + .buttons button {
+    margin-left: var(--banner-action-spacing);
+  }
+
+  .buttons + .dismiss {
     margin-left: var(--banner-spacing);
   }
 </style>
@@ -90,7 +110,14 @@
       <slot name="message" />
     </div>
   </div>
-  <div class="dismiss" on:click={onDismiss}>
-    <Clear size="md" />
-  </div>
+  {#if hasButtons}
+    <div class="buttons">
+      <slot name="buttons" />
+    </div>
+  {/if}
+  {#if onDismiss}
+    <div class="dismiss" on:click={onClickDismiss}>
+      <Clear size="md" />
+    </div>
+  {/if}
 </div>

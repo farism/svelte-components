@@ -5,18 +5,9 @@
 </script>
 
 <style>
-  :root {
+  .breadcrumbs {
     --link-color: var(--breadcrumbs-color);
 
-    --breadcrumbs-active-color: var(--color-gray-95);
-    --breadcrumbs-color: var(--color-gray-70);
-    --breadcrumbs-crumb-color: var(--color-gray-75);
-    --breadcrumbs-crumb-hover-color: var(--color-gray-75);
-    --breadcrumbs-crumb-active-color: var(--color-gray-95);
-    --breadcrumbs-spacing: 0 var(--size-sm);
-  }
-
-  .breadcrumbs {
     align-items: center;
     color: var(--breadcrumbs-color);
     display: flex;

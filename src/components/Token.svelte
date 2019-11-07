@@ -2,11 +2,10 @@
   import Clear from './Clear'
   import Icon from './Icon'
 
+  export let ref = null
   export let disabled = false
   export let icon = ''
   export let onClear
-
-  console.log(onClear === noop)
 
   function noop() {}
 
@@ -67,16 +66,17 @@
 
   .clear {
     --clear-background-color-hover: var(--token-color);
+    --clear-color: var(--token-color);
     --clear-color-hover: var(--token-background-color-hover);
 
     margin-left: var(--size-sm);
   }
 </style>
 
-<div class="token" class:disabled class:clearable={onClear}>
+<div bind:this={ref} class="token" class:disabled class:clearable={onClear}>
   {#if icon}
     <span class="icon">
-      <Icon {icon} />
+      <Icon {icon} sm />
     </span>
   {/if}
   <span class="label">
@@ -84,7 +84,7 @@
   </span>
   {#if onClear}
     <span class="clear" on:click={onClickClear}>
-      <Clear />
+      <Clear sm {disabled} />
     </span>
   {/if}
 </div>
