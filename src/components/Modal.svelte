@@ -1,20 +1,44 @@
 <script>
-  import Clear from './Clear'
-  import { portal } from '../actions/portal'
+  import { fade } from 'svelte/transition';
 
-  export let nodes = {}
+  import { portal } from '../actions/portal'
+  import { checkSlot } from '../utils/checkSlot'
+  import Card from './Card'
+  import Clear from './Clear'
+
   export let onClose = noop
+  export let open = false
+  export let scrimClose = true;
+
+  const hasNotation = checkSlot($$props, 'notation')
+  const hasActions = checkSlot($$props, 'actions')
 
   function noop() {}
 
-  function onClickDismiss(e){
+  function onClickScrim(e) {
+    if(scrimClose) {
+      open = false
+
+      onClose(e)
+    }
+  }
+
+  function onClickDismiss(e) {
+    open = false
+
     onClose(e)
   }
 </script>
 
 <style>
   :root {
+    --modal-actions-spacing: var(--size-sm);
+    --modal-body-margin-top: var(--size-3xl);
     --modal-container-background-color: var(--color-white-100);
+    --modal-container-max-height: 90vh;
+    --modal-container-min-width: 344px;
+    --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
+    --modal-footer-margin-top: var(--size-3xl);
   }
 
   .modal {
@@ -44,61 +68,89 @@
 
   .container {
     background-color: var(--modal-container-background-color);
+    display: flex;
+    flex-direction: column;
+    min-width: var(--modal-container-min-width);
+    max-height: var(--modal-container-max-height);
+    padding: var(--modal-container-padding);
     position: relative;
     z-index: 2;
   }
 
   .header {
+    background: green;
+    align-items: center;
     display: flex;
-  }
-
-  .title {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
   }
 
   .dismiss {
     flex: 0 0 auto;
   }
 
-  .body {
+  .title {
+    background: brown;
+    flex: 1 1 auto;
+  }
 
+  .body {
+    background: blue;
+    flex: 1 1 auto;
+    margin-top: var(--modal-body-margin-top);
+    overflow: auto;
   }
 
   .footer {
     align-items: center;
+    background: red;
     display: flex;
-  }
-
-  .actions {
-
+    margin-top: var(--modal-footer-margin-top);
   }
 
   .notation {
+    display: flex;
+    flex: 1 1 auto;
+  }
 
+  .actions {
+    display: flex;
+    flex: 0 0 auto;
+  }
+
+  .actions :global(button) {
+    margin-left: var(--modal-actions-spacing);
   }
 </style>
 
-<div class="modal" use:portal>
-  <div class="layout">
-    <div class="scrim" bind:this={nodes['scrim']} />
-    <div class="container">
-      <div class="header">
-        <div class="title">
-          <slot name="title" />
+{#if open}
+  <div class="modal" use:portal transition:fade>
+    <div class="layout">
+      <div class="scrim" on:click={onClickScrim} />
+      <Card>
+        <div class="container">
+          <div class="header">
+            <div class="title">
+              <slot name="title" />
+            </div>
+            <div class="dismiss" on:click={onClickDismiss}>
+              <Clear size="lg" />
+            </div>
+          </div>
+          <div class="body">
+            <slot name="body" />
+          </div>
+          {#if hasNotation || hasActions}
+            <div class="footer">
+              <div class="notation">
+                <slot name="notation" />
+              </div>
+              <div class="actions">
+                <slot name="actions" />
+              </div>
+            </div>
+          {/if}
         </div>
-        <div class="dismiss" on:click={onClickDismiss}>
-          <Clear size="lg" />
-        </div>
-      </div>
-      <div class="body">
-        <slot name="body" />
-      </div>
-      <div class="footer">
-        <slot name="notation" />
-        <div class="actions">
-          <slot name="footer" />
-        </div>
-      </div>
+      </Card>
     </div>
   </div>
-</div>
+{/if}

@@ -10,6 +10,7 @@
     background-color: transparent;
     border-color: transparent;
     border-radius: 100%;
+    color: var(--clear-color);
     cursor: pointer;
     display: flex;
     flex: 0 0 auto;
@@ -17,8 +18,8 @@
   }
 
   button:hover {
-    background-color: var(--clear-hover-background-color);
-    color: var(--clear-hover-color);
+    background-color: var(--clear-background-color-hover);
+    color: var(--clear-color-hover);
   }
 
   button:focus {

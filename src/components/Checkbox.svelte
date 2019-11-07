@@ -51,7 +51,7 @@
     background: var(--checkbox-checkmark-color);
     display: block;
     height: 2px;
-    width: 10px;
+    width: 8px;
   }
 
   .label {

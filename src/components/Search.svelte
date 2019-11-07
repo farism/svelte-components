@@ -58,11 +58,8 @@
 
 <style>
   :root {
+    --search-icon-size: calc(var(--icon-sm-size) + var(--search-spacing));
     --search-spacing: var(--size-sm);
-    --search-icon-size: calc(
-      var(--icon-sm-size) +
-      var(--search-spacing)
-    );
     --search-width: 248px;
   }
 

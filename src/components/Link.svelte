@@ -1,5 +1,6 @@
 <script>
-  export let variant = '';
+  export let gray = false
+  export let white = false
 </script>
 
 <style>
@@ -9,19 +10,27 @@
   }
 
   .link:hover {
-    color: var(--link-hover-color);
+    color: var(--link-color-hover);
     cursor: pointer;
     text-decoration: underline;
   }
 
-  .link--gray {
-    --link-color: var(--link-color);
-    --link-hover-color: var(--color-orange-60);
+  .gray {
+    --link-color: var(--link-gray-color);
+    --link-color-hover: var(--link-gray-color-hover);
   }
 
-  .link--white {
-    --link-color: var(--color-white-100);
+  .white {
+    --link-color: var(--link-white-color);
+    --link-color-hover: var(--link-white-color-hover);
   }
 </style>
 
-<a class="link link--{variant}"><slot /></a>
+<a
+  class="link"
+  class:gray
+  class:white
+  {...$$props}
+>
+  <slot />
+</a>

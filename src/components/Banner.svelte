@@ -76,24 +76,6 @@
     display: flex;
     margin-left: var(--banner-spacing);
   }
-
-  /* .dismiss {
-    background-color: transparent;
-    border: none;
-    border-radius: 100%;
-    cursor: pointer;
-    display: flex;
-    flex: 0 0 auto;
-    height: var(--banner-dismiss-size);
-    margin-left: var(--banner-spacing);
-    padding: 0;
-    width: var(--banner-dismiss-size);
-  }
-
-  .dismiss:hover {
-    background-color: var(--banner-dismiss-hover-background-color);
-    color: var(--banner-accent1-color);
-  } */
 </style>
 
 <div class="banner banner--{variant}">
