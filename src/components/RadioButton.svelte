@@ -1,6 +1,7 @@
 <script>
     import Icon from './Icon'
 
+    export let ref = null
     export let group = ''
     export let value = ''
 
@@ -55,6 +56,7 @@
   <label class="radio radio--checked-{checked}">
     <input
       type="radio"
+      bind:this={ref}
       bind:group={group}
       value={value}
       on:click

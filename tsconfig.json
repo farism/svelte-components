@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "allowUnusedLabels": true,
     "lib": ["dom", "es6"],
     "module": "esnext",
     "moduleResolution": "node",

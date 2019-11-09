@@ -4,7 +4,7 @@
   import Icon from './Icon'
 
   export let icon = ''
-  export let onDismiss
+  export let onDismiss = null
   export let size = 'sm'
   export let variant = 'none'
 
@@ -100,7 +100,7 @@
 
 <div class="banner banner--{variant}">
   <div class="icon">
-    <Icon icon={iconName} size="md" />
+    <Icon icon={iconName} />
   </div>
   <div class="body">
     <div class="title">
@@ -117,7 +117,7 @@
   {/if}
   {#if onDismiss}
     <div class="dismiss" on:click={onClickDismiss}>
-      <Clear size="md" />
+      <Clear />
     </div>
   {/if}
 </div>

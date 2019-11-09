@@ -49,7 +49,7 @@
     </div>
     {#if i < crumbs.length - 1}
       <div class="separator">
-        <Icon icon="chevron-right" />
+        <Icon icon="chevron-right" sm />
       </div>
     {/if}
   {/each}

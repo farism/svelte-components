@@ -1,34 +1,27 @@
 <script>
   import { get } from 'svelte/store'
-  import { affix } from '../actions/affix'
   import { clickoutside } from '../actions/clickoutside'
+  import { fasten } from '../actions/fasten'
   import { portal } from '../actions/portal'
   import { isEventSource } from '../utils/isEventSource'
   import { wrapPromise } from '../utils/wrapPromise'
 
+  export let refs = {}
   export let afterHide = noop
   export let afterShow = noop
-  export let beforeShow = defaultBeforeShow
-  export let beforeHide = defaultBeforeHide
+  export let beforeShow = noop
+  export let beforeHide = noop
   export let hideDelay = 100
   export let placement = 'top'
   export let showDelay = 0
   export let trigger = 'click'
 
+  let originalPlacement = placement
+
   let visible = false
   let timer = 0
-  let overlayNode
-  let triggerNode
 
   function noop() {}
-
-  function defaultBeforeShow() {
-    return true
-  }
-
-  function defaultBeforeHide() {
-    return true
-  }
 
   function toggle(e) {
     if (visible) {
@@ -41,8 +34,12 @@
   function show(e) {
     clearTimeout(timer)
 
+    if(visible) {
+      return
+    }
+
     wrapPromise(beforeShow(e)).then(function(shouldShow) {
-      if (shouldShow) {
+      if (shouldShow !== false) {
         timer = setTimeout(function() {
           visible = true
 
@@ -55,10 +52,16 @@
   function hide(e) {
     clearTimeout(timer)
 
+    if(!visible) {
+      return
+    }
+
     wrapPromise(beforeHide(e)).then(function(shouldHide) {
-      if (shouldHide) {
+      if (shouldHide !== false) {
         timer = setTimeout(function() {
           visible = false
+
+          placement = originalPlacement
 
           afterHide()
         }, hideDelay)
@@ -73,7 +76,7 @@
   const onMouseLeave = trigger === 'hover' ? hide : noop
 
   function onKeyDown(e) {
-    if (isEventSource(triggerNode, e)) {
+    if (isEventSource(refs.trigger, e)) {
       if (['ArrowDown', 'Down'].includes(e.key)) {
         e.preventDefault();
 
@@ -81,11 +84,15 @@
       } else if (['Escape', 'Esc'].includes(e.key)) {
         hide()
       }
-    } else if (isEventSource(overlayNode, e)) {
+    } else if (isEventSource(refs.overlay, e)) {
       if (['Escape', 'Esc'].includes(e.key)) {
         hide()
       }
     }
+  }
+
+  function onFastenFlip(e) {
+    placement = e.detail.placement
   }
 </script>
 
@@ -95,34 +102,36 @@
   }
 
   .overlay {
-    background: green;
     color: white;
     left: 0;
     position: fixed;
     top: 0;
+    /* transition: all 0.1s ease-out; */
   }
 </style>
 
 <span
-  bind:this={triggerNode}
+  class="target"
+  bind:this={refs.trigger}
   on:click={onClick}
   on:mouseenter={onMouseEnter}
   on:mouseleave={onMouseLeave}
   on:keydown={onKeyDown}
-  class="target"
 >
   <slot name="trigger" />
 </span>
 
 {#if visible}
   <div
-    use:affix={{ padding: 2, placement: placement, target: triggerNode }}
+    class="overlay"
+    bind:this={refs.overlay}
     use:portal
     use:clickoutside
+    use:fasten={{ padding: 2, placement: placement, target: refs.trigger }}
+    on:fastenflip={onFastenFlip}
     on:clickoutside={hide}
     on:mouseenter={onMouseEnter}
     on:mouseleave={onMouseLeave}
-    class="overlay"
   >
     <slot name="overlay" />
   </div>

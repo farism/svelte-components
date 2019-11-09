@@ -5,26 +5,23 @@
   export let message = ''
   export let title = ''
 
-  console.log({image,message,title})
+  const hasImage = image || checkSlot($$props, 'image')
 
-  const hasImage = checkSlot($$props, 'image') || image
+  const hasTitle = title || checkSlot($$props, 'title')
 
-  const hasTitle = checkSlot($$props, 'title') || title
-
-  const hasMessage = checkSlot($$props, 'message') || message
+  const hasMessage = message || checkSlot($$props, 'message')
 
   const hasButtons = checkSlot($$props, 'buttons')
 </script>
 
 <style>
   .empty-state {
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: flex;
     flex-direction: column;
-    margin-top: var(--empty-state-spacing-top);
+    justify-content: center;
     margin-bottom: var(--empty-state-spacing-botom);
-    overflow: hidden;
+    margin-top: var(--empty-state-spacing-top);
   }
 
   .image :global(img) {
@@ -33,17 +30,14 @@
 
   .title {
     margin-top: var(--empty-state-title-spacing);
-
   }
 
   .message {
     margin-top: var(--empty-state-message-spacing);
-
   }
 
   .buttons {
     margin-top: var(--empty-state-buttons-spacing);
-
   }
 
   .buttons :global(button) {

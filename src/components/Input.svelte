@@ -20,7 +20,7 @@
     font-size: var(--input-font-size);
     height: var(--input-height);
     line-height: var(--input-font-size);
-    padding: var(--input-v-padding) var(--input-h-padding);
+    padding: var(--input-padding-v) var(--input-padding-h);
     /* width: 100%; */
   }
 

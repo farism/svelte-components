@@ -1,5 +1,5 @@
 <script>
-  export let ref
+  export let ref = null
   export let gray = false
   export let white = false
 </script>

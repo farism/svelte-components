@@ -5,7 +5,7 @@
   export let ref = null
   export let disabled = false
   export let icon = ''
-  export let onClear
+  export let onClear = null
 
   function noop() {}
 
@@ -36,7 +36,7 @@
   }
 
   .token.disabled {
-    --token-background-color: var(--token-background-color-disabled);
+    --token-background-color: var(--tosken-background-color-disabled);
     --token-background-color-hover: var(--token-background-color-disabled);
   }
 
@@ -44,8 +44,12 @@
     pointer-events: none;
   }
 
+  .token.showing-icon {
+    padding-left: var(--size-xs);
+  }
+
   .token.showing-clear {
-    --token-padding: 0 var(--size-xs) 0 var(--size-md) ;
+    padding-right: var(--size-xs);
   }
 
   .icon {
@@ -73,7 +77,13 @@
   }
 </style>
 
-<div bind:this={ref} class="token" class:disabled class:showing-clear={onClear}>
+<div
+  class="token"
+  class:disabled
+  class:showing-icon={icon}
+  class:showing-clear={onClear}
+  bind:this={ref}
+>
   {#if icon}
     <span class="icon">
       <Icon {icon} sm />

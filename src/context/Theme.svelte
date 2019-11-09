@@ -62,6 +62,9 @@
     --focus-outline: none;
 
     /* COMPONENTS */
+    --arrow-color: var(--color-black-100);
+    --arrow-color-fill: var(--color-black-100);
+
     --avatar-background-color: var(--color-gray-100);
     --avatar-background-color-disabled: var(--color-gray-50);
     --avatar-color: var(--color-white-100);
@@ -203,8 +206,8 @@
     --input-font-size: 14px;
     --input-height: var(--size-2xl);
     --input-placeholder-color: var(--color-gray-75);
-    --input-h-padding: var(--size-md);
-    --input-v-padding: 0;
+    --input-padding-h: var(--size-md);
+    --input-padding-v: 0;
 
     --link-color: var(--color-blue-65);
     --link-color-hover: var(--color-blue-65);
@@ -230,7 +233,7 @@
     --radio-checkmark-size: 18px; /* one-off size from the design system */
     --radio-spacing: var(--size-sm);
 
-    --search-icon-size: calc(var(--icon-sm-size) + var(--search-spacing));
+    --search-icon-size: calc(var(--icon-size-sm) + var(--search-spacing));
     --search-spacing: var(--size-sm);
     --search-width: 248px;
 
@@ -262,8 +265,8 @@
     --textarea-error-border-color: var(--input-error-border-color);
     --textarea-font-size: var(--input-font-size);
     --textarea-placeholder-color: var(--input-placeholder-color);
-    --textarea-h-padding: var(--input-h-padding);
-    --textarea-v-padding: var(--input-v-padding);
+    --textarea-padding-h: var(--input-padding-h);
+    --textarea-padding-v: var(--input-padding-v);
 
     --toast-background-color: var(--color-gray-70);
     --toast-border-radius: var(--border-radius-md);

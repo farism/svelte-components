@@ -42,10 +42,10 @@ interface Position {
   top?: number
 }
 
-interface AffixParams {
-  canFlip: boolean
-  padding: number
-  placement: Edge | [Edge, Align]
+interface FastenParams {
+  canFlip?: boolean
+  padding?: number
+  placement?: Placement
   target: HTMLElement
 }
 
@@ -132,7 +132,7 @@ const flipAlign: { [k in Align]: Align } = {
   center: 'center',
 }
 
-function buildPlacementArray(
+function extractPlacementArray(
   placement: Placement | Edge | [Edge, Align]
 ): [Edge, Align] {
   if (Array.isArray(placement)) {
@@ -144,7 +144,15 @@ function buildPlacementArray(
   return [placement, 'center'] as [Edge, Align]
 }
 
-function applyPadding(pad: number = 0, edge: Edge, rect: Rect): Rect {
+function flipPlacementArray([edge, align]: [Edge, Align]): [Edge, Align] {
+  return [flipEdge[edge], flipAlign[align]]
+}
+
+function buildPlacementString(placement: [Edge, Align]): Placement {
+  return placement.filter(p => p !== 'center').join('-') as Placement
+}
+
+function applyPadding(pad: number, edge: Edge, rect: Rect): Rect {
   if (edge === 'top' || edge === 'bottom') {
     return {
       ...rect,
@@ -175,53 +183,71 @@ function defaultContainer(): Rect {
   }
 }
 
-export function affix(
+export function fasten(
   node: HTMLElement,
-  { canFlip = true, padding = 0, placement, target }: AffixParams
+  { canFlip = true, padding = 0, placement = 'top', target }: FastenParams
 ) {
+  let currentPlacement = placement
+
+  let actualPlacement = placement
+
+  function dispatchFlipEvent(placement: string) {
+    node.dispatchEvent(new CustomEvent('fastenflip', { detail: { placement } }))
+  }
+
   function setPosition() {
     if (!node || !target) {
       return
     }
 
-    const [edge, align] = buildPlacementArray(placement)
-
-    const edgeFlipped = flipEdge[edge]
-
-    const alignFlipped = flipAlign[align]
-
     const container = defaultContainer()
+
+    const placementArr = extractPlacementArray(placement)
+
+    const flippedArr = flipPlacementArray(placementArr)
 
     const targetRect = applyPadding(
       padding,
-      edge,
+      placementArr[0],
       getBoundingClientRect(target)
     )
 
     const nodeRect = getBoundingClientRect(node)
 
+    function edgeFits(edge: Edge) {
+      return validators.edge[edge](container, targetRect, nodeRect)
+    }
+
+    function alignFits(align: Align) {
+      return validators.align[align](container, targetRect, nodeRect)
+    }
+
     const shouldFlipEdge =
-      canFlip &&
-      !validators.edge[edge](container, targetRect, nodeRect) &&
-      validators.edge[edgeFlipped](container, targetRect, nodeRect)
+      canFlip && !edgeFits(placementArr[0]) && edgeFits(flippedArr[0])
 
     const shouldFlipAlign =
-      canFlip &&
-      !validators.align[align](container, targetRect, nodeRect) &&
-      validators.align[alignFlipped](container, targetRect, nodeRect)
+      canFlip && !alignFits(placementArr[1]) && alignFits(flippedArr[1])
 
-    const edgePosition = updaters.edge[shouldFlipEdge ? edgeFlipped : edge](
-      targetRect,
-      nodeRect
-    )
+    const actualEdge = shouldFlipEdge ? flippedArr[0] : placementArr[0]
 
-    const alignPosition = updaters.align[
-      shouldFlipAlign ? alignFlipped : align
-    ](targetRect, nodeRect)
+    const edgePosition = updaters.edge[actualEdge](targetRect, nodeRect)
 
-    const { left = 0, top = 0 } = { ...edgePosition, ...alignPosition }
+    const actualAlign = shouldFlipAlign ? flippedArr[1] : placementArr[1]
+
+    const alignPosition = updaters.align[actualAlign](targetRect, nodeRect)
+
+    const { left = 0, top = 0 } = { ...alignPosition, ...edgePosition }
 
     node.style.transform = `translate(${left || 0}px, ${top || 0}px)`
+
+    // side effect here for dispatching
+    actualPlacement = buildPlacementString([actualEdge, actualAlign])
+
+    if (actualPlacement !== currentPlacement) {
+      currentPlacement = actualPlacement
+
+      dispatchFlipEvent(currentPlacement)
+    }
   }
 
   const throttledSetPosition = throttle(setPosition, 16)
@@ -234,6 +260,8 @@ export function affix(
 
   return {
     destroy() {
+      dispatchFlipEvent(placement)
+
       window.removeEventListener('resize', throttledSetPosition)
 
       document.removeEventListener('scroll', throttledSetPosition)

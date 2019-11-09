@@ -1,5 +1,6 @@
 <script>
   import { checkSlot } from '../utils/checkSlot'
+  import Arrow from './Arrow'
   import Icon from './Icon'
 
   export let dropdown = false;
@@ -72,11 +73,9 @@
   }
 
   .arrow {
-    border-bottom: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid var(--color-gray-70);
-    content: "";
+    --arrow-color-fill: var(--color-gray-75);
+
+    display: inline-flex;
     flex: 0 0 auto;
     margin-left: var(--size-lg);
   }
@@ -206,6 +205,8 @@
     </span>
   {/if}
   {#if dropdown}
-    <span class="arrow" />
+    <span class="arrow">
+      <Arrow down width={8} height={4} />
+    </span>
   {/if}
 </button>

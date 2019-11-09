@@ -1,7 +1,11 @@
 <script>
+  import { onMount } from 'svelte'
+
+  import Arrow from './components/Arrow'
   import Avatar from './components/Avatar'
   import Banner from './components/Banner'
   import Breadcrumbs from './components/Breadcrumbs'
+  import Bubble from './components/Bubble'
   import Button from './components/Button'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
@@ -11,13 +15,15 @@
   import Link from './components/Link'
   import RadioButton from './components/RadioButton'
   import Input from './components/Input'
-  import OverlayTrigger from './components/OverlayTrigger'
   import Modal from './components/Modal'
+  import OverlayTrigger from './components/OverlayTrigger'
+  import Popover from './components/Popover'
   import Search from './components/Search'
   import Spinner from './components/Spinner'
   import TextArea from './components/TextArea'
   import Toast from './components/Toast'
   import Token from './components/Token'
+  import Tooltip from './components/Tooltip'
   import Theme from './context/Theme'
   import ZIndex from './context/ZIndex'
   import { autofocus } from './actions/autofocus'
@@ -27,6 +33,12 @@
   let searchValue = 'test'
   let shortModalOpen = false;
   let tallModalOpen = false;
+
+  let arrowRef
+
+  onMount(function(){
+    console.log(arrowRef)
+  })
 </script>
 
 <style>
@@ -46,6 +58,16 @@
 <div style="padding: 100px 50px;">
   <Theme>
     <ZIndex initial={10}>
+      <div>
+        <h1>Arrow</h1>
+        <div>
+          <Arrow up bind:ref={arrowRef} />
+          <Arrow down />
+          <Arrow left />
+          <Arrow right />
+        </div>
+      </div>
+
       <div>
         <h1>Avatar</h1>
         <div>
@@ -238,7 +260,17 @@
         </div>
       </div>
 
+      <div>
+        <h1>bubble</h1>
+        <div>
+          <Bubble placement="top-left">
+            Placement
+          </Bubble>
+        </div>
+      </div>
+
       <h1>ButtonGroup</h1>
+
       <h1>Calendar</h1>
 
       <div>
@@ -291,19 +323,11 @@
 
           <br />
 
-          <Ellipses maxLines={2} width="300px">
+          <Ellipses lines={2} width="300px">
             this is a two line test that should ellipses this is two a two line
             test that should ellipses this is a two line test that should
             ellipses this is a two line test that should ellipses
           </Ellipses>
-
-          <br /><br />
-
-          <Ellipses md icon="rotate-right" />
-
-          <br /><br />
-
-          <Ellipses lg icon="cog" />
         </div>
       </div>
 
@@ -434,7 +458,7 @@
 
       <div>
         <h1>OverlayTrigger</h1>
-        <OverlayTrigger trigger="click" placement={['bottom', 'left']}>
+        <OverlayTrigger trigger="click" placement="bottom">
           <button slot="trigger">
             click
           </button>
@@ -445,7 +469,7 @@
           </ul>
         </OverlayTrigger>
 
-        <OverlayTrigger trigger="hover" placement="right-top">
+        <OverlayTrigger trigger="hover" placement="top">
           <button slot="trigger">
             hover
           </button>
@@ -458,6 +482,20 @@
       </div>
 
       <div>
+        <h1>Popover</h1>
+        <div>
+          <Popover>
+            <span slot="trigger">
+              <Button>Click</Button>
+            </span>
+            <div slot="message">
+              This is a click popover
+            </div>
+          </Popover>
+        </div>
+      </div>
+
+      <div>
         <h1>RadioButton</h1>
         <RadioButton bind:group={radioValue} value={0}>
           hello world
@@ -465,11 +503,9 @@
 
         <br />
 
-        <RadioButton bind:group={radioValue} value={1} />
-
-        <br />
-
-        <RadioButton bind:group={radioValue} value={2} />
+        <div style="display:flex;">
+          <RadioButton bind:group={radioValue} value={1} /> custom label
+        </div>
 
         selected: {radioValue}
       </div>
@@ -568,6 +604,119 @@
           <br /><br />
 
           <Token disabled onClear={() => {}}>Token 1</Token>
+        </div>
+      </div>
+
+      <div style="padding: 0 100px">
+        <h1>Tooltip</h1>
+        <div>
+          <Tooltip trigger="hover" placement="top">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="top-left">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="top-right">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="right">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="right-top">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="right-bottom">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="left">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="left-top">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="left-bottom">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="bottom">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="hover" placement="bottom-left">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
+
+          <Tooltip trigger="click" placement="bottom-right">
+            <span slot="trigger">
+              <Button>Hover</Button>
+            </span>
+            <div slot="message">
+              This is a hover tooltip
+            </div>
+          </Tooltip>
         </div>
       </div>
 

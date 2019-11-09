@@ -71,14 +71,14 @@
 
   .search--icon-count-1 :global(input) {
     padding-right: calc(
-      var(--input-h-padding) +
+      var(--input-padding-h) +
       var(--search-icon-size)
     );
   }
 
   .search--icon-count-2 :global(input) {
     padding-right: calc(
-      var(--input-h-padding) +
+      var(--input-padding-h) +
       var(--search-icon-size) * 2
     );
   }
@@ -93,7 +93,7 @@
     height: 100%;
     justify-content: flex-end;;
     left: 0;
-    padding: 0 var(--input-h-padding);
+    padding: 0 var(--input-padding-h);
     pointer-events: none;
     position: absolute;
     right: 0;
