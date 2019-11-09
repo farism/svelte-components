@@ -102,11 +102,9 @@
   }
 
   .overlay {
-    color: white;
     left: 0;
     position: fixed;
     top: 0;
-    /* transition: all 0.1s ease-out; */
   }
 </style>
 

@@ -25,21 +25,22 @@
   $: styleVars = {
     arrowHeight: `${arrowHeight}px`,
     arrowWidth: `${arrowWidth}px`,
+    arrowVisibility: `${target ? 'visible' : 'hidden'}`
   }
 
   let arrowRef = null
 
   function arrowPosition(node) {
-    if (target) {
-      const rect1 = getBoundingClientRect(node)
+    function setPosition() {
+      if (target) {
+        const rect1 = getBoundingClientRect(node)
 
-      const rect2 = getBoundingClientRect(target)
+        const rect2 = getBoundingClientRect(target)
 
-      const width = Math.min(rect1.width, rect2.width)
+        const width = Math.min(rect1.width, rect2.width)
 
-      const height = Math.min(rect1.height, rect2.height)
+        const height = Math.min(rect1.height, rect2.height)
 
-      function setPosition() {
         if(placement === 'top' || placement === 'bottom') {
           arrowRef.style.left = `calc(50% - ${arrowWidth / 2}px)`
         }
@@ -64,38 +65,29 @@
           arrowRef.style.bottom = `calc(${height / 2}px - ${arrowHeight / 2}px)`
         }
       }
-
-      setTimeout(setPosition, 0)
     }
+
+    setTimeout(setPosition, 0)
 
     return {
       destroy() {}
     }
   }
+
+  onMount(function(){
+    console.log('here2', {target})
+  })
 </script>
 
 <style>
-  .bubble {
-    --bubble-arrow-width: 0;
-    --bubble-background-color: var(--color-white-100);
-    --bubble-border-color: var(--color-black-100);
-    --bubble-border-style: solid;
-    --bubble-border-width: 1px;
-    --bubble-border-radius: var(--border-radius-md);
-    --bubble-padding-h: var(--smd);
-    --bubble-padding-v: var(--sizeize--sm);
-
+  .arrow-container {
     /* updated using cssVars */
     --arrowHeight: 0;
     --arrowLeft: 0;
+    --arrowVisibility: hidden;
   }
 
   .container {
-    background: var(--bubble-background-color);
-    border-color: var(--bubble-border-color);
-    border-style: var(--bubble-border-style);
-    border-width: var(--bubble-border-width);
-    padding: var(--bubble-padding-v) var(--bubble-padding-h);
     position: relative;
   }
 
@@ -134,11 +126,12 @@
   .arrow {
     display: flex;
     position: absolute;
+    visibility: var(--arrowVisibility);
   }
 </style>
 
 <div
-  class="bubble"
+  class="arrow-container"
   class:top
   class:bottom
   class:left

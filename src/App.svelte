@@ -2,10 +2,10 @@
   import { onMount } from 'svelte'
 
   import Arrow from './components/Arrow'
+  import ArrowContainer from './components/ArrowContainer'
   import Avatar from './components/Avatar'
   import Banner from './components/Banner'
   import Breadcrumbs from './components/Breadcrumbs'
-  import Bubble from './components/Bubble'
   import Button from './components/Button'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
@@ -33,11 +33,11 @@
   let searchValue = 'test'
   let shortModalOpen = false;
   let tallModalOpen = false;
-
-  let arrowRef
+  let arrowRef = null
+  let arrowContainerRef = null
 
   onMount(function(){
-    console.log(arrowRef)
+    console.log({arrowRef, arrowContainerRef})
   })
 </script>
 
@@ -55,7 +55,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,500,700,900" rel="stylesheet">
 </svelte:head>
 
-<div style="padding: 100px 50px;">
+<div style="padding: 100px 25px;">
   <Theme>
     <ZIndex initial={10}>
       <div>
@@ -67,6 +67,20 @@
           <Arrow right />
         </div>
       </div>
+
+      <div>
+          <h1>Arrow Container</h1>
+          <div>
+            <ArrowContainer placement="top-left" target={arrowContainerRef}>
+              <span style="display: inline-block; border: 1px solid black; padding: 20px">
+                Placement
+              </span>
+            </ArrowContainer>
+            <div style="margin-top: 10px;">
+              <Icon bind:ref={arrowContainerRef} icon="cog" />
+            </div>
+          </div>
+        </div>
 
       <div>
         <h1>Avatar</h1>
@@ -257,15 +271,6 @@
           <Button tertiary iconRight="cog">Label goes here</Button>
           <Button form iconRight="cog">Label goes here</Button>
           <Button dropdown icon="cog">Label goes here dropdown should ellipses</Button>
-        </div>
-      </div>
-
-      <div>
-        <h1>bubble</h1>
-        <div>
-          <Bubble placement="top-left">
-            Placement
-          </Bubble>
         </div>
       </div>
 
@@ -484,7 +489,7 @@
       <div>
         <h1>Popover</h1>
         <div>
-          <Popover>
+          <Popover placement="right">
             <span slot="trigger">
               <Button>Click</Button>
             </span>
@@ -612,7 +617,7 @@
         <div>
           <Tooltip trigger="hover" placement="top">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Top</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -621,7 +626,7 @@
 
           <Tooltip trigger="hover" placement="top-left">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Top Left</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -630,7 +635,7 @@
 
           <Tooltip trigger="hover" placement="top-right">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Top Right</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -639,7 +644,7 @@
 
           <Tooltip trigger="hover" placement="right">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Right</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -648,7 +653,7 @@
 
           <Tooltip trigger="hover" placement="right-top">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Right Top</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -657,7 +662,7 @@
 
           <Tooltip trigger="hover" placement="right-bottom">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Right Bottom</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -666,7 +671,7 @@
 
           <Tooltip trigger="hover" placement="left">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Left</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -675,16 +680,16 @@
 
           <Tooltip trigger="hover" placement="left-top">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Left Top</Button>
             </span>
             <div slot="message">
-              This is a hover tooltip
+              This is a hover tooltip This is a hover tooltip
             </div>
           </Tooltip>
 
           <Tooltip trigger="hover" placement="left-bottom">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Left Bottom</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -693,7 +698,7 @@
 
           <Tooltip trigger="hover" placement="bottom">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Bottom</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -702,7 +707,7 @@
 
           <Tooltip trigger="hover" placement="bottom-left">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Bottom Left</Button>
             </span>
             <div slot="message">
               This is a hover tooltip
@@ -711,7 +716,7 @@
 
           <Tooltip trigger="click" placement="bottom-right">
             <span slot="trigger">
-              <Button>Hover</Button>
+              <Button>Bottom Right</Button>
             </span>
             <div slot="message">
               This is a hover tooltip

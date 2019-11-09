@@ -225,6 +225,14 @@
     --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
     --modal-footer-margin-top: var(--size-3xl);
 
+    --popover-background-color: var(--color-white-100);
+    --popover-border-radius: var(--border-radius-md);
+    --popover-max-width: 250px;
+    --popover-padding-h: var(--size-lg);
+    --popover-padding-v: var(--size-lg);
+    --popover-webkit-dropshadow: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.23)) drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.16));
+    --popover-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
+
     --radio-checkmark-background-color: var(--color-white-100);
     --radio-checkmark-border-color: var(--color-gray-60);
     --radio-checkmark-border-style: solid;
@@ -294,6 +302,15 @@
     --token-max-width: 360px;
     --token-min-width: 48;
     --token-padding: 0 var(--size-md);
+
+    --tooltip-background-color: rgba(19, 31, 51, 0.9);
+    --tooltip-border-radius: var(--border-radius-md);
+    --tooltip-color: var(--color-white-100);
+    --tooltip-max-width: 200px;
+    --tooltip-padding-h: var(--size-md);
+    --tooltip-padding-v: var(--size-sm);
+    --tooltip-webkit-dropshadow: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.23)) drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.16));
+    --tooltip-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
   }
 </style>
 
