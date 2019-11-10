@@ -73,10 +73,6 @@
       destroy() {}
     }
   }
-
-  onMount(function(){
-    console.log('here2', {target})
-  })
 </script>
 
 <style>

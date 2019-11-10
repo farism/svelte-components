@@ -15,10 +15,10 @@
   export let placement = 'top'
   export let showDelay = 0
   export let trigger = 'click'
+  export let visible = false
 
   let originalPlacement = placement
 
-  let visible = false
   let timer = 0
 
   function noop() {}

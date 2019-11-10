@@ -11,8 +11,10 @@
     --notation-error-color: var(--color-red-70);
     --notation-pagination-color: var(--color-gray-75);
     --notation-required-color: var(--color-orange-60);
+    --notation-style: italic;
 
     color: var(--notation-color);
+    font-style: var(--notation-style);
   }
 
   .required {

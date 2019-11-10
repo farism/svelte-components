@@ -13,13 +13,18 @@
   import EmptyState from './components/EmptyState'
   import Icon from './components/Icon'
   import Link from './components/Link'
+  import List from './components/List'
+  import ListGroup from './components/ListGroup'
+  import ListItem from './components/ListItem'
   import RadioButton from './components/RadioButton'
   import Input from './components/Input'
   import Modal from './components/Modal'
+  import Notation from './components/Notation'
   import OverlayTrigger from './components/OverlayTrigger'
   import Popover from './components/Popover'
   import Search from './components/Search'
   import Spinner from './components/Spinner'
+  import Tabs from './components/Tabs'
   import TextArea from './components/TextArea'
   import Toast from './components/Toast'
   import Token from './components/Token'
@@ -35,9 +40,23 @@
   let tallModalOpen = false;
   let arrowRef = null
   let arrowContainerRef = null
+  let tabs = ['this', 'is', 'a', 'set', 'of', 'random', 'strings', 'that', 'become', 'tabs']
+  let tabRefs = {
+    container: null,
+    tabs: [],
+  }
+  const listItems = Array.from(Array(100)).map(function(_, i) {
+    return `item ${i}`
+  })
+  let listSearch = 'search value'
+
+
+  setTimeout(function(){
+    tabs[0] = 'this (012 fsa31 fafaf a)'
+  }, 2000)
 
   onMount(function(){
-    console.log({arrowRef, arrowContainerRef})
+    // console.log({arrowRef, arrowContainerRef, tabRefs})
   })
 </script>
 
@@ -46,8 +65,14 @@
     font-family: 'Lato', sans-serif;
   }
 
-  button {
-    padding: 10px;
+  .table-row {
+    --textarea-resize: none;
+
+    background: lightgray;
+  }
+
+  .table-row:hover {
+    --textarea-resize: both;
   }
 </style>
 
@@ -73,7 +98,7 @@
           <div>
             <ArrowContainer placement="top-left" target={arrowContainerRef}>
               <span style="display: inline-block; border: 1px solid black; padding: 20px">
-                Placement
+                top-left placement
               </span>
             </ArrowContainer>
             <div style="margin-top: 10px;">
@@ -422,6 +447,43 @@
       </div>
 
       <div>
+        <h1>List</h1>
+
+        <div style="width: 280px;">
+          <Card>
+            <List
+              style="max-height: 312px;"
+              onSearch={console.log}
+              onSelect={console.log}
+              bind:search={listSearch}
+            >
+              <div slot="header">
+                <Button>Header Button</Button>
+              </div>
+
+              {#each listItems as item, i}
+                {#if i % 20 === 0}
+                  <ListGroup>Group {Math.floor(i / 20)}</ListGroup>
+                {/if}
+
+                <ListItem active={i === 5} value={{item}}>
+                  <span slot="left">
+                    <Icon icon="cog" />
+                  </span>
+
+                  {item}
+                </ListItem>
+              {/each}
+
+              <div slot="footer">
+                <Button>Footer Button</Button>
+              </div>
+            </List>
+          </Card>
+        </div>
+      </div>
+
+      <div>
         <h1>Modal</h1>
 
         <button on:click={() => shortModalOpen = true}>open short modal</button>
@@ -461,6 +523,24 @@
         </Modal>
       </div>
 
+      <div>
+        <h1>Notation</h1>
+        <Notation required>
+          * this field is required
+        </Notation>
+
+        <br /><br />
+
+        <Notation error>
+          there was an error
+        </Notation>
+
+        <br /><br />
+
+        <Notation pagination>
+          Displaying 1-30 of 110
+        </Notation>
+      </div>
       <div>
         <h1>OverlayTrigger</h1>
         <OverlayTrigger trigger="click" placement="bottom">
@@ -559,9 +639,9 @@
         <h1>Toast</h1>
         <div>
           <Toast>
-            wow it's multiple lines but it still ellipses at the end in everything except IE11
-            wow it's multiple lines but it still ellipses at the end in everything except IE11
-            wow it's multiple lines but it still ellipses at the end in everything except IE11
+            wow there are multiple lines but it still ellipses at the end in everything except IE11
+            wow there are multiple lines but it still ellipses at the end in everything except IE11
+            wow there are multiple lines but it still ellipses at the end in everything except IE11
           </Toast>
 
           <br /><br />
@@ -575,21 +655,32 @@
       </div>
 
       <div>
+        <h1>Tabs</h1>
+        <div>
+          <Tabs bind:refs={tabRefs} tabs={tabs} active={tabs[5]} let:tab>
+            <a href="#">{tab}</a>
+          </Tabs>
+        </div>
+      </div>
+
+      <div>
         <h1>TextArea</h1>
         <div>
-          <TextArea>This is some text</TextArea>
+          <TextArea value="This is some text" />
 
           <br /><br />
 
-          <TextArea>This is some text</TextArea>
+          <TextArea disabled value="This is some disabled text" />
 
           <br /><br />
 
-          <TextArea>This is some text</TextArea>
+          <TextArea error value="This is some errored text" />
 
           <br /><br />
 
-          <TextArea>This is some text</TextArea>
+          <div class="table-row">
+            <TextArea value="Table row shows resize on hover with css vars" />
+          </div>
         </div>
       </div>
 

@@ -1,8 +1,17 @@
 <script>
+  import cssVars from 'svelte-css-vars'
+
   export let ref = null
   export let value = ''
   export let disabled = false
   export let error = false
+  export let resize = null
+
+  $: resizeVars = {
+    'textarea-resize': resize
+  }
+
+  $: styleVars = resize ? resizeVars : {}
 </script>
 
 <style>
@@ -17,7 +26,8 @@
     display: block;
     font-family: inherit;
     font-size: var(--textarea-font-size);
-    padding: var(--textarea-v-padding) var(--textarea-h-padding);
+    padding: var(--textarea-padding-v) var(--textarea-padding-h);
+    resize: var(--textarea-resize);
   }
 
   .textarea:disabled {
@@ -45,8 +55,9 @@
   class="textarea"
   class:error
   type="text"
+  bind:value
   bind:this={ref}
-  bind:value={value}
+  use:cssVars={styleVars}
   on:blur
   on:change
   on:focus
@@ -55,4 +66,4 @@
   on:keydown
   on:keyup
   {disabled}
-/>
+></textarea>

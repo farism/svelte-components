@@ -1,5 +1,5 @@
 <script>
-  export let level = 20;
+  export let level = 20
 </script>
 
 <style>

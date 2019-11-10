@@ -4,12 +4,12 @@ import { get } from 'svelte/store'
 export function portal(node: HTMLElement) {
   let nextZIndex = 1
 
-  const zIndex = getContext('ZIndex')
+  const ZIndexContext = getContext('ZIndex')
 
-  if (zIndex) {
-    nextZIndex = get(zIndex)
+  if (ZIndexContext) {
+    nextZIndex = get(ZIndexContext)
 
-    zIndex.set(nextZIndex)
+    ZIndexContext.set(nextZIndex)
   }
 
   node.style.top = '0'

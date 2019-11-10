@@ -10,6 +10,7 @@
   export let tertiary = false;
   export let primary = !dropdown && !form && !outline && !secondary && !tertiary;
 
+  export let block = false;
   export let lg = false
   export let sm = false
   export let md = !lg && !sm
@@ -37,6 +38,10 @@
     justify-content: center;
     line-height: 20px;
     padding: var(--button-padding-v) var(--button-padding-h);
+  }
+
+  .block {
+    width: 100%;
   }
 
   .icon-only {
@@ -90,7 +95,6 @@
     --button-font-size: var(--button-font-size-md);
     --button-padding: 0 var(--button-padding-md);
     --button-size: var(--button-size-md);
-
   }
 
   .lg {
@@ -183,6 +187,7 @@
   class:secondary
   class:tertiary
   class:icon-only={iconOnly}
+  class:block
   class:sm
   class:md
   class:lg

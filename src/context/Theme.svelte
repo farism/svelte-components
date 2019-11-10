@@ -165,6 +165,7 @@
     --card-background-color: var(--color-white-100);
     --card-border-radius: var(--border-radius-md);
     --card-box-shadow: var(--shadow-20);
+    --card-height: 100%;
     --card-transition: box-shadow 0.2s ease-in-out;
 
     --checkbox-checkmark-background-color-checked: var(--color-blue-50);
@@ -215,6 +216,22 @@
     --link-gray-color-hover: var(--color-orange-60);
     --link-white-color: var(--color-white-100);
     --link-white-color-hover: var(--color-white-100);
+
+    --list-footer-border: 1px solid var(--color-gray-50);
+    --list-footer-padding: var(--size-md) var(--list-padding);
+    --list-header-padding: var(--size-xs) var(--list-padding);
+    --list-items-margin: var(--size-sm) 0;
+    --list-max-height: auto;
+    --list-item-font-size: 14px;
+    --list-item-height: 28px;
+    --list-item-background-color: var(--color-white-100);
+    --list-item-background-color-hover: var(--color-gray-20);
+    --list-item-color-active: var(--color-blue-65);
+    --list-item-color-hover: var(--color-black-100);
+    --list-item-padding: 0 var(--list-padding);
+    --list-padding: var(--size-lg);
+    --list-search-padding-bottom: var(--size-sm);
+    --list-search-padding: var(--list-padding);
 
     --modal-body-margin-top: var(--size-3xl);
     --modal-buttons-spacing: var(--size-sm);
@@ -274,7 +291,8 @@
     --textarea-font-size: var(--input-font-size);
     --textarea-placeholder-color: var(--input-placeholder-color);
     --textarea-padding-h: var(--input-padding-h);
-    --textarea-padding-v: var(--input-padding-v);
+    --textarea-padding-v: var(--size-sm);
+    --textarea-resize: both;
 
     --toast-background-color: var(--color-gray-70);
     --toast-border-radius: var(--border-radius-md);
