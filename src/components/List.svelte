@@ -7,14 +7,20 @@
   import { get, writable } from 'svelte/store'
 
 	import { scrollElementIntoView } from '../utils/scrollElementIntoView'
+	import { checkSlot } from '../utils/checkSlot'
 	import ListItem from './ListItem'
   import Search from './Search'
 
+  let className = ''
+
   export let refs = {}
-  export let onSearch = null
   export let onSelect = noop
   export let search = ''
-  export let style = ''
+  export let searchable = false
+
+  const hasHeaderSlot = checkSlot($$props, 'header')
+
+  const hasFooterSlot = checkSlot($$props, 'footer')
 
   const items = []
 
@@ -26,6 +32,10 @@
 
   function registerItem(item) {
     items.push(item)
+
+    hovered.update(function(current){
+      return current || item
+    })
 
     onDestroy(function() {
       items.splice(items.indexOf(item), 1)
@@ -103,8 +113,8 @@
   .list {
     display: flex;
     flex-direction: column;
-    height: var(--list-height);
     max-height: var(--list-max-height);
+    max-width: var(--list-max-width);
   }
 
 	.header {
@@ -144,19 +154,23 @@
   }
 </style>
 
-<div class="list" {style} bind:this={refs.list} on:keydown={onKeydown} tabindex="-1">
-	{#if onSearch}
+<div class="list" bind:this={refs.root} on:keydown={onKeydown} tabindex="-1">
+	{#if searchable}
 		<div class="search">
-			<Search bind:this="{refs.search}" typeahead bind:value={search} />
+			<Search typeahead bind:ref={refs.search} bind:value={search} />
 		</div>
   {/if}
-  <div class="header">
-		<slot name="header" />
-	</div>
+  {#if hasHeaderSlot}
+    <div class="header">
+      <slot name="header" />
+    </div>
+  {/if}
 	<div class="items" bind:this="{refs.items}">
 		<slot />
-	</div>
-	<div class="footer">
-		<slot name="footer" />
-	</div>
+  </div>
+  {#if hasFooterSlot}
+    <div class="footer">
+      <slot name="footer" />
+    </div>
+  {/if}
 </div>

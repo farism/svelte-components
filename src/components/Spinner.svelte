@@ -52,6 +52,7 @@
   .circle {
     border-radius: 100%;
     border: var(--spinner-circle-border-width) solid var(--spinner-circle-border-color);
+    box-sizing: border-box;
     height: var(--spinner-circle-size);
     position: relative;
     width: var(--spinner-circle-size);

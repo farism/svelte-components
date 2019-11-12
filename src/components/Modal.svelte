@@ -15,8 +15,9 @@
   export let open = false
   export let scrimClose = true;
 
-  const hasNotation = checkSlot($$props, 'notation')
-  const hasActions = checkSlot($$props, 'actions')
+  const hasNotationSlot = checkSlot($$props, 'notation')
+
+  const hasActionsSlot = checkSlot($$props, 'actions')
 
   function noop() {}
 
@@ -138,7 +139,7 @@
           <div class="body">
             <slot name="body" />
           </div>
-          {#if hasNotation || hasActions}
+          {#if hasNotationSlot || hasActionsSlot}
             <div class="footer">
               <div class="notation">
                 <slot name="notation" />

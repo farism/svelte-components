@@ -1,10 +1,9 @@
 <script>
   export let ref = null
-  export let value = ''
   export let disabled = false
   export let error = false
+  export let value = ''
 </script>
-
 
 <style>
   .input {
@@ -21,7 +20,7 @@
     height: var(--input-height);
     line-height: var(--input-font-size);
     padding: var(--input-padding-v) var(--input-padding-h);
-    /* width: 100%; */
+    width: 100%;
   }
 
   .error {

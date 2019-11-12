@@ -1,7 +1,7 @@
 export function autofocus(node: HTMLElement) {
-  setTimeout(function() {
-    node.focus()
-  }, 0)
+  setTimeout(node.focus, 0)
+
+  // console.log({ node })
 
   return {
     destroy() {},

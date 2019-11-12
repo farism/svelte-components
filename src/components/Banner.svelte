@@ -15,7 +15,7 @@
     success: 'check-circle',
   }
 
-  const hasButtons = checkSlot($$props, 'buttons')
+  const hasButtonsSlot = checkSlot($$props, 'buttons')
 
   let iconName = icon || icons[variant]
 
@@ -41,6 +41,7 @@
     display: flex;
     padding: var(--banner-padding);
     position: relative;
+
   }
 
   .banner--action {
@@ -90,12 +91,17 @@
   }
 
   .buttons button + .buttons button {
-    margin-left: var(--banner-action-spacing);
+    margin-left: var(--banner-buttons-spacing);
   }
 
-  .buttons + .dismiss {
+  .dismiss {
+    --clear-color: var(--banner-dismiss-background-color-hover);
+    --clear-background-color-hover: var(--banner-dismiss-background-color-hover);
+
     margin-left: var(--banner-spacing);
   }
+
+
 </style>
 
 <div class="banner banner--{variant}">
@@ -110,7 +116,7 @@
       <slot name="message" />
     </div>
   </div>
-  {#if hasButtons}
+  {#if hasButtonsSlot}
     <div class="buttons">
       <slot name="buttons" />
     </div>

@@ -1,18 +1,17 @@
 <script>
   import ListItem from './ListItem'
 
-  export let active = false
   export let value = null
 </script>
 
 <style>
-  .dropdown-item {
+  .select-item {
 
   }
 </style>
 
-<div class="dropdown-item">
-  <ListItem {active} {value}>
+<div class="select-item">
+  <ListItem {value}>
     <slot />
   </ListItem>
 </div>

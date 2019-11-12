@@ -5,13 +5,13 @@
   export let message = ''
   export let title = ''
 
-  const hasImage = image || checkSlot($$props, 'image')
+  const hasImageSlot = image || checkSlot($$props, 'image')
 
-  const hasTitle = title || checkSlot($$props, 'title')
+  const hasTitleSlot = title || checkSlot($$props, 'title')
 
-  const hasMessage = message || checkSlot($$props, 'message')
+  const hasMessageSlot = message || checkSlot($$props, 'message')
 
-  const hasButtons = checkSlot($$props, 'buttons')
+  const hasButtonsSlot = checkSlot($$props, 'buttons')
 </script>
 
 <style>
@@ -46,7 +46,7 @@
 </style>
 
 <div class="empty-state">
-  {#if hasImage}
+  {#if hasImageSlot}
     <div class="image">
       <slot name="image" />
       {#if image}
@@ -54,19 +54,19 @@
       {/if}
     </div>
   {/if}
-  {#if hasTitle}
+  {#if hasTitleSlot}
     <div class="title">
       <slot name="title" />
       {title}
     </div>
   {/if}
-  {#if hasMessage}
+  {#if hasMessageSlot}
     <div class="message">
       <slot name="message" />
       {message}
     </div>
   {/if}
-  {#if hasButtons}
+  {#if hasButtonsSlot}
     <div class="buttons">
       <slot name="buttons" />
     </div>

@@ -6,9 +6,7 @@
   export let ref = null
 	export let value = ''
   export let typeahead = false;
-  export let onChange = noop
-  export let onClear = noop
-  export let onSearch = noop
+  export let onSubmit = noop
 
   $: isEmpty = value.toString().trim() === '';
 
@@ -16,15 +14,10 @@
 
   $: iconCount = showSearch && !isEmpty ? 2 : 1
 
-
   function noop() {}
 
   function clear() {
     value = ''
-
-    onChange(value)
-
-    onClear()
   }
 
   function onKeydown(e) {
@@ -33,13 +26,10 @@
     }
 
     if(!typeahead && e.key === 'Enter') {
-      onSearch(value, e)
+      onSubmit(value, e)
     }
   }
 
-  function onInput(e) {
-    onChange(value, e)
-  }
 
   function onClickClearIcon(e) {
     clear()
@@ -49,7 +39,7 @@
 
   function onClickSearchIcon(e) {
     if(!typeahead) {
-      onSearch(value, e)
+      onSubmit(value, e)
     }
 
     ref.focus()
@@ -119,8 +109,7 @@
 <div class="search search--icon-count-{iconCount} search--typeahead-{typeahead}">
   <Input
     bind:ref
-    bind:value={value}
-    on:input={onInput}
+    bind:value
     on:keydown={onKeydown}
   />
   <div class="icons">

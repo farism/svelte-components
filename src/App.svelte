@@ -7,8 +7,11 @@
   import Banner from './components/Banner'
   import Breadcrumbs from './components/Breadcrumbs'
   import Button from './components/Button'
+  import Calendar from './components/Calendar'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
+  import Dropdown from './components/Dropdown'
+  import DropdownItem from './components/DropdownItem'
   import Ellipses from './components/Ellipses'
   import EmptyState from './components/EmptyState'
   import Icon from './components/Icon'
@@ -23,6 +26,8 @@
   import OverlayTrigger from './components/OverlayTrigger'
   import Popover from './components/Popover'
   import Search from './components/Search'
+  import Select from './components/Select'
+  import SelectItem from './components/SelectItem'
   import Spinner from './components/Spinner'
   import Tabs from './components/Tabs'
   import TextArea from './components/TextArea'
@@ -35,7 +40,8 @@
 
   let checkboxValue = true
   let radioValue = 0
-  let searchValue = 'test'
+  let searchValue = 'this is a search'
+  let typeaheadValue = 'this is a typeahead'
   let shortModalOpen = false;
   let tallModalOpen = false;
   let arrowRef = null
@@ -49,11 +55,30 @@
     return `item ${i}`
   })
   let listSearch = 'search value'
+  let dropdownSearch = 'dropdown search'
+  let selectSearch = 'select search'
+  let loading = false
+  let disabled = false
 
+  function toggleLoading() {
+    loading = !loading
+  }
+
+  function toggleDisabled() {
+    disabled = !disabled
+  }
+
+  // $: console.log(typeaheadValue)
+
+  function calendarDisabledDate(date) {
+    return date.getDate() === new Date().getDate() + 1
+  }
 
   setTimeout(function(){
     tabs[0] = 'this (012 fsa31 fafaf a)'
-  }, 2000)
+
+    console.log(dropdownSearch)
+  }, 5000)
 
   onMount(function(){
     // console.log({arrowRef, arrowContainerRef, tabRefs})
@@ -230,78 +255,114 @@
 
       <div>
         <h1>Button</h1>
+        <button on:click={toggleLoading}>toggle loading state</button>
+        <button on:click={toggleDisabled}>toggle disabled state</button>
+
+        <br />
+        <br />
+
         <div>
-          <Button sm>Primary (default)</Button>
-          <Button sm secondary>Secondary</Button>
-          <Button sm tertiary>Tertiary</Button>
-          <Button sm form>Form</Button>
-          <Button sm dropdown>Dropdown</Button>
+          <Button {loading} {disabled} sm>Primary (default)</Button>
+          <Button {loading} {disabled} sm secondary>Secondary</Button>
+          <Button {loading} {disabled} sm tertiary>Tertiary</Button>
+          <Button {loading} {disabled} sm form>Form</Button>
+          <Button {loading} {disabled} sm dropdown>Dropdown</Button>
         </div>
 
         <br />
 
         <div>
-          <Button>Primary (default)</Button>
-          <Button secondary>Secondary</Button>
-          <Button tertiary>Tertiary</Button>
-          <Button form>Form</Button>
-          <Button dropdown>Dropdown</Button>
+          <Button {loading} {disabled}>Primary (default)</Button>
+          <Button {loading} {disabled} secondary>Secondary</Button>
+          <Button {loading} {disabled} tertiary>Tertiary</Button>
+          <Button {loading} {disabled} form>Form</Button>
+          <Button {loading} {disabled} dropdown>Dropdown</Button>
         </div>
 
         <br />
 
         <div>
-          <Button lg>Primary (default)</Button>
-          <Button lg secondary>Secondary</Button>
-          <Button lg tertiary>Tertiary</Button>
-          <Button lg form>Form</Button>
-          <Button lg dropdown>Dropdown</Button>
+          <Button {loading} {disabled} lg>Primary (default)</Button>
+          <Button {loading} {disabled} lg secondary>Secondary</Button>
+          <Button {loading} {disabled} lg tertiary>Tertiary</Button>
+          <Button {loading} {disabled} lg form>Form</Button>
+          <Button {loading} {disabled} lg dropdown>Dropdown</Button>
         </div>
 
         <br />
 
         <div>
-          <Button sm primary icon="cog" />
-          <Button sm secondary icon="cog" />
-          <Button sm tertiary icon="cog" />
-          <Button sm form icon="cog" />
-          <Button sm dropdown icon="cog" />
+          <Button {loading} {disabled} sm primary icon="cog" />
+          <Button {loading} {disabled} sm secondary icon="cog" />
+          <Button {loading} {disabled} sm tertiary icon="cog" />
+          <Button {loading} {disabled} sm form icon="cog" />
         </div>
 
         <br />
 
         <div>
-          <Button primary icon="cog" />
-          <Button secondary icon="cog" />
-          <Button tertiary icon="cog" />
-          <Button form icon="cog" />
-          <Button dropdown icon="cog" />
+          <Button {loading} {disabled} icon="cog" />
+          <Button {loading} {disabled} secondary icon="cog" />
+          <Button {loading} {disabled} tertiary icon="cog" />
+          <Button {loading} {disabled} form icon="cog" />
         </div>
 
         <br />
 
         <div>
-          <Button lg primary icon="cog" />
-          <Button lg secondary icon="cog" />
-          <Button lg tertiary icon="cog" />
-          <Button lg form icon="cog" />
-          <Button lg dropdown icon="cog" />
+          <Button {loading} {disabled} lg icon="cog" />
+          <Button {loading} {disabled} lg secondary icon="cog" />
+          <Button {loading} {disabled} lg tertiary icon="cog" />
+          <Button {loading} {disabled} lg form icon="cog" />
         </div>
 
         <br />
 
         <div>
-          <Button primary icon="cog">Label goes here</Button>
-          <Button secondary iconRight="cog">Label goes here</Button>
-          <Button tertiary iconRight="cog">Label goes here</Button>
-          <Button form iconRight="cog">Label goes here</Button>
-          <Button dropdown icon="cog">Label goes here dropdown should ellipses</Button>
+          <Button {loading} {disabled} primary icon="cog">Label goes here</Button>
+          <Button {loading} {disabled} secondary iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} tertiary iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} form iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} dropdown icon="cog">Label goes here dropdown should ellipses</Button>
+        </div>
+
+        <div>
+          <Button {loading} {disabled} primary icon="cog">Label goes here</Button>
+          <Button {loading} {disabled} secondary iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} tertiary iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} form iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} dropdown icon="cog">Label goes here dropdown should ellipses</Button>
+        </div>
+
+        <div>
+          <Button {loading} {disabled} primary icon="cog">Label goes here</Button>
+          <Button {loading} {disabled} secondary iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} tertiary iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} form iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} dropdown icon="cog">Label goes here dropdown should ellipses</Button>
+        </div>
+
+        <div>
+          <Button {loading} {disabled} primary dropdown icon="cog">Label goes here</Button>
+          <Button {loading} {disabled} primary dropdown iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} primary dropdown iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} primary dropdown iconRight="cog">Label goes here</Button>
+          <Button {loading} {disabled} primary dropdown icon="cog">Label goes here dropdown should ellipses</Button>
         </div>
       </div>
 
       <h1>ButtonGroup</h1>
 
-      <h1>Calendar</h1>
+      <div>
+        <h1>Calendar</h1>
+        <div>
+          <Calendar disabledDate={calendarDisabledDate} />
+
+          <br />
+
+          <Calendar value={new Date()} />
+        </div>
+      </div>
 
       <div>
         <h1>Card</h1>
@@ -335,6 +396,30 @@
         <Checkbox bind:checked={checkboxValue} indeterminate={true} />
 
         checked: {checkboxValue}
+      </div>
+
+      <div>
+        <h1>Dropdown</h1>
+        <div>
+          <Dropdown label="Primary Dropdown" primary onSelect={console.log} bind:search={dropdownSearch}>
+            <DropdownItem value="item1">Item 1</DropdownItem>
+            <DropdownItem value="item2">Item 2</DropdownItem>
+            <DropdownItem value="item3">Item 3</DropdownItem>
+            <DropdownItem value="item4">Item 4</DropdownItem>
+            <DropdownItem value="item5">Item 5</DropdownItem>
+          </Dropdown>
+
+          <br />
+          <br />
+
+          <Dropdown label="Secondary Dropdown" onSelect={console.log}>
+            <DropdownItem value="item1">Item 1</DropdownItem>
+            <DropdownItem value="item2">Item 2</DropdownItem>
+            <DropdownItem value="item3">Item 3</DropdownItem>
+            <DropdownItem value="item4">Item 4</DropdownItem>
+            <DropdownItem value="item5">Item 5</DropdownItem>
+          </Dropdown>
+        </div>
       </div>
 
       <div>
@@ -449,14 +534,9 @@
       <div>
         <h1>List</h1>
 
-        <div style="width: 280px;">
+        <div style="--list-max-height: 312px">
           <Card>
-            <List
-              style="max-height: 312px;"
-              onSearch={console.log}
-              onSelect={console.log}
-              bind:search={listSearch}
-            >
+            <List onSearch={console.log} onSelect={console.log} bind:search={listSearch}>
               <div slot="header">
                 <Button>Header Button</Button>
               </div>
@@ -547,7 +627,7 @@
           <button slot="trigger">
             click
           </button>
-          <ul slot="overlay" style="cursor: pointer;">
+          <ul slot="overlay" style="background: white; cursor: pointer;">
             <li>item 1</li>
             <li>item 2</li>
             <li>item 3</li>
@@ -558,7 +638,7 @@
           <button slot="trigger">
             hover
           </button>
-          <ul slot="overlay">
+          <ul slot="overlay" style="background: white;">
             <li>1</li>
             <li>2</li>
             <li>3</li>
@@ -600,23 +680,28 @@
 
         <h3>Search</h3>
 
-        <Search
-          bind:value={searchValue}
-          onChange={console.log}
-          onClear={console.log}
-          onSearch={console.log}
-       />
+        <Search bind:value={searchValue} />
 
         <div>search value: {searchValue}</div>
 
         <h3>Typeahead</h3>
 
-        <Search
-          typeahead
-          onChange={console.log}
-          onClear={console.log}
-          onSearch={console.log}
-       />
+        <Search typeahead bind:value={typeaheadValue} />
+      </div>
+
+      <div>
+        <h1>Select</h1>
+        <div>
+          <Select placeholder="Select a value" onSelect={console.log} bind:search={selectSearch}>
+            <SelectItem value="item1">Item 1</SelectItem>
+            <SelectItem value="item2">Item 2</SelectItem>
+            <SelectItem value="item3">Item 3</SelectItem>
+            <SelectItem value="item4">Item 4</SelectItem>
+            <SelectItem value="item5">Item 5</SelectItem>
+          </Select>
+
+          <br />
+        </div>
       </div>
 
       <div>

@@ -18,7 +18,6 @@ export function scrollElementIntoView(index: number, element: HTMLElement) {
   }
 
   if (top + element.clientHeight > parent.scrollTop + parent.clientHeight) {
-    console.log(top, parent.clientHeight, element.clientHeight)
     parent.scrollTop = top - parent.clientHeight + element.clientHeight
   }
 }

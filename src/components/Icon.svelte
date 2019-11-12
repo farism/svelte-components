@@ -12,11 +12,11 @@
   .icon {
     cursor: inherit;
     display: inline-flex;
-    pointer-events: none;
   }
 
   .icon svg {
     height: var(--icon-size);
+    pointer-events: none;
     width: var(--icon-size);
   }
 

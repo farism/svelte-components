@@ -12,9 +12,9 @@
   export let suggested = false
   export let value = null
 
-  const hasLeft = checkSlot($$props, 'left')
+  const hasLeftSlot = checkSlot($$props, 'left')
 
-  const hasRight = checkSlot($$props, 'right')
+  const hasRightSlot = checkSlot($$props, 'right')
 
   const { hovered, onSelect, registerItem, setHovered } = getContext(LIST_CONTEXT)
 
@@ -22,7 +22,7 @@
 
   registerItem(item)
 
-  function onMouseEnter(e) {
+  function onMouseMove(e) {
     setHovered(item)
   }
 
@@ -92,10 +92,10 @@
   class:active
   class:hovered="{$hovered === item}"
   bind:this={ref}
-  on:mouseenter={onMouseEnter}
+  on:mousemove={onMouseMove}
   on:click={onClick}
 >
-  {#if hasLeft}
+  {#if hasLeftSlot}
     <div class="left">
       <slot name="left" />
     </div>
@@ -105,7 +105,7 @@
       <slot />
     </Ellipses>
   </div>
-  {#if hasRight}
+  {#if hasRightSlot}
     <div class="left">
       <slot name="left" />
     </div>

@@ -1,5 +1,7 @@
+<svelte:options accessors={true} />
+
 <script>
-  import { get } from 'svelte/store'
+  import { get, setContext } from 'svelte/store'
   import { clickoutside } from '../actions/clickoutside'
   import { fasten } from '../actions/fasten'
   import { portal } from '../actions/portal'
@@ -17,13 +19,15 @@
   export let trigger = 'click'
   export let visible = false
 
+  // const setContext(OVERLAYTRIGGER_CONTEXT, {})
+
   let originalPlacement = placement
 
   let timer = 0
 
   function noop() {}
 
-  function toggle(e) {
+  export function toggle(e) {
     if (visible) {
       hide(e)
     } else {
@@ -31,7 +35,7 @@
     }
   }
 
-  function show(e) {
+  export function show(e) {
     clearTimeout(timer)
 
     if(visible) {
@@ -49,7 +53,7 @@
     })
   }
 
-  function hide(e) {
+  export function hide(e) {
     clearTimeout(timer)
 
     if(!visible) {
@@ -97,8 +101,9 @@
 </script>
 
 <style>
-  .target {
+  .trigger {
     display: inline-flex;
+    flex: 1 1 auto;
   }
 
   .overlay {
@@ -109,7 +114,7 @@
 </style>
 
 <span
-  class="target"
+  class="trigger"
   bind:this={refs.trigger}
   on:click={onClick}
   on:mouseenter={onMouseEnter}
