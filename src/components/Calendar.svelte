@@ -1,9 +1,11 @@
 <script context="module">
-  export const CALENDAR_WEEKS = 6
+  const CALENDAR_WEEKS = 6
 
-  export const DAYS_IN_WEEK = 7
+  const DAYS_IN_WEEK = 7
 
-  export const DAYS_IN_CALENDAR = CALENDAR_WEEKS * DAYS_IN_WEEK
+  const DAYS_IN_CALENDAR = CALENDAR_WEEKS * DAYS_IN_WEEK
+
+  const YEAR_RANGE = 21
 
   const TODAY = new Date()
 </script>
@@ -11,10 +13,12 @@
 <script>
   import {
     addDays,
+    addMonths,
     eachDayOfInterval,
     format,
-    getDay,
     getDate,
+    getDay,
+    isSameDay,
     isSameMonth,
     isToday,
     setMonth,
@@ -22,33 +26,40 @@
     startOfMonth,
     startOfWeek,
     subDays,
+    subMonths,
   } from 'date-fns'
   import range from 'lodash/range'
   import chunk from 'lodash/chunk'
+  import { afterUpdate } from 'svelte'
 
   import Card from './Card'
   import Dropdown from './Dropdown'
   import DropdownItem from './DropdownItem'
   import Icon from './Icon'
 
-  export let disabledDate = noop
   export let value = null
+  export let displayDate = new Date()
+  export let disabledDate = noop
 
-  let date = new Date()
+  $: date = displayDate
 
   $: month = date.getMonth()
 
-  $: year = date.getYear()
+  $: year = date.getFullYear()
+
+  $: startYear = Math.max(0, year - 10)
+
+  $: endYear = startYear + YEAR_RANGE
+
+  $: start = subDays(startOfMonth(date), getDay(startOfMonth(date)))
+
+  $: end = addDays(start, DAYS_IN_CALENDAR - 1)
+
+  $: days = eachDayOfInterval({ start, end })
+
+  $: weeks = chunk(days, DAYS_IN_WEEK)
 
   function noop() {}
-
-  const start = subDays(startOfMonth(date), getDay(startOfMonth(date)))
-
-  const end = addDays(start, DAYS_IN_CALENDAR - 1)
-
-  const days = eachDayOfInterval({ start, end })
-
-  const weeks = chunk(days, DAYS_IN_WEEK)
 
   function formatDayOfWeek(day) {
     return format(addDays(startOfWeek(new Date()), day), 'EEEEEE')
@@ -58,12 +69,24 @@
     return format(new Date().setMonth(month), 'MMM')
   }
 
-  function onSelectMonth(i) {
-    date = setMonth(date, i)
+  function onSelectMonth({ value }) {
+    date = setMonth(date, value)
   }
 
-  function onSelectYear(i) {
-    date = setYear(date, i)
+  function onSelectYear({ value }) {
+    date = setYear(date, value)
+  }
+
+  function onClickPreviousMonth(e) {
+    date = subMonths(date, 1)
+  }
+
+  function onClickNextMonth(e) {
+    date = addMonths(date, 1)
+  }
+
+  function onClickDay(e, day) {
+    value = day
   }
 </script>
 
@@ -115,10 +138,17 @@
     outline: var(--focus-outline);
   }
 
-  .dropdown {
+  .dropdowns {
     display: flex;
     flex: 1 1 auto;
-    margin: 0 var(--calendar-header-dropdown-spacing);
+  }
+
+  .month-dropdown,
+  .year-dropdown {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 50%;
+    padding: 0 var(--calendar-header-dropdown-spacing);
   }
 
   .week {
@@ -186,28 +216,30 @@
   <Card>
     <div class="container">
       <div class="header">
-        <button class="pagination">
+        <button class="pagination" on:click={onClickPreviousMonth}>
           <Icon icon="chevron-left" />
         </button>
-        <div class="dropdown">
-          <Dropdown block onSelect={onSelectMonth}>
-            {#each range(0, 12) as i}
-              <DropdownItem value={i} active={month === i}>
-                {formatMonth(i)}
-              </DropdownItem>
-            {/each}
-          </Dropdown>
+        <div class="dropdowns">
+          <div class="month-dropdown">
+            <Dropdown block onSelect={onSelectMonth} label={format(date, 'MMM')}>
+              {#each range(0, 12) as i}
+                <DropdownItem value={i} active={month === i}>
+                  {formatMonth(i)}
+                </DropdownItem>
+              {/each}
+            </Dropdown>
+          </div>
+          <div class="year-dropdown">
+            <Dropdown block onSelect={onSelectYear} label="{year}">
+              {#each range(startYear, endYear) as i}
+                <DropdownItem value={i} active={year === i}>
+                  {i}
+                </DropdownItem>
+              {/each}
+            </Dropdown>
+          </div>
         </div>
-        <div class="dropdown">
-          <Dropdown block onSelect={onSelectYear}>
-            {#each range(0, 11) as i}
-              <DropdownItem value={i} active={year === i}>
-                {formatMonth(i)}
-              </DropdownItem>
-            {/each}
-          </Dropdown>
-        </div>
-        <button class="pagination">
+        <button class="pagination" on:click={onClickNextMonth}>
           <Icon icon="chevron-right" />
         </button>
       </div>
@@ -226,6 +258,10 @@
               class:today={isToday(day)}
               class:disabled={disabledDate(day)}
               class:other-month={!isSameMonth(day, TODAY)}
+              class:active={isSameDay(day, value)}
+              on:click={function(e){
+                onClickDay(e, day)
+              }}
             >
               {format(day, 'd')}
             </div>

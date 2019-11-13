@@ -60,17 +60,11 @@
   }
 
   .search--icon-count-1 :global(input) {
-    padding-right: calc(
-      var(--input-padding-h) +
-      var(--search-icon-size)
-    );
+    padding-right: calc(var(--input-padding-h) + var(--search-icon-size));
   }
 
   .search--icon-count-2 :global(input) {
-    padding-right: calc(
-      var(--input-padding-h) +
-      var(--search-icon-size) * 2
-    );
+    padding-right: calc(var(--input-padding-h) +var(--search-icon-size) * 2);
   }
 
   .search--icon-count-2 {

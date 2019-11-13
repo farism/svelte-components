@@ -1,4 +1,5 @@
 <script>
+  import { flyplacement } from '../transitions/flyplacement'
   import ArrowContainer from './ArrowContainer'
   import OverlayTrigger from './OverlayTrigger'
 
@@ -34,6 +35,7 @@
     background-color: var(--tooltip-background-color);
     border-radius: var(--tooltip-border-radius);
     color: var(--tooltip-color);
+    cursor: default;
     display: inline-block;
     font-size: var(--tooltip-font-size);
     max-width: var(--tooltip-max-width);
@@ -54,7 +56,7 @@
     <div slot="trigger" class="trigger">
       <slot slot="trigger" name="trigger" />
     </div>
-    <div slot="overlay" class="overlay">
+    <div slot="overlay" class="overlay" transition:flyplacement={{ placement }}>
       <ArrowContainer {placement} target={overlayTriggerRefs.trigger}>
         <span class="message">
           <slot name="message" />

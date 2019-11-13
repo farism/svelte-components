@@ -135,6 +135,7 @@
     on:clickoutside={hide}
     on:mouseenter={onMouseEnter}
     on:mouseleave={onMouseLeave}
+    on:keydown={onKeyDown}
   >
     <slot name="overlay" />
   </div>

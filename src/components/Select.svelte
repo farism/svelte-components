@@ -14,8 +14,9 @@
   export let beforeHide = noop
   export let hideDelay = 100
   export let block = false
+  export let label = ''
   export let placeholder = ''
-  export let placement = 'bottom'
+  export let placement = 'bottom-left'
   export let onSelect = noop
   export let search = ''
   export let searchable = false
@@ -38,10 +39,18 @@
     }
   }
 
-  function onListSelect(value, e) {
-    onSelect(value, e)
+  function onListSelect(selection, e) {
+    onSelect(selection)
+
+    value = selection.value
 
     overlayTrigger.hide(e)
+  }
+
+  function onAfterHide(e) {
+    refs.trigger.focus()
+
+    afterHide(e)
   }
 </script>
 
@@ -54,8 +63,6 @@
     flex: 1 1 auto;
   }
 
-  .trigger {}
-
   .overlay {}
 
   .overlay :global(.list) {
@@ -66,21 +73,21 @@
 
 <div class="select" class:block bind:this="{refs.root}">
   <OverlayTrigger
-    bind:this={overlayTrigger}
-    bind:refs={refs.overlayTrigger}
+    bind:this="{overlayTrigger}"
+    bind:refs="{refs.overlayTrigger}"
     bind:placement
     bind:trigger
     bind:visible
     bind:beforeHide
     bind:beforeShow
-    bind:afterHide
+    bind:afterHide={onAfterHide}
     bind:afterShow
     bind:hideDelay
     bind:showDelay
   >
     <div slot="trigger" class="trigger">
-      <Button select secondary {block} bind:this="{refs.trigger}">
-        {placeholder}
+      <Button select dropdown {block} bind:ref="{refs.trigger}">
+        {label || placeholder}
       </Button>
     </div>
     <div
@@ -90,7 +97,7 @@
       use:matchwidth={{ target: refs.overlayTrigger.trigger }}
     >
       <Card>
-        <List {search} {searchable} onSelect={onListSelect} bind:refs={refs.list}>
+        <List {search} {searchable} onSelect="{onListSelect}" bind:refs="{refs.list}">
           <slot />
         </List>
       </Card>

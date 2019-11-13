@@ -5,7 +5,7 @@
   const { inOutCubic } = easing
 
   import { portal } from '../actions/portal'
-  import { fly } from '../transitions/fly'
+  import { slide } from '../transitions/slide'
   import { checkSlot } from '../utils/checkSlot'
   import Card from './Card'
   import Clear from './Clear'
@@ -126,7 +126,7 @@
   <div class="modal" bind:this={ref} use:portal transition:fade>
     <div class="overlay wrapper">
       <div class="overlay scrim" on:click={onClickScrim} />
-      <div class="overlay container" transition:fly="{{y: 24, duration: 500}}">
+      <div class="overlay container" transition:slide="{{y: 24, duration: 500}}">
         <Card>
           <div class="header">
             <div class="title">

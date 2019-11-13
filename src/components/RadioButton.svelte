@@ -2,6 +2,7 @@
     import Icon from './Icon'
 
     export let ref = null
+    export let disabled = false;
     export let group = ''
     export let value = ''
 
@@ -19,7 +20,7 @@
     .checkmark {
       align-items: center;
       color: var(--radio-checkmark-color);
-      background-color: var(--radio-background-color);
+      background-color: var(--radio-checkmark-background-color);
       border-color: var(--radio-checkmark-border-color);
       border-radius: 100%;
       border-style: var(--radio-checkmark-border-style);
@@ -41,9 +42,13 @@
       position: absolute;;
     }
 
-    input:checked + .checkmark {
+    .checked .checkmark {
       --radio-checkmark-border-color: var(--color-blue-50);
       --radio-checkmark-border-width: 6px;
+    }
+
+    .disabled {
+
     }
 
     input:focus + .checkmark {
@@ -53,16 +58,17 @@
     }
   </style>
 
-  <label class="radio radio--checked-{checked}">
+  <label class="radio" class:checked class:disabled>
     <input
       type="radio"
       bind:this={ref}
       bind:group={group}
-      value={value}
       on:click
       on:change
       on:focus
       on:blur
+      {disabled}
+      {value}
     />
     <span class="checkmark" />
     {#if hasLabel}

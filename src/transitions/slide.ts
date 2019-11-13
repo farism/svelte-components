@@ -2,7 +2,7 @@ import { easing } from 'ts-easing'
 
 const { outCubic } = easing
 
-export function fly(
+export function slide(
   node: HTMLElement,
   { delay = 0, duration = 400, easing = outCubic, x = 0, y = 0 }
 ) {

@@ -1,5 +1,7 @@
 <script>
   import { onMount } from 'svelte'
+  import { subYears } from 'date-fns'
+  import range from 'lodash/range'
 
   import Arrow from './components/Arrow'
   import ArrowContainer from './components/ArrowContainer'
@@ -10,6 +12,7 @@
   import Calendar from './components/Calendar'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
+  import DateInput from './components/DateInput'
   import Dropdown from './components/Dropdown'
   import DropdownItem from './components/DropdownItem'
   import Ellipses from './components/Ellipses'
@@ -27,8 +30,9 @@
   import Popover from './components/Popover'
   import Search from './components/Search'
   import Select from './components/Select'
-  import SelectItem from './components/SelectItem'
+  import SelectOption from './components/SelectOption'
   import Spinner from './components/Spinner'
+  import Switch from './components/Switch'
   import Tabs from './components/Tabs'
   import TextArea from './components/TextArea'
   import Toast from './components/Toast'
@@ -40,7 +44,7 @@
 
   let checkboxValue = true
   let radioValue = 0
-  let searchValue = 'this is a search'
+  let searchValue = ''
   let typeaheadValue = 'this is a typeahead'
   let shortModalOpen = false;
   let tallModalOpen = false;
@@ -59,6 +63,8 @@
   let selectSearch = 'select search'
   let loading = false
   let disabled = false
+  let calendarValue = subYears(new Date(), 50)
+  let selectValue = null
 
   function toggleLoading() {
     loading = !loading
@@ -360,7 +366,9 @@
 
           <br />
 
-          <Calendar value={new Date()} />
+          <Calendar bind:value={calendarValue} />
+
+          {calendarValue}
         </div>
       </div>
 
@@ -395,7 +403,22 @@
 
         <Checkbox bind:checked={checkboxValue} indeterminate={true} />
 
+        <br />
+
+        <Checkbox disabled />
+
+        <br />
+
+        <Checkbox disabled bind:checked={checkboxValue} />
+
         checked: {checkboxValue}
+      </div>
+
+      <div>
+        <h1>Date Input</h1>
+        <div>
+          <DateInput />
+        </div>
       </div>
 
       <div>
@@ -680,7 +703,7 @@
 
         <h3>Search</h3>
 
-        <Search bind:value={searchValue} />
+        <Search onSubmit={(value) => searchValue = value} />
 
         <div>search value: {searchValue}</div>
 
@@ -692,13 +715,19 @@
       <div>
         <h1>Select</h1>
         <div>
-          <Select placeholder="Select a value" onSelect={console.log} bind:search={selectSearch}>
-            <SelectItem value="item1">Item 1</SelectItem>
-            <SelectItem value="item2">Item 2</SelectItem>
-            <SelectItem value="item3">Item 3</SelectItem>
-            <SelectItem value="item4">Item 4</SelectItem>
-            <SelectItem value="item5">Item 5</SelectItem>
+          <Select
+            placeholder="Select Item"
+            bind:search={selectSearch}
+            bind:value={selectValue}
+          >
+            {#each range(1, 20) as i}
+              <SelectOption value="item {i}" selected={`item ${i}` === selectValue}>
+                Item {i}
+              </SelectOption>
+            {/each}
           </Select>
+
+          {selectValue}
 
           <br />
         </div>
@@ -717,6 +746,25 @@
               Spinner Body
             </div>
           </Spinner>
+        </div>
+      </div>
+
+      <div>
+        <h1>Switch</h1>
+        <div>
+          <Switch  />
+
+          <br/>
+
+          <Switch checked />
+
+          <br/>
+
+          <Switch disabled />
+
+          <br/>
+
+          <Switch checked disabled />
         </div>
       </div>
 
@@ -742,7 +790,7 @@
       <div>
         <h1>Tabs</h1>
         <div>
-          <Tabs bind:refs={tabRefs} tabs={tabs} active={tabs[5]} let:tab>
+          <Tabs bind:refs={tabRefs} tabs={tabs} active={tabs[tabs.length - 1]} let:tab>
             <a href="#">{tab}</a>
           </Tabs>
         </div>

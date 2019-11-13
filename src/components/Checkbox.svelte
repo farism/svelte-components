@@ -2,6 +2,7 @@
   import Icon from './Icon'
 
   export let checked = false
+  export let disabled = false;
   export let indeterminate = false;
 
   const hasLabel = !!($$props.$$slots && !!$$props.$$slots.default)
@@ -15,15 +16,10 @@
     display: flex;
   }
 
-  .checkbox--checked-true .checkmark {
-    background-color: var(--checkbox-checkmark-background-color-checked);
-    border-color: transparent;
-  }
-
   .checkmark {
     align-items: center;
     color: var(--checkbox-checkmark-color);
-    background-color: var(--checkbox-background-color);
+    background-color: var(--checkbox-checkmark-background-color);
     border-color: var(--checkbox-checkmark-border-color);
     border-radius: var(--checkbox-checkmark-border-radius);
     border-style: var(--checkbox-checkmark-border-style);
@@ -36,7 +32,7 @@
   }
 
   .indeterminate {
-    background: var(--checkbox-checkmark-color);
+    background-color: var(--checkbox-checkmark-color);
     display: block;
     height: 2px;
     width: 8px;
@@ -52,6 +48,19 @@
     position: absolute;;
   }
 
+  .checked {
+    --checkbox-checkmark-background-color: var(--checkbox-checkmark-background-color-checked);
+    --checkbox-checkmark-border-color: var(--checkbox-checkmark-border-color-checked);
+  }
+
+  .disabled {
+    --checkbox-checkmark-border-color: var(--checkbox-checkmark-border-color-disabled);
+  }
+
+  .checked.disabled {
+    --checkbox-checkmark-background-color: var(--checkbox-checkmark-background-color-disabled);
+  }
+
   input:focus + .checkmark {
     border-color: var(--focus-border-color);
     box-shadow: var(--focus-box-shadow);
@@ -59,15 +68,16 @@
   }
 </style>
 
-<label class="checkbox checkbox--checked-{checked}">
+<label class="checkbox" class:checked class:disabled>
   <input
     type="checkbox"
-    bind:checked={checked}
-    bind:indeterminate={indeterminate}
+    bind:checked
+    bind:indeterminate
     on:click
     on:change
     on:focus
     on:blur
+    {disabled}
   />
   <span class="checkmark">
     {#if indeterminate}

@@ -36,6 +36,7 @@
     border-radius: var(--button-border-radius);
     box-sizing: border-box;
     color: var(--button-color);
+    cursor: pointer;
     display: inline-flex;
     font-weight: 400;
     font-size: var(--button-font-size);
@@ -134,6 +135,7 @@
 
   .dropdown:not(.primary):not(.loading):disabled {
     --arrow-color-fill: var(--button-dropdown-color-disabled);
+    --arrow-color: var(--button-dropdown-color-disabled);
     --button-background-color: var(--button-dropdown-background-color-disabled);
     --button-border-color: var(--button-dropdown-border-color-disabled);
     --button-color: var(--button-dropdown-color-disabled);
@@ -141,6 +143,7 @@
 
   .dropdown .label {
     overflow: hidden;
+    text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -151,6 +154,7 @@
 
   .primary {
     --arrow-color-fill: var(--color-white-100);
+    --arrow-color: var(--color-white-100);
     --button-background-color: var(--button-primary-background-color);
     --button-border-color: var(--button-primary-border-color);
     --button-color: var(--button-primary-color);

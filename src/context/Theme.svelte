@@ -185,7 +185,7 @@
 
     --calendar-cell-border-radius: var(--border-radius-md);
     --calendar-cell-size: 36px;
-    --calendar-day-background-color-active: var(--color-blue-65);
+    --calendar-day-background-color-active: var(--color-blue-85);
     --calendar-day-background-color-disabled: var(--color-gray-20);
     --calendar-day-background-color-hover: var(--color-blue-20);
     --calendar-day-background-color: var(--color-white-100);
@@ -216,9 +216,12 @@
     --card-height: 100%;
     --card-transition: box-shadow 0.2s ease-in-out;
 
-    --checkbox-checkmark-background-color-checked: var(--color-blue-50);
     --checkbox-checkmark-background-color: var(--color-white-100);
+    --checkbox-checkmark-background-color-checked: var(--color-blue-50);
+    --checkbox-checkmark-background-color-disabled: var(--color-gray-50);
     --checkbox-checkmark-border-color: var(--color-gray-60);
+    --checkbox-checkmark-border-color-checked: transparent;
+    --checkbox-checkmark-border-color-disabled: var(--color-gray-50);
     --checkbox-checkmark-border-radius: var(--border-radius-sm);
     --checkbox-checkmark-border-style: solid;
     --checkbox-checkmark-border-width: 2px;
@@ -277,6 +280,7 @@
     --list-item-height: 28px;
     --list-item-background-color: var(--color-white-100);
     --list-item-background-color-hover: var(--color-gray-20);
+    --list-item-color: var(--color-gray-95);
     --list-item-color-active: var(--color-blue-65);
     --list-item-color-hover: var(--color-black-100);
     --list-item-padding: 0 var(--list-padding);
@@ -329,6 +333,22 @@
     --spinner-min-height: 150px;
     --spinner-overlay-background-color: var(--color-white-100);
 
+    --switch-background-color: var(--color-gray-60);
+    --switch-toggle-background-color-checked: var(--color-white-100);
+    --switch-toggle-background-color: var(--color-white-100);
+    --switch-toggle-border-radius: 100%;
+    --switch-toggle-box-shadow: var(--shadow-20);
+    --switch-toggle-size: var(--size-md);
+    --switch-track-background-color-checked-disabled: var(--color-gray-50);
+    --switch-track-background-color-checked: var(--color-blue-65);
+    --switch-track-background-color-disabled: var(--color-white-100);
+    --switch-track-background-color: var(--color-gray-60);
+    --switch-track-border-radius: var(--size-lg);
+    --switch-track-box-shadow: var(--shadow-20);
+    --switch-track-height: var(--size-lg);
+    --switch-track-padding: var(--size-2xs);
+    --switch-track-width: var(--size-2xl);
+
     --textarea-background-color: var(--input-background-color);
     --textarea-border-color: var(--input-border-color);
     --textarea-border-radius: var(--input-border-radius);
@@ -375,6 +395,7 @@
     --tooltip-background-color: rgba(19, 31, 51, 0.9);
     --tooltip-border-radius: var(--border-radius-md);
     --tooltip-color: var(--color-white-100);
+    --tooltip-font-size: 12px;
     --tooltip-max-width: 200px;
     --tooltip-padding-h: var(--size-md);
     --tooltip-padding-v: var(--size-sm);

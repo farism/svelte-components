@@ -236,9 +236,13 @@ export function fasten(
 
     const alignPosition = updaters.align[actualAlign](targetRect, nodeRect)
 
-    const { left = 0, top = 0 } = { ...alignPosition, ...edgePosition }
+    const pos = { ...alignPosition, ...edgePosition }
 
-    node.style.transform = `translate(${left || 0}px, ${top || 0}px)`
+    const top = Math.round(pos.top || 0)
+
+    const left = Math.round(pos.left || 0)
+
+    node.style.transform = `translate(${left}px, ${top}px)`
 
     // side effect here for dispatching
     actualPlacement = buildPlacementString([actualEdge, actualAlign])

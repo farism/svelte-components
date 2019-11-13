@@ -1,14 +1,16 @@
 <script>
-  import { afterUpdate, onDestroy, onMount } from 'svelte'
+  import { afterUpdate, onDestroy, onMount, tick } from 'svelte'
   import isEqual from 'lodash/isEqual'
   import throttle from 'lodash/throttle'
 
   import { getBoundingClientRect } from '../utils/getBoundingClientRect'
   import Arrow from './Arrow'
   import Card from './Card'
+  import List from './List'
+  import ListItem from './ListItem'
   import OverlayTrigger from './OverlayTrigger'
 
-  export let refs = { container: null, more: null, tabs: [] }
+  export let refs = {}
   export let active = null
   export let tabs = []
 
@@ -49,16 +51,26 @@
     })
   }
 
+  async function autofocus(node) {
+    await tick()
+
+    if(refs.list.search) {
+      refs.list.search.focus()
+    } else {
+      refs.list.root.focus()
+    }
+  }
+
   const throttledCheckOverflow = throttle(checkOverflow, 100)
 
   window.addEventListener('resize', throttledCheckOverflow)
 
-  onDestroy(function() {
-    window.removeEventListener('resize', throttledCheckOverflow)
-  })
-
   afterUpdate(function(){
     checkOverflow()
+  })
+
+  onDestroy(function() {
+    window.removeEventListener('resize', throttledCheckOverflow)
   })
 </script>
 
@@ -102,6 +114,10 @@
     padding-right: 0;
   }
 
+  .tab.more {
+    padding-right: 0;
+  }
+
   .tab.active .label {
     border-bottom-color: var(--tabs-border-color);
   }
@@ -131,6 +147,15 @@
     height: var(--tabs-label-line-height);
     margin-left: var(--size-sm);
   }
+
+  .more-overlay :global(a) {
+    text-decoration: none;
+    color: var(--list-item-color);
+  }
+
+  .more-overlay :global(.active a) {
+    color: var(--color-orange-60);
+  }
 </style>
 
 <div class="tabs" class:more-opened={moreOpened} bind:this="{refs.container}">
@@ -147,28 +172,43 @@
         </div>
       </div>
     {/each}
-    <OverlayTrigger placement="bottom-right" trigger="hover" bind:visible={moreOpened}>
-      <div
-        slot="trigger"
-        class="tab more"
-        class:overflow="{overflowingAt < 0}"
-        class:active="{overflowingContainsActive}"
-        bind:this="{refs.more}"
-      >
-        <div class="label">
-          <a>More</a>
+    <div>
+      <OverlayTrigger placement="bottom-right" trigger="click" bind:visible={moreOpened}>
+        <div
+          slot="trigger"
+          class="tab more"
+          class:overflow="{overflowingAt < 0}"
+          class:active="{overflowingContainsActive}"
+          bind:this="{refs.more}"
+        >
+          <div class="label">
+            <a>More</a>
+          </div>
+          <div class="more-arrow">
+            <Arrow down width={8} height={4} />
+          </div>
         </div>
-        <div class="more-arrow">
-          <Arrow down width={8} height={4} />
+        <div slot="overlay" class=more-overlay use:autofocus>
+          <Card>
+            <List bind:refs="{refs.list}">
+              {#each overflowingTabs as tab, i}
+                <ListItem active={i === activeIndex - (tabs.length - overflowingTabs.length)}>
+                  <slot {tab} />
+                </ListItem>
+              {/each}
+            </List>
+          </Card>
         </div>
-      </div>
-      <div slot="overlay">
-        <Card>
-          {#each overflowingTabs as tab, i}
-            <div>{tab}</div>
-          {/each}
-        </Card>
-      </div>
-    </OverlayTrigger>
+      </OverlayTrigger>
+    </div>
   </div>
 </div>
+
+10
+
+4 overflowing
+
+activeindex = 8
+
+
+8 - 6
