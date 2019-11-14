@@ -37,6 +37,7 @@
   import DropdownItem from './DropdownItem'
   import Icon from './Icon'
   import { OVERLAYTRIGGER_CONTEXT } from './OverlayTrigger'
+  import PaginationArrow from './PaginationArrow'
 
   export let refs = {}
   export let value = null
@@ -119,33 +120,7 @@
   }
 
   .pagination {
-    --icon-size: var(--size-sm);
-
-    align-items: center;
-    color: var(--calendar-pagination-color);
-    cursor: pointer;
-    display: inline-flex;
-    background: var(--calendar-pagination-background-color);
-    border: 1px solid var(--calendar-pagination-border-color);
-    border-radius: 100%;
-    flex: 0 0 auto;
-    height: var(--calendar-pagination-size);
-    justify-content: center;
-    line-height: 0;
     margin: 0 var(--calendar-header-pagination-spacing);
-    padding: 0;
-    width: var(--calendar-pagination-size);
-  }
-
-  .pagination:hover {
-    --calendar-pagination-background-color: var(--calendar-pagination-background-color-hover);
-    --calendar-pagination-color: var(--calendar-pagination-color-hover);
-  }
-
-  .pagination:focus {
-    border-color: var(--focus-border-color);
-    box-shadow: var(--focus-box-shadow);
-    outline: var(--focus-outline);
   }
 
   .dropdowns {
@@ -226,9 +201,9 @@
   <Card>
     <div class="container">
       <div class="header">
-        <button class="pagination" on:click={onClickPreviousMonth}>
-          <Icon icon="chevron-left" />
-        </button>
+        <div class="pagination">
+          <PaginationArrow left on:click={onClickPreviousMonth} />
+        </div>
         <div class="dropdowns">
           <div class="month-dropdown">
             <Dropdown bind:refs={refs.month} block onSelect={onSelectMonth} label={format(date, 'MMM')}>
@@ -249,9 +224,9 @@
             </Dropdown>
           </div>
         </div>
-        <button class="pagination" on:click={onClickNextMonth}>
-          <Icon icon="chevron-right" />
-        </button>
+        <div class="pagination">
+          <PaginationArrow right on:click={onClickNextMonth} />
+        </div>
       </div>
       <div class="week days-of-week">
         {#each range(0, 7) as i}

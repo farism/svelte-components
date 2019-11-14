@@ -13,6 +13,7 @@
   export let iconRight = ''
   export let lg = false
   export let loading = false
+  export let open = false
   export let outline = false
   export let secondary = false
   export let sm = false
@@ -45,6 +46,7 @@
     line-height: 20px;
     padding: var(--button-padding-v) var(--button-padding-h);
     position: relative;
+    user-select: none;
     transition: 0.2s background-color ease-out, 0.2s color ease-out;
   }
 
@@ -293,7 +295,7 @@
   {/if}
   {#if dropdown && !loading}
     <span class="arrow">
-      <Arrow down width={8} height={4} />
+      <Arrow up={open} down={!open} width={8} height={4} />
     </span>
   {/if}
 </button>

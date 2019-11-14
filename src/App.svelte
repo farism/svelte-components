@@ -23,12 +23,14 @@
   import List from './components/List'
   import ListGroup from './components/ListGroup'
   import ListItem from './components/ListItem'
-  import RadioButton from './components/RadioButton'
   import Input from './components/Input'
   import Modal from './components/Modal'
   import Notation from './components/Notation'
   import OverlayTrigger from './components/OverlayTrigger'
   import Popover from './components/Popover'
+  import PaginationArrow from './components/PaginationArrow'
+  import Pagination from './components/Pagination'
+  import RadioButton from './components/RadioButton'
   import Search from './components/Search'
   import Select from './components/Select'
   import SelectOption from './components/SelectOption'
@@ -73,6 +75,7 @@
   let selectValue = null
   let dateInputValue = new Date()
   let dateSelectValue = new Date()
+  let pageValue = 4
 
   function toggleLoading() {
     loading = !loading
@@ -700,6 +703,23 @@
       </div>
 
       <div>
+        <h1>Pagination Arrow</h1>
+
+        <div>
+          <PaginationArrow left />
+          <PaginationArrow right />
+        </div>
+      </div>
+
+      <div>
+        <h1>Pagination</h1>
+
+        <div>
+          <Pagination bind:page={pageValue} perPage={100} total={1200} />
+        </div>
+      </div>
+
+      <div>
         <h1>Popover</h1>
         <div>
           <Popover placement="right">
@@ -746,7 +766,6 @@
         <h1>Select</h1>
         <div>
           <Select
-            searchable
             placeholder="Select Item"
             bind:search={selectSearch}
             bind:value={selectValue}

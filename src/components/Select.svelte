@@ -18,12 +18,13 @@
   export let placeholder = ''
   export let placement = 'bottom-left'
   export let onSelect = noop
-  export let search = ''
-  export let searchable = false
+  export let search
   export let showDelay = 0
   export let trigger = 'click'
   export let value = null
   export let visible = false
+
+  $: open = visible
 
   let overlayTrigger = null
 
@@ -86,7 +87,7 @@
     bind:showDelay
   >
     <div slot="trigger" class="trigger">
-      <Button select dropdown {block} bind:ref="{refs.trigger}">
+      <Button dropdown {block} {open} bind:ref="{refs.trigger}">
         {label || placeholder}
       </Button>
     </div>
@@ -97,7 +98,7 @@
       use:matchwidth={{ target: refs.overlayTrigger.trigger }}
     >
       <Card>
-        <List {search} {searchable} onSelect="{onListSelect}" bind:refs="{refs.list}">
+        <List {search} onSelect="{onListSelect}" bind:refs="{refs.list}">
           <slot />
         </List>
       </Card>

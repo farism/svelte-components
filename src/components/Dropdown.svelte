@@ -20,10 +20,11 @@
   export let primary = false
   export let search = ''
   export let searchable = false
-  export let secondary = false
   export let showDelay = 0
   export let trigger = 'click'
   export let visible = false
+
+  $: open = visible
 
   let overlayTrigger = null
 
@@ -82,7 +83,7 @@
     bind:showDelay
   >
     <div slot="trigger" class="trigger">
-      <Button dropdown {block} {primary} {secondary} bind:this="{refs.trigger}">
+      <Button dropdown {block} {primary} {open} bind:this="{refs.trigger}">
         {label}
       </Button>
     </div>

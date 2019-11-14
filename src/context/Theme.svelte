@@ -202,12 +202,6 @@
     --calendar-header-margin-bottom: var(--size-md);
     --calendar-header-pagination-spacing: var(--size-sm);
     --calendar-padding: var(--size-md) var(--size-lg) var(--size-lg) var(--size-lg);
-    --calendar-pagination-background-color-hover: var(--color-gray-70);
-    --calendar-pagination-background-color: var(--color-white-100);
-    --calendar-pagination-border-color: var(--color-gray-70);
-    --calendar-pagination-color-hover: var(--color-white-100);
-    --calendar-pagination-color: var(--color-gray-70);
-    --calendar-pagination-size: var(--size-lg);
     --calendar-week-margin-bottom: var(--size-2xs);
 
     --card-background-color: var(--color-white-100);
@@ -310,6 +304,13 @@
     --modal-container-max-width: 640px;
     --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
     --modal-footer-margin-top: var(--size-3xl);
+
+    --pagination-arrow-background-color-hover: var(--color-gray-70);
+    --pagination-arrow-background-color: var(--color-white-100);
+    --pagination-arrow-border-color: var(--color-gray-70);
+    --pagination-arrow-color-hover: var(--color-white-100);
+    --pagination-arrow-color: var(--color-gray-70);
+    --pagination-arrow-size: var(--size-lg);
 
     --popover-background-color: var(--color-white-100);
     --popover-border-radius: var(--border-radius-md);
