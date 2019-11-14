@@ -233,6 +233,15 @@
     --clear-color: var(--color-gray-70);
     --clear-color-hover: var(--color-white-100);
 
+    --date-input-border-color: var(--color-gray-50);
+    --date-input-border-radius: var(--border-radius-md);
+    --date-input-border-width: 1px;
+    --date-input-delimiter-spacing: var(--size-2xs);
+    --date-input-icon-spacing: var(--size-sm);
+    --date-input-segment-background-color-focus: var(--color-blue-10);
+    --date-input-segment-background-color: var(--color-white-100);
+    --date-input-segment-height: 20px;
+
     --empty-state-buttons-spacing: var(--size-xl);
     --empty-state-image-max-width: 200px;
     --empty-state-message-spacing: var(--size-lg);

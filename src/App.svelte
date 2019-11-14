@@ -34,6 +34,11 @@
   import Spinner from './components/Spinner'
   import Switch from './components/Switch'
   import Tabs from './components/Tabs'
+  import Table from './components/Table'
+  import TableColumn from './components/TableColumn'
+  import TableHeader from './components/TableHeader'
+  import TableGroup from './components/TableGroup'
+  import TableRow from './components/TableRow'
   import TextArea from './components/TextArea'
   import Toast from './components/Toast'
   import Token from './components/Token'
@@ -65,6 +70,7 @@
   let disabled = false
   let calendarValue = subYears(new Date(), 50)
   let selectValue = null
+  let dateInputValue = new Date()
 
   function toggleLoading() {
     loading = !loading
@@ -418,6 +424,10 @@
         <h1>Date Input</h1>
         <div>
           <DateInput />
+
+          <br /><br />
+
+          <DateInput value={dateInputValue}/>
         </div>
       </div>
 
@@ -793,6 +803,32 @@
           <Tabs bind:refs={tabRefs} tabs={tabs} active={tabs[tabs.length - 1]} let:tab>
             <a href="#">{tab}</a>
           </Tabs>
+        </div>
+      </div>
+
+      <div>
+        <h1>Table</h1>
+        <div>
+          <Table>
+
+          </Table>
+          <TableHeader>
+
+          </TableHeader>
+          <TableGroup>
+
+          </TableGroup>
+          <TableRow>
+            <TableColumn>
+              column 1
+            </TableColumn>
+            <TableColumn>
+              column 2
+            </TableColumn>
+            <TableColumn>
+              column 3
+            </TableColumn>
+          </TableRow>
         </div>
       </div>
 

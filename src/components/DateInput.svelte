@@ -1,14 +1,5 @@
-<script>
-  import { getDaysInMonth } from 'date-fns'
-
-  import Clear from './Clear'
-  import DateInputSegment from './DateInputSegment'
-  import Icon from './Icon'
-
-  export let refs = {}
-  export let delimiter = '/'
-  export let disabled = false
-  export let value = null
+<script context="module">
+  const EMPTY_VALUES = [null, null, null]
 
   const SEGMENTS = {
     'en-AU':  ['day', 'month', 'year'],
@@ -23,57 +14,95 @@
     'pt':     ['day', 'month', 'year'],
     'th-TH':  ['day', 'month', 'year'],
   }
+</script>
+
+<script>
+  import { getDaysInMonth, isValid } from 'date-fns'
+
+  import Clear from './Clear'
+  import DateInputSegment from './DateInputSegment'
+  import Icon from './Icon'
+
+  export let refs = { segments: [] }
+  export let delimiter = '/'
+  export let disabled = false
+  export let value = null
+
+  const today = new Date()
 
   const locale = 'en'
 
   const segments = SEGMENTS[locale]
 
-  const segmentProps = [
-    { [segments[0]]: true },
-    { [segments[1]]: true },
-    { [segments[2]]: true },
-  ]
+  const month = segments.indexOf('month')
 
-  let month = null
+  const day = segments.indexOf('day')
 
-  let day = null
+  const year = segments.indexOf('year')
 
-  let year = null
+  let values = getValues(value)
 
-  $: isEditing = month !== null || day !== null || year !== null
+  function isIncomplete(values) {
+    return values.some(function(val) {
+      return val === null
+    })
+  }
 
-  $: isValid = month !== null && day !== null && year !== null
-
-  $: date = new Date(year, month, day)
-
-  function onChangeSegment({ detail }) {
-    if(detail.month) {
-      month = detail.value
-    } else if(detail.day) {
-      day = detail.day
-    } else if(detail.year) {
-      day = detail.year
+  function getValues(date) {
+    if (!date) {
+      return [null, null, null]
     }
+
+    const vals = []
+    vals[month] = date.getMonth() + 1
+    vals[day] = date.getDate()
+    vals[year] = date.getFullYear()
+
+    return vals
   }
 
   function onClickClear(e) {
-    month = day = year = null
+    value = null
+
+    values = [null, null, null]
+
+    if (refs.segments[0]) {
+      refs.segments[0].focus()
+    }
+  }
+
+  function onChange(event) {
+    values[segments.indexOf(event.type)] = event.value
+
+    // create a temporary date to check for max day clamping
+    const date = isIncomplete(values)
+      ? null
+      : new Date(values[year], values[month] - 1, 1)
+
+    // clamp the day if we have a valid value
+    if (date && values[day]) {
+      values[day] = Math.min(values[day], getDaysInMonth(date))
+    }
+
+    value = isIncomplete(values)
+      ? null
+      : new Date(values[year], values[month] - 1, values[day])
   }
 </script>
 
 <style>
   .date-input {
-    --date-input-border-color: var(--color-gray-50);
-    --date-input-border-radius: var(--border-radius-md);
-    --date-input-border-width: 1px;
-    --date-input-delimiter-spacing: var(--size-2xs);
-    --date-input-icon-spacing: var(--size-sm);
-
     align-items: center;
     border: var(--date-input-border-width) solid var(--date-input-border-color);
     border-radius: var(--date-input-border-radius);
     display: inline-flex;
     padding-left: var(--size-xs);
+  }
+
+  .date-input:focus-within {
+    border-color: var(--focus-border-color);
+    box-shadow: var(--focus-box-shadow);
+    outline: var(--focus-outline);
   }
 
   .delimiter {
@@ -85,33 +114,49 @@
   }
 </style>
 
-<div class="date-input {locale}" class:disabled>
+<br />
+
+{values[0]} / {values[1]} / {values[2]} : {value}
+
+<br />
+
+<div class="date-input" class:disabled>
   <DateInputSegment
     type={segments[0]}
-    bind:ref="{refs.segment0}"
-    on:change={onChangeSegment}
+    value={values[0]}
+    next={refs.segments[1]}
+    bind:ref={refs.segments[0]}
+    {onChange}
+    {locale}
   />
   <div class="delimiter">
     {delimiter}
   </div>
   <DateInputSegment
     type={segments[1]}
-    bind:ref="{refs.segment1}"
-    on:change={onChangeSegment}
+    value={values[1]}
+    prev={refs.segments[0]}
+    next={refs.segments[2]}
+    bind:ref={refs.segments[1]}
+    {onChange}
+    {locale}
   />
   <div class="delimiter">
     {delimiter}
   </div>
   <DateInputSegment
     type={segments[2]}
-    bind:ref="{refs.segment2}"
-    on:change={onChangeSegment}
+    value={values[2]}
+    prev={refs.segments[1]}
+    bind:ref={refs.segments[2]}
+    {onChange}
+    {locale}
   />
   <div class="icon">
-    {#if isEditing}
-      <Clear sm on:click={onClickClear} />
-    {:else}
+    {#if false}
       <Icon sm icon="calendar" />
+    {:else}
+      <Clear sm bind:ref={refs.clear} on:click={onClickClear} />
     {/if}
   </div>
 </div>

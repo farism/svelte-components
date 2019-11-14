@@ -2,10 +2,10 @@
 </script>
 
 <style>
-  .table-cell {
+  .table-header {
   }
 </style>
 
-<div class="table-cell">
+<div class="table-header">
   <slot />
 </div>
