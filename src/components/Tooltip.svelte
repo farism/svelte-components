@@ -3,6 +3,7 @@
   import ArrowContainer from './ArrowContainer'
   import OverlayTrigger from './OverlayTrigger'
 
+  export let refs = {}
   export let placement = 'top'
   export let trigger = 'hover'
   export let message = ''
@@ -10,8 +11,6 @@
   export let beforeShow = noop
   export let afterHide = noop
   export let afterShow = noop
-
-  let overlayTriggerRefs = {}
 
   function noop() {}
 </script>
@@ -45,7 +44,7 @@
 
 <div class="tooltip">
   <OverlayTrigger
-    bind:refs={overlayTriggerRefs}
+    bind:refs={refs.overlayTrigger}
     bind:placement
     bind:trigger
     bind:beforeHide
@@ -57,7 +56,7 @@
       <slot slot="trigger" name="trigger" />
     </div>
     <div slot="overlay" class="overlay" transition:flyplacement={{ placement }}>
-      <ArrowContainer {placement} target={overlayTriggerRefs.trigger}>
+      <ArrowContainer {placement} target={refs.overlayTrigger.trigger}>
         <span class="message">
           <slot name="message" />
         </span>

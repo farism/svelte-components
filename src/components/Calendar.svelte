@@ -30,18 +30,23 @@
   } from 'date-fns'
   import range from 'lodash/range'
   import chunk from 'lodash/chunk'
-  import { afterUpdate } from 'svelte'
+  import { getContext } from 'svelte'
 
   import Card from './Card'
   import Dropdown from './Dropdown'
   import DropdownItem from './DropdownItem'
   import Icon from './Icon'
+  import { OVERLAYTRIGGER_CONTEXT } from './OverlayTrigger'
 
+  export let refs = {}
   export let value = null
-  export let displayDate = new Date()
+  export let displayDate = null
   export let disabledDate = noop
+  export let onSelect = noop
 
-  $: date = displayDate
+  const overlayTriggerContext = getContext(OVERLAYTRIGGER_CONTEXT)
+
+  $: date = displayDate || new Date()
 
   $: month = date.getMonth()
 
@@ -87,6 +92,11 @@
 
   function onClickDay(e, day) {
     value = day
+
+    // TODO - find a way to move this into DateSelect
+    if (overlayTriggerContext) {
+      overlayTriggerContext.hide(e)
+    }
   }
 </script>
 
@@ -212,7 +222,7 @@
   }
 </style>
 
-<div class="calendar">
+<div class="calendar" bind:this={refs.root}>
   <Card>
     <div class="container">
       <div class="header">
@@ -221,7 +231,7 @@
         </button>
         <div class="dropdowns">
           <div class="month-dropdown">
-            <Dropdown block onSelect={onSelectMonth} label={format(date, 'MMM')}>
+            <Dropdown bind:refs={refs.month} block onSelect={onSelectMonth} label={format(date, 'MMM')}>
               {#each range(0, 12) as i}
                 <DropdownItem value={i} active={month === i}>
                   {formatMonth(i)}
@@ -230,7 +240,7 @@
             </Dropdown>
           </div>
           <div class="year-dropdown">
-            <Dropdown block onSelect={onSelectYear} label="{year}">
+            <Dropdown bind:refs={refs.year} block onSelect={onSelectYear} label="{year}">
               {#each range(startYear, endYear) as i}
                 <DropdownItem value={i} active={year === i}>
                   {i}
@@ -257,7 +267,7 @@
               class="day"
               class:today={isToday(day)}
               class:disabled={disabledDate(day)}
-              class:other-month={!isSameMonth(day, TODAY)}
+              class:other-month={!isSameMonth(day, date)}
               class:active={isSameDay(day, value)}
               on:click={function(e){
                 onClickDay(e, day)

@@ -1,12 +1,12 @@
 <script>
-  </script>
+</script>
 
-  <style>
-    .font {
+<style>
+  .font {
 
-    }
-  </style>
+  }
+</style>
 
-  <div class="font">
+<div class="font">
 
-  </div>
+</div>

@@ -18,20 +18,20 @@
   import { getDaysInMonth } from 'date-fns'
 
   export let ref = null
-  export let date = null
   export let locale = 'en'
   export let next = null
   export let onChange = noop
-  export let placeholder = ''
   export let prev = null
   export let type = null
   export let value = null
 
   let appending = false
 
-  $: label = value === null
-    ? PLACEHOLDERS[locale][type]
-    : String(value).padStart(type === 'year' ? 4 : 2, '0')
+  $: hasValue = value !== null
+
+  $: label = hasValue
+    ? zeroPad(value)
+    : PLACEHOLDERS[locale][type]
 
   let min = 1
 
@@ -50,6 +50,10 @@
 
   function update(value) {
     onChange({ type, value })
+  }
+
+  function zeroPad(value) {
+    return String(value).padStart(type === 'year' ? 4 : 2, '0')
   }
 
   function isNumberKey(key) {
@@ -79,8 +83,17 @@
   }
 
   function onKeyDown(e) {
+    const key = e.key
+
     if(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+      // prevent the default page scrolling behavior when using the arrow keys
       e.preventDefault()
+    }
+
+    if(e.key === 'ArrowDown') {
+      // if this DateInput is used as the trigger inside an <OverlayTrigger> component,
+      // we don't want to open it when pressing the down arrow
+      e.stopPropagation()
     }
 
     if(e.key === 'ArrowLeft' && prev) {
@@ -92,14 +105,13 @@
     } else if(e.key === 'ArrowDown') {
       update(wrap(-1))
     } else if(e.key === 'Backspace'){
-      // if the segment is empty then go to the previous segment
+      // if the segment is already empty then focus on the previous segment
       if(value === null && prev) {
         prev.focus()
       }
 
       update(null)
     } else if(isNumberKey(e.key)) {
-
       // treat the value like a string buffer and append the next digit
       const nextValue = Math.min(max, append(e.key, appending ? value : ''))
 
@@ -109,12 +121,12 @@
       // adding a digit to the current value will take us over the max
       const reachedMax = append('0', nextValue) > max
 
+      // if we cannot append anymore, then go to the next field
       if (next && (reachedLimit || reachedMax)) {
         next.focus()
       } else {
         appending = true
       }
-
 
       update(nextValue)
     }
@@ -136,7 +148,9 @@
 <style>
   .date-input-segment {
     background-color: var(--date-input-segment-background-color);
+    color: var(--date-input-segment-color);
     height: var(--date-input-segment-height);
+    line-height: var(--date-input-segment-height);
     outline: none;
     text-align: center;
     transition: 0.1s background-color ease-out
@@ -144,6 +158,11 @@
 
   .date-input-segment:focus {
     --date-input-segment-background-color: var(--date-input-segment-background-color-focus);
+    --date-input-segment-color: var(--date-input-segment-color-focus);
+  }
+
+  .has-value {
+    --date-input-segment-color: var(--date-input-segment-color-has-value);
   }
 
   .month {
@@ -161,6 +180,7 @@
 
 <div
   class="date-input-segment {type}"
+  class:has-value={hasValue}
   tabIndex="0"
   bind:this={ref}
   on:blur={onBlur}

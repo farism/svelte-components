@@ -1,7 +1,11 @@
 <svelte:options accessors={true} />
 
+<script context="module">
+  export const OVERLAYTRIGGER_CONTEXT = {}
+</script>
+
 <script>
-  import { get, setContext } from 'svelte/store'
+  import { setContext } from 'svelte'
   import { clickoutside } from '../actions/clickoutside'
   import { fasten } from '../actions/fasten'
   import { portal } from '../actions/portal'
@@ -19,7 +23,11 @@
   export let trigger = 'click'
   export let visible = false
 
-  // const setContext(OVERLAYTRIGGER_CONTEXT, {})
+  setContext(OVERLAYTRIGGER_CONTEXT, {
+    toggle,
+    show,
+    hide
+  })
 
   let originalPlacement = placement
 
@@ -84,13 +92,13 @@
       if (['ArrowDown', 'Down'].includes(e.key)) {
         e.preventDefault();
 
-        show()
+        show(e)
       } else if (['Escape', 'Esc'].includes(e.key)) {
-        hide()
+        hide(e)
       }
     } else if (isEventSource(refs.overlay, e)) {
       if (['Escape', 'Esc'].includes(e.key)) {
-        hide()
+        hide(e)
       }
     }
   }

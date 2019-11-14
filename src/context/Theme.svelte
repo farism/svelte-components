@@ -237,10 +237,15 @@
     --date-input-border-radius: var(--border-radius-md);
     --date-input-border-width: 1px;
     --date-input-delimiter-spacing: var(--size-2xs);
+    --date-input-font-size: 14px;
+    --date-input-height: var(--size-2xl);
     --date-input-icon-spacing: var(--size-sm);
     --date-input-segment-background-color-focus: var(--color-blue-10);
     --date-input-segment-background-color: var(--color-white-100);
-    --date-input-segment-height: 20px;
+    --date-input-segment-color: inherit;
+    --date-input-segment-color-has-value: var(--color-gray-95);
+    --date-input-segment-color-focus: var(--color-gray-95);
+    --date-input-segment-height: 24px;
 
     --empty-state-buttons-spacing: var(--size-xl);
     --empty-state-image-max-width: 200px;

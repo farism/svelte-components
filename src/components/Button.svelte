@@ -24,7 +24,7 @@
   const hasLabelSlot = checkSlot($$props)
 
   const iconOnly = icon && !hasLabelSlot
-  </script>
+</script>
 
 <style>
   .button {

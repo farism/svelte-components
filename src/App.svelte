@@ -13,6 +13,7 @@
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
   import DateInput from './components/DateInput'
+  import DateSelect from './components/DateSelect'
   import Dropdown from './components/Dropdown'
   import DropdownItem from './components/DropdownItem'
   import Ellipses from './components/Ellipses'
@@ -71,6 +72,7 @@
   let calendarValue = subYears(new Date(), 50)
   let selectValue = null
   let dateInputValue = new Date()
+  let dateSelectValue = new Date()
 
   function toggleLoading() {
     loading = !loading
@@ -80,16 +82,22 @@
     disabled = !disabled
   }
 
-  // $: console.log(typeaheadValue)
+  $: console.log(`typeahead: ${typeaheadValue}`)
+
+  $: console.log(`date input: ${dateInputValue}`)
 
   function calendarDisabledDate(date) {
     return date.getDate() === new Date().getDate() + 1
   }
 
   setTimeout(function(){
-    tabs[0] = 'this (012 fsa31 fafaf a)'
+    const d = new Date()
+    d.setDate(28)
+    d.setFullYear(2024)
 
-    console.log(dropdownSearch)
+    dateInputValue = d
+
+    tabs[0] = 'this (012 fsa31 fafaf a)'
   }, 5000)
 
   onMount(function(){
@@ -120,6 +128,7 @@
 <div style="padding: 100px 25px;">
   <Theme>
     <ZIndex initial={10}>
+      <div id="portal-container"></div>
       <div>
         <h1>Arrow</h1>
         <div>
@@ -427,7 +436,18 @@
 
           <br /><br />
 
-          <DateInput value={dateInputValue}/>
+          <DateInput bind:value={dateInputValue}/>
+        </div>
+      </div>
+
+      <div>
+        <h1>Date Select</h1>
+        <div>
+          <DateSelect />
+
+          <br /><br />
+
+          <DateSelect bind:value={dateSelectValue}/>
         </div>
       </div>
 

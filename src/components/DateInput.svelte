@@ -1,6 +1,4 @@
 <script context="module">
-  const EMPTY_VALUES = [null, null, null]
-
   const SEGMENTS = {
     'en-AU':  ['day', 'month', 'year'],
     'en-CA':  ['month', 'day', 'year'],
@@ -28,8 +26,6 @@
   export let disabled = false
   export let value = null
 
-  const today = new Date()
-
   const locale = 'en'
 
   const segments = SEGMENTS[locale]
@@ -40,7 +36,9 @@
 
   const year = segments.indexOf('year')
 
-  let values = getValues(value)
+  $: values = getValues(value)
+
+  $: isEmpty = values.every(val => val === null)
 
   function isIncomplete(values) {
     return values.some(function(val) {
@@ -50,7 +48,7 @@
 
   function getValues(date) {
     if (!date) {
-      return [null, null, null]
+      return values ? values : [null, null, null]
     }
 
     const vals = []
@@ -61,14 +59,20 @@
     return vals
   }
 
+  function onClickDateInput(e) {
+    if(refs.segments.every(ref => ref !== e.target)) {
+      refs.segments[0].focus()
+    }
+  }
+
   function onClickClear(e) {
+    e.preventDefault()
+
+    refs.segments[0].focus()
+
     value = null
 
     values = [null, null, null]
-
-    if (refs.segments[0]) {
-      refs.segments[0].focus()
-    }
   }
 
   function onChange(event) {
@@ -95,7 +99,10 @@
     align-items: center;
     border: var(--date-input-border-width) solid var(--date-input-border-color);
     border-radius: var(--date-input-border-radius);
+    color: var(--color-gray-75);
     display: inline-flex;
+    font-size: var(--date-input-font-size);
+    height: var(--date-input-height);
     padding-left: var(--size-xs);
   }
 
@@ -110,17 +117,15 @@
   }
 
   .icon {
-    margin: var(--date-input-icon-spacing);
+    --clear-color: var(--color-gray-75);
+    --icon-color: var(--color-gray-75);
+
+    cursor: pointer;
+    margin: 0 var(--date-input-icon-spacing);
   }
 </style>
 
-<br />
-
-{values[0]} / {values[1]} / {values[2]} : {value}
-
-<br />
-
-<div class="date-input" class:disabled>
+<div class="date-input" class:disabled on:click={onClickDateInput}>
   <DateInputSegment
     type={segments[0]}
     value={values[0]}
@@ -153,7 +158,7 @@
     {locale}
   />
   <div class="icon">
-    {#if false}
+    {#if isEmpty}
       <Icon sm icon="calendar" />
     {:else}
       <Clear sm bind:ref={refs.clear} on:click={onClickClear} />

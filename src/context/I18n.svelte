@@ -1,9 +1,9 @@
 <script>
-    import { setContext } from 'svelte'
+  import { setContext } from 'svelte'
 
-    setContext('I18n', zIndex)
-  </script>
+  setContext('I18n', zIndex)
+</script>
 
-  <div>
-    <slot />
-  </div>
+<div>
+  <slot />
+</div>

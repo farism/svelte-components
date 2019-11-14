@@ -7,7 +7,7 @@ export function portal(node: HTMLElement) {
   const ZIndexContext = getContext('ZIndex')
 
   if (ZIndexContext) {
-    nextZIndex = get(ZIndexContext)
+    nextZIndex = get(ZIndexContext) + 1
 
     ZIndexContext.set(nextZIndex)
   }
@@ -18,4 +18,10 @@ export function portal(node: HTMLElement) {
   node.style.zIndex = nextZIndex.toString()
 
   document.body.appendChild(node)
+
+  return {
+    destroy: function() {
+      node.remove()
+    },
+  }
 }
