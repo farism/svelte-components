@@ -24,6 +24,7 @@
     line-height: 0;
     margin: 0 var(--header-pagination-arrow-spacing);
     padding: 0;
+    transition: 0.2s background-color ease-out, 0.2s color ease-out;
     width: var(--pagination-arrow-size);
   }
 

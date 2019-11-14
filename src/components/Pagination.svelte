@@ -21,13 +21,14 @@
   }
 
   function onClickNextPage(e) {
-    page = Math.min(total - 1, page + 1)
+    page = Math.min(pages - 1, page + 1)
   }
 </script>
 
 <style>
   .pagination {
     align-items: center;
+    cursor: default;
     display: inline-flex;
   }
 
@@ -48,16 +49,17 @@
   }
 
   .spacer {
-    height: 44px;
+    height: var(--size-sm);
   }
 
   .select-last-page {
     background: var(--color-white-100);
     border-top: 1px solid var(--color-gray-50);
-    padding: var(--size-sm) 0;
+    box-shadow: var(--shadow-20);
+    padding: var(--size-xs) 0;
     position: absolute;
     width: 100%;
-    top: calc(100% - 8px);
+    top: calc(100% - 1px);
   }
 
   .arrows {

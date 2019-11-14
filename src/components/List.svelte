@@ -134,7 +134,7 @@
 	.items {
     flex: 1 1 auto;
     overflow: auto;
-    margin: var(--list-items-margin);
+    padding: var(--list-items-padding);
   }
 
   .footer {

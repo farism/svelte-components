@@ -51,33 +51,33 @@ interface FastenParams {
 
 const validators: Validators = {
   edge: {
-    top: function(container, target, overlay) {
+    top: function (container, target, overlay) {
       return target.top - container.top >= overlay.height
     },
-    right: function(container, target, overlay) {
+    right: function (container, target, overlay) {
       return container.width - target.right >= overlay.width
     },
-    bottom: function(container, target, overlay) {
+    bottom: function (container, target, overlay) {
       return container.height - target.bottom >= overlay.height
     },
-    left: function(container, target, overlay) {
+    left: function (container, target, overlay) {
       return target.left - container.left >= overlay.width
     },
   },
   align: {
-    top: function(container, target, overlay) {
+    top: function (container, target, overlay) {
       return container.height - target.top >= overlay.height
     },
-    right: function(container, target, overlay) {
+    right: function (container, target, overlay) {
       return target.right - container.left >= overlay.width
     },
-    bottom: function(container, target, overlay) {
+    bottom: function (container, target, overlay) {
       return target.bottom - container.top >= overlay.height
     },
-    left: function(container, target, overlay) {
+    left: function (container, target, overlay) {
       return container.width - target.left >= overlay.width
     },
-    center: function() {
+    center: function () {
       return true
     },
   },
@@ -85,33 +85,33 @@ const validators: Validators = {
 
 const updaters: Updaters = {
   edge: {
-    top: function(target, overlay) {
+    top: function (target, overlay) {
       return { top: target.top - overlay.height }
     },
-    right: function(target, overlay) {
+    right: function (target, overlay) {
       return { left: target.right }
     },
-    bottom: function(target, overlay) {
+    bottom: function (target, overlay) {
       return { top: target.bottom }
     },
-    left: function(target, overlay) {
+    left: function (target, overlay) {
       return { left: target.left - overlay.width }
     },
   },
   align: {
-    top: function(target, overlay) {
+    top: function (target, overlay) {
       return { top: target.top }
     },
-    right: function(target, overlay) {
+    right: function (target, overlay) {
       return { left: target.right - overlay.width }
     },
-    bottom: function(target, overlay) {
+    bottom: function (target, overlay) {
       return { top: target.bottom - overlay.height }
     },
-    left: function(target, overlay) {
+    left: function (target, overlay) {
       return { left: target.left }
     },
-    center: function(target, overlay) {
+    center: function (target, overlay) {
       return {
         left: target.left + (target.width - overlay.width) / 2,
         top: target.top + (target.height - overlay.height) / 2,
@@ -254,13 +254,13 @@ export function fasten(
     }
   }
 
+  setPosition()
+
   const throttledSetPosition = throttle(setPosition, 16)
 
   window.addEventListener('resize', throttledSetPosition)
 
   document.addEventListener('scroll', throttledSetPosition)
-
-  setPosition()
 
   return {
     destroy() {
