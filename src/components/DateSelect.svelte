@@ -1,10 +1,9 @@
 <script>
-  import { getContext } from 'svelte'
-
+  import { flyplacement } from '../transitions/flyplacement'
   import { isEventSource } from '../utils/isEventSource'
   import Calendar from './Calendar'
   import DateInput from './DateInput'
-  import OverlayTrigger, { OVERLAYTRIGGER_CONTEXT } from './OverlayTrigger'
+  import OverlayTrigger from './OverlayTrigger'
 
   export let refs = {}
   export let placement = 'bottom-left'
@@ -15,14 +14,12 @@
   export let afterShow = noop
   export let value = null
 
-  let overlayTrigger
-
   function noop() {}
 
   function onBeforeHide(e) {
     // If the calendar is already open, clicking onto the date select should not
-    // close it, i.e. override the default <OverlayTrigger trigger="click"> functionality
-    if (isEventSource(refs.dateSelect, e.detail)) {
+    // hide, i.e. override the default <OverlayTrigger trigger="click"> functionality
+    if (isEventSource(refs.dateSelect, e)) {
       return false
     }
 
@@ -30,17 +27,13 @@
     // from them will trigger a clickoutside/hide event. So we need to check if
     // they were clicked and prevent hiding if so.
     if (
-      isEventSource(refs.calendar.month.overlayTrigger.overlay, e.detail) ||
-      isEventSource(refs.calendar.year.overlayTrigger.overlay, e.detail)
+      isEventSource(refs.calendar.month.overlayTrigger.overlay, e) ||
+      isEventSource(refs.calendar.year.overlayTrigger.overlay, e)
     ) {
       return false
     }
-  }
 
-  function onCalendarSelect() {
-    const ctx = getContext(OVERLAYTRIGGER_CONTEXT)
-
-    console.log(ctx)
+    return beforeHide(e)
   }
 </script>
 
@@ -56,7 +49,6 @@
 
 <div class="date-select" bind:this={refs.dateSelect}>
   <OverlayTrigger
-    bind:this={overlayTrigger}
     bind:refs={refs.overlayTrigger}
     bind:placement
     bind:trigger
@@ -71,10 +63,9 @@
         bind:refs={refs.dateInput}
       />
     </div>
-    <div slot="overlay" class="overlay">
+    <div slot="overlay" class="overlay" transition:flyplacement={{ placement }}>
       <Calendar
         displayDate={value}
-        onSelect={onCalendarSelect}
         bind:value
         bind:refs={refs.calendar}
       />

@@ -45,6 +45,7 @@
     line-height: 20px;
     padding: var(--button-padding-v) var(--button-padding-h);
     position: relative;
+    transition: 0.2s background-color ease-out, 0.2s color ease-out;
   }
 
   .block {

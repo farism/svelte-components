@@ -103,6 +103,10 @@
     }
   }
 
+  function onClickOutside(e) {
+    hide(e.detail)
+  }
+
   function onFastenFlip(e) {
     placement = e.detail.placement
   }
@@ -140,7 +144,7 @@
     use:clickoutside
     use:fasten={{ padding: 2, placement: placement, target: refs.trigger }}
     on:fastenflip={onFastenFlip}
-    on:clickoutside={hide}
+    on:clickoutside={onClickOutside}
     on:mouseenter={onMouseEnter}
     on:mouseleave={onMouseLeave}
     on:keydown={onKeyDown}

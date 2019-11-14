@@ -66,7 +66,9 @@
   }
 
   function onClickClear(e) {
-    e.preventDefault()
+    // If this component is being used in an OverlayTrigger, we don't want
+    // the event to propagate or it will cause it to hide
+    e.stopPropagation()
 
     refs.segments[0].focus()
 
@@ -78,7 +80,7 @@
   function onChange(event) {
     values[segments.indexOf(event.type)] = event.value
 
-    // create a temporary date to check for max day clamping
+    // create a temporary date using current year and month to check for max day
     const date = isIncomplete(values)
       ? null
       : new Date(values[year], values[month] - 1, 1)

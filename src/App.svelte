@@ -746,6 +746,7 @@
         <h1>Select</h1>
         <div>
           <Select
+            searchable
             placeholder="Select Item"
             bind:search={selectSearch}
             bind:value={selectValue}

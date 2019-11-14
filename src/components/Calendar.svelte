@@ -42,7 +42,6 @@
   export let value = null
   export let displayDate = null
   export let disabledDate = noop
-  export let onSelect = noop
 
   const overlayTriggerContext = getContext(OVERLAYTRIGGER_CONTEXT)
 
@@ -124,6 +123,7 @@
 
     align-items: center;
     color: var(--calendar-pagination-color);
+    cursor: pointer;
     display: inline-flex;
     background: var(--calendar-pagination-background-color);
     border: 1px solid var(--calendar-pagination-border-color);

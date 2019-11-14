@@ -18,6 +18,8 @@
 
   function clear() {
     value = ''
+
+    onSubmit(value)
   }
 
   function onKeydown(e) {
@@ -55,10 +57,6 @@
     width: var(--search-width);
 	}
 
-  .search--typeahead-false .search {
-    cursor: pointer;
-  }
-
   .search--icon-count-1 :global(input) {
     padding-right: calc(var(--input-padding-h) + var(--search-icon-size));
   }
@@ -93,6 +91,15 @@
     line-height: 0;
     margin-left: var(--search-spacing);
     pointer-events: initial;
+    transition: 0.2s color ease-out;
+  }
+
+  .search-icon.has-value:not(.typeahead) {
+    cursor: pointer;
+  }
+
+  .search-icon.has-value:not(.typeahead):hover {
+    color: var(--color-gray-95);
   }
 
   :global(input) {
@@ -100,7 +107,7 @@
   }
 </style>
 
-<div class="search search--icon-count-{iconCount} search--typeahead-{typeahead}">
+<div class="search search--icon-count-{iconCount}">
   <Input
     bind:ref
     bind:value
@@ -113,7 +120,12 @@
       </span>
     {/if}
     {#if showSearch}
-      <span class="search-icon" on:click={onClickSearchIcon}>
+      <span
+        class="search-icon"
+        class:typeahead
+        class:has-value={!isEmpty}
+        on:click={onClickSearchIcon}
+      >
         <Icon icon="search" sm />
       </span>
     {/if}

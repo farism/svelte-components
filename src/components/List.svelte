@@ -15,8 +15,7 @@
 
   export let refs = {}
   export let onSelect = noop
-  export let search = ''
-  export let searchable = false
+  export let search
 
   const hasHeaderSlot = checkSlot($$props, 'header')
 
@@ -155,7 +154,7 @@
 </style>
 
 <div class="list" bind:this={refs.root} on:keydown={onKeydown} tabindex="-1">
-	{#if searchable}
+	{#if search !== undefined}
 		<div class="search">
 			<Search typeahead bind:ref={refs.search} bind:value={search} />
 		</div>

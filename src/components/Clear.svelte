@@ -19,6 +19,7 @@
     display: flex;
     flex: 0 0 auto;
     padding: 0;
+    transition: 0.1s background-color ease-out, 0.1s color ease-out;
   }
 
   button:hover {
