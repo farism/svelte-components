@@ -46,7 +46,7 @@
   export function show(e) {
     clearTimeout(timer)
 
-    if(visible) {
+    if (visible) {
       return
     }
 
@@ -64,7 +64,7 @@
   export function hide(e) {
     clearTimeout(timer)
 
-    if(!visible) {
+    if (!visible) {
       return
     }
 

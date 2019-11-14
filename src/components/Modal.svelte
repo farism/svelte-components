@@ -22,7 +22,7 @@
   function noop() {}
 
   function onClickScrim(e) {
-    if(scrimClose) {
+    if (scrimClose) {
       open = false
 
       onClose(e)

@@ -31,7 +31,7 @@
   }
 
   onMount(function() {
-    if(active || suggested) {
+    if (active || suggested) {
       setHovered(item, true)
     }
   })

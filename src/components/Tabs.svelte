@@ -54,7 +54,7 @@
   async function autofocus(node) {
     await tick()
 
-    if(refs.list.search) {
+    if (refs.list.search) {
       refs.list.search.focus()
     } else {
       refs.list.root.focus()

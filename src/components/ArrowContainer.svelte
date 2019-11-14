@@ -41,27 +41,27 @@
 
         const height = Math.min(rect1.height, rect2.height)
 
-        if(placement === 'top' || placement === 'bottom') {
+        if (placement === 'top' || placement === 'bottom') {
           arrowRef.style.left = `calc(50% - ${arrowWidth / 2}px)`
         }
 
-        if(placement === 'top-left' || placement === 'bottom-left') {
+        if (placement === 'top-left' || placement === 'bottom-left') {
           arrowRef.style.left = `calc(${width / 2}px - ${arrowWidth / 2}px)`
         }
 
-        if(placement === 'top-right' || placement === 'bottom-right') {
+        if (placement === 'top-right' || placement === 'bottom-right') {
           arrowRef.style.right = `calc(${width / 2}px - ${arrowWidth / 2}px)`
         }
 
-        if(placement === 'left' || placement === 'right') {
+        if (placement === 'left' || placement === 'right') {
           arrowRef.style.top = `calc(50% - ${arrowHeight / 2}px`
         }
 
-        if(placement === 'left-top' || placement === 'right-top') {
+        if (placement === 'left-top' || placement === 'right-top') {
           arrowRef.style.top = `calc(${height / 2}px - ${arrowHeight / 2}px)`
         }
 
-        if(placement === 'left-bottom' || placement === 'right-bottom') {
+        if (placement === 'left-bottom' || placement === 'right-bottom') {
           arrowRef.style.bottom = `calc(${height / 2}px - ${arrowHeight / 2}px)`
         }
       }

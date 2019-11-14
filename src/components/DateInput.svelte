@@ -60,7 +60,7 @@
   }
 
   function onClickDateInput(e) {
-    if(refs.segments.every(ref => ref !== e.target)) {
+    if (refs.segments.every(ref => ref !== e.target)) {
       refs.segments[0].focus()
     }
   }

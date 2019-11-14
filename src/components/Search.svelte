@@ -23,11 +23,11 @@
   }
 
   function onKeydown(e) {
-    if(e.key === 'Escape') {
+    if (e.key === 'Escape') {
       clear()
     }
 
-    if(!typeahead && e.key === 'Enter') {
+    if (!typeahead && e.key === 'Enter') {
       onSubmit(value, e)
     }
   }
@@ -40,7 +40,7 @@
   }
 
   function onClickSearchIcon(e) {
-    if(!typeahead) {
+    if (!typeahead) {
       onSubmit(value, e)
     }
 

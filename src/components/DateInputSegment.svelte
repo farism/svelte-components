@@ -68,14 +68,14 @@
 
   function wrap(adjuster) {
     if (!value) {
-      if(type === 'year') {
+      if (type === 'year') {
         return new Date().getFullYear()
       }
 
       return adjuster > 0 ? 1 : max
-    } else if(adjuster > 0 && value === max) {
+    } else if (adjuster > 0 && value === max) {
       return min
-    } else if(adjuster < 0 && value === min) {
+    } else if (adjuster < 0 && value === min) {
       return max
     }
 
@@ -85,33 +85,33 @@
   function onKeyDown(e) {
     const key = e.key
 
-    if(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
       // prevent the default page scrolling behavior when using the arrow keys
       e.preventDefault()
     }
 
-    if(e.key === 'ArrowDown') {
+    if (e.key === 'ArrowDown') {
       // if this DateInput is used as the trigger inside an <OverlayTrigger> component,
       // we don't want to open it when pressing the down arrow
       e.stopPropagation()
     }
 
-    if(e.key === 'ArrowLeft' && prev) {
+    if (e.key === 'ArrowLeft' && prev) {
       prev.focus()
-    } else if(e.key === 'ArrowRight' && next) {
+    } else if (e.key === 'ArrowRight' && next) {
       next.focus()
-    } else if(e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp') {
       update(wrap(1))
-    } else if(e.key === 'ArrowDown') {
+    } else if (e.key === 'ArrowDown') {
       update(wrap(-1))
-    } else if(e.key === 'Backspace'){
+    } else if (e.key === 'Backspace'){
       // if the segment is already empty then focus on the previous segment
-      if(value === null && prev) {
+      if (value === null && prev) {
         prev.focus()
       }
 
       update(null)
-    } else if(isNumberKey(e.key)) {
+    } else if (isNumberKey(e.key)) {
       // treat the value like a string buffer and append the next digit
       const nextValue = Math.min(max, append(e.key, appending ? value : ''))
 

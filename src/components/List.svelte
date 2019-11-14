@@ -44,7 +44,7 @@
   function setHovered(item, autoScroll = false) {
     hovered.set(item)
 
-    if(autoScroll) {
+    if (autoScroll) {
       scrollToHovered()
     }
   }
@@ -89,16 +89,16 @@
 
   function onKeydown(e) {
 
-    if(e.key === 'ArrowUp') {
+    if (e.key === 'ArrowUp') {
       e.preventDefault()
 
       setHoveredToPrevItem()
-    } else if(e.key === 'ArrowDown') {
+    } else if (e.key === 'ArrowDown') {
       e.preventDefault()
 
       setHoveredToNextItem()
-    } else if(e.key === 'Enter') {
-      if(hovered) {
+    } else if (e.key === 'Enter') {
+      if (hovered) {
         e.preventDefault()
 
         onSelect(get(hovered), e)
