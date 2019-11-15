@@ -18,7 +18,7 @@
   export let onSelect = noop
   export let placement = 'bottom-left'
   export let primary = false
-  export let search
+  export let search = null
   export let searchable = false
   export let showDelay = 0
   export let trigger = 'click'

@@ -21,7 +21,7 @@
   }
 
   function onClickNextPage(e) {
-    page = Math.min(pages - 1, page + 1)
+    page = Math.min(pages, page + 1)
   }
 </script>
 
@@ -33,7 +33,8 @@
   }
 
   .notation {
-
+    position: relative;
+    top: 1px;
   }
 
   .label {
@@ -98,7 +99,7 @@
     </Select>
   </div>
   <div class="arrows">
-    <PaginationArrow left on:click={onClickPrevPage} />
-    <PaginationArrow right on:click={onClickNextPage} />
+    <PaginationArrow left disabled={page === 1} on:click={onClickPrevPage} />
+    <PaginationArrow right disabled={page === pages} on:click={onClickNextPage} />
   </div>
 </div>

@@ -1,11 +1,14 @@
 <script>
+  import { checkSlot } from '../utils/checkSlot'
   import Icon from './Icon'
 
   export let checked = false
+  export let group = []
   export let disabled = false;
   export let indeterminate = false;
+  export let tooltip = ''
 
-  const hasLabel = !!($$props.$$slots && !!$$props.$$slots.default)
+  const hasLabel = checkSlot($$props, 'default')
 </script>
 
 <style>
@@ -70,14 +73,15 @@
 
 <label class="checkbox" class:checked class:disabled>
   <input
-    type="checkbox"
-    bind:checked
-    bind:indeterminate
-    on:click
-    on:change
-    on:focus
-    on:blur
     {disabled}
+    bind:checked
+    bind:group
+    bind:indeterminate
+    on:blur
+    on:change
+    on:click
+    on:focus
+    type="checkbox"
   />
   <span class="checkmark">
     {#if indeterminate}

@@ -5,29 +5,29 @@
 
   export let icon = ''
   export let onDismiss = null
-  export let size = 'sm'
-  export let variant = 'none'
-
-  const icons = {
-    action: 'warning-triangle-o',
-    error: 'warning-triangle-o',
-    info: 'info-circle-o',
-    success: 'check-circle',
-  }
+  export let action = false
+  export let error = false
+  export let info = false
+  export let success = false
 
   const hasButtonsSlot = checkSlot($$props, 'buttons')
 
-  let iconName = icon || icons[variant]
+  const iconName = icon
+    || (action && 'warning-triangle-o')
+    || (error && 'warning-triangle-o')
+    || (info && 'info-circle-o')
+    || (success && 'check-circle')
 
   function onClickDismiss(e) {
-    onDismiss()
+    onDismiss(e)
   }
 </script>
 
 <style>
   .banner {
-    --button-primary-background-color: var(--banner-accent1-color);
     --button-primary-background-color-hover: var(--color-gray-95);
+    --button-primary-background-color: var(--banner-accent1-color);
+    --button-primary-border-color-hover: var(--button-primary-border-color);
     --button-primary-border-color: var(--color-gray-95);
     --button-primary-color-hover: var(--banner-accent1-color);
     --button-primary-color: var(--color-gray-95);
@@ -41,25 +41,24 @@
     display: flex;
     padding: var(--banner-padding);
     position: relative;
-
   }
 
-  .banner--action {
+  .action {
     --banner-accent1-color: var(--banner-accent1-color-action);
     --banner-accent2-color: var(--banner-accent2-color-action);
   }
 
-  .banner--error {
+  .error {
     --banner-accent1-color: var(--banner-accent1-color-error);
     --banner-accent2-color: var(--banner-accent2-color-error);
   }
 
-  .banner--info {
+  .info {
     --banner-accent1-color: var(--banner-accent1-color-info);
     --banner-accent2-color: var(--banner-accent2-color-info);
   }
 
-  .banner--success {
+  .success {
     --banner-accent1-color: var(--banner-accent1-color-success);
     --banner-accent2-color: var(--banner-accent2-color-success);
   }
@@ -100,11 +99,9 @@
 
     margin-left: var(--banner-spacing);
   }
-
-
 </style>
 
-<div class="banner banner--{variant}">
+<div class="banner" class:action class:error class:info class:success>
   <div class="icon">
     <Icon icon={iconName} />
   </div>

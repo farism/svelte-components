@@ -76,10 +76,7 @@
 
 <style>
   .tabs {
-    --tabs-border-color: var(--color-orange-60);
-    --tabs-border-width: var(--size-2xs);
-    --tabs-height: calc(var(--size-xl) + var(--tabs-border-width));
-    --tabs-label-line-height: 20px;
+
   }
 
   .tabs.overflowing .more {
@@ -148,6 +145,10 @@
     margin-left: var(--size-sm);
   }
 
+  .more-overlay {
+    --list-max-height: 300px;
+  }
+
   .more-overlay :global(a) {
     text-decoration: none;
     color: var(--list-item-color);
@@ -203,12 +204,3 @@
     </div>
   </div>
 </div>
-
-10
-
-4 overflowing
-
-activeindex = 8
-
-
-8 - 6

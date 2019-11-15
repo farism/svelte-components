@@ -18,7 +18,7 @@
   export let placeholder = ''
   export let placement = 'bottom-left'
   export let onSelect = noop
-  export let search
+  export let search = null
   export let showDelay = 0
   export let trigger = 'click'
   export let value = null

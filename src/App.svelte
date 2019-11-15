@@ -9,6 +9,7 @@
   import Banner from './components/Banner'
   import Breadcrumbs from './components/Breadcrumbs'
   import Button from './components/Button'
+  import ButtonGroup from './components/ButtonGroup'
   import Calendar from './components/Calendar'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
@@ -30,6 +31,8 @@
   import Popover from './components/Popover'
   import PaginationArrow from './components/PaginationArrow'
   import Pagination from './components/Pagination'
+  import Radio from './components/Radio'
+  import RadioGroup from './components/RadioGroup'
   import RadioButton from './components/RadioButton'
   import Search from './components/Search'
   import Select from './components/Select'
@@ -43,6 +46,7 @@
   import TableGroup from './components/TableGroup'
   import TableRow from './components/TableRow'
   import TextArea from './components/TextArea'
+  import TextEditor from './components/TextEditor'
   import Toast from './components/Toast'
   import Token from './components/Token'
   import Tooltip from './components/Tooltip'
@@ -51,21 +55,19 @@
   import { autofocus } from './actions/autofocus'
 
   let checkboxValue = true
-  let radioValue = 0
+  let radioValue = 1
   let searchValue = ''
   let typeaheadValue = 'this is a typeahead'
   let shortModalOpen = false;
   let tallModalOpen = false;
   let arrowRef = null
   let arrowContainerRef = null
-  let tabs = ['this', 'is', 'a', 'set', 'of', 'random', 'strings', 'that', 'become', 'tabs']
+  let tabs = getItems(50)
   let tabRefs = {
     container: null,
     tabs: [],
   }
-  const listItems = Array.from(Array(100)).map(function(_, i) {
-    return `item ${i}`
-  })
+  let listItems = getItems(100)
   let listSearch = 'search value'
   let dropdownSearch = 'dropdown search'
   let selectSearch = 'select search'
@@ -76,6 +78,13 @@
   let dateInputValue = new Date()
   let dateSelectValue = new Date()
   let pageValue = 4
+  let buttonGroup = ['red', 'blue', 'green']
+
+  function getItems(size) {
+    return range(0, size).map(function(i) {
+      return `item ${i}`
+    })
+  }
 
   function toggleLoading() {
     loading = !loading
@@ -100,7 +109,7 @@
 
     dateInputValue = d
 
-    tabs[0] = 'this (012 fsa31 fafaf a)'
+    tabs[0] = `${tabs[0]} appended extra content to to make overflow`
   }, 5000)
 
   onMount(function(){
@@ -124,14 +133,9 @@
   }
 </style>
 
-<svelte:head>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,500,700,900" rel="stylesheet">
-</svelte:head>
-
 <div style="padding: 100px 25px;">
   <Theme>
     <ZIndex initial={10}>
-      <div id="portal-container"></div>
       <div>
         <h1>Arrow</h1>
         <div>
@@ -207,7 +211,7 @@
 
         <br />
 
-        <Banner variant="action">
+        <Banner action>
           <div slot="title">
             This is a banner title
           </div>
@@ -222,7 +226,7 @@
 
         <br />
 
-        <Banner variant="error">
+        <Banner error>
           <div slot="title">
             This is a banner title
           </div>
@@ -237,7 +241,7 @@
 
         <br />
 
-        <Banner variant="info">
+        <Banner info>
           <div slot="title">
             This is a banner title
           </div>
@@ -252,7 +256,7 @@
 
         <br />
 
-        <Banner variant="success">
+        <Banner success>
           <div slot="title">
             This is a banner title
           </div>
@@ -375,7 +379,15 @@
         </div>
       </div>
 
-      <h1>ButtonGroup</h1>
+      <div>
+        <h1>ButtonGroup</h1>
+
+        <ButtonGroup buttons={buttonGroup} let:button let:index>
+          <button>
+            {button} {index}
+          </button>
+        </ButtonGroup>
+      </div>
 
       <div>
         <h1>Calendar</h1>
@@ -734,18 +746,62 @@
       </div>
 
       <div>
-        <h1>RadioButton</h1>
-        <RadioButton bind:group={radioValue} value={0}>
+        <h1>Radio</h1>
+        <Radio bind:group={radioValue} value={0}>
           hello world
-        </RadioButton>
+        </Radio>
+
+        <Radio bind:group={radioValue} value={1}>
+          hello world
+        </Radio>
 
         <br />
 
-        <div style="display:flex;">
-          <RadioButton bind:group={radioValue} value={1} /> custom label
-        </div>
+        <!-- <div style="display:flex;">
+          <Radio bind:group={radioValue} value={1} /> custom label
+        </div> -->
 
         selected: {radioValue}
+      </div>
+
+
+      <div>
+        <h1>RadioGroup</h1>
+
+        <input type="radio" />
+
+        <input type="radio" />
+
+        <input type="radio" />
+
+        <input type="radio" />
+
+        <RadioGroup name="radio-group-1">
+          <RadioButton value="1" tooltip="test">
+            button 1
+          </RadioButton>
+          <RadioButton value="2" disabled tooltip="disabled still works">
+            button 2
+          </RadioButton>
+          <RadioButton value="3">
+            button 3
+          </RadioButton>
+        </RadioGroup>
+
+        <br />
+        <br />
+
+        <RadioGroup value="2" name="radio-group-2">
+          <RadioButton value="1">
+            button 1
+          </RadioButton>
+          <RadioButton value="2">
+            button 2
+          </RadioButton>
+          <RadioButton value="3">
+            button 3
+          </RadioButton>
+        </RadioGroup>
       </div>
 
       <div>
@@ -840,7 +896,7 @@
       <div>
         <h1>Tabs</h1>
         <div>
-          <Tabs bind:refs={tabRefs} tabs={tabs} active={tabs[tabs.length - 1]} let:tab>
+          <Tabs bind:refs={tabRefs} tabs={tabs} active={tabs[Math.max(5, tabs.length - 10)]} let:tab>
             <a href="#">{tab}</a>
           </Tabs>
         </div>
@@ -890,6 +946,16 @@
           <div class="table-row">
             <TextArea value="Table row shows resize on hover with css vars" />
           </div>
+        </div>
+      </div>
+
+      <div>
+        <h1>TextEditor</h1>
+
+        <div>
+          <TextEditor />
+
+          <TextEditor />
         </div>
       </div>
 

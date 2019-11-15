@@ -47,7 +47,7 @@
     padding: var(--button-padding-v) var(--button-padding-h);
     position: relative;
     user-select: none;
-    transition: 0.2s background-color ease-out, 0.2s color ease-out;
+    transition: 0.1s background-color ease-out, 0.1s color ease-out;
   }
 
   .block {

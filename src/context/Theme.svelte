@@ -305,9 +305,12 @@
     --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
     --modal-footer-margin-top: var(--size-3xl);
 
+    --pagination-arrow-background-color-disabled: var(--color-white-100);
     --pagination-arrow-background-color-hover: var(--color-gray-70);
     --pagination-arrow-background-color: var(--color-white-100);
+    --pagination-arrow-border-color-disabled: var(--color-gray-20);
     --pagination-arrow-border-color: var(--color-gray-70);
+    --pagination-arrow-color-disabled: var(--color-gray-50);
     --pagination-arrow-color-hover: var(--color-white-100);
     --pagination-arrow-color: var(--color-gray-70);
     --pagination-arrow-size: var(--size-lg);
@@ -319,6 +322,18 @@
     --popover-padding-v: var(--size-lg);
     --popover-webkit-dropshadow: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.23)) drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.16));
     --popover-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
+
+    --radio-button-background-color-active: var(--color-blue-50);
+    --radio-button-background-color-disabled: var(--color-gray-50);
+    --radio-button-border-color-active: var(--color-blue-50);
+    --radio-button-border-color-disabled: var(--color-gray-50);
+    --radio-button-border-color: var(--color-gray-50);
+    --radio-button-border-radius: var(--border-radius-md);
+    --radio-button-border-width: 1px;
+    --radio-button-color-active: var(--color-white-100);
+    --radio-button-color-disabled: var(--color-white-100);
+    --radio-button-height: 32px;
+    --radio-button-padding: 0 var(--size-md);
 
     --radio-checkmark-background-color: var(--color-white-100);
     --radio-checkmark-border-color: var(--color-gray-60);
@@ -363,6 +378,11 @@
     --switch-track-height: var(--size-lg);
     --switch-track-padding: var(--size-2xs);
     --switch-track-width: var(--size-2xl);
+
+    --tabs-border-color: var(--color-orange-60);
+    --tabs-border-width: var(--size-2xs);
+    --tabs-height: calc(var(--size-xl) + var(--tabs-border-width));
+    --tabs-label-line-height: 20px;
 
     --textarea-background-color: var(--input-background-color);
     --textarea-border-color: var(--input-border-color);

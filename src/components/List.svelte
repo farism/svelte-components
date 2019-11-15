@@ -25,8 +25,6 @@
 
   const hovered = writable(null)
 
-  setContext(LIST_CONTEXT, { onSelect, registerItem, setHovered, hovered })
-
   function noop() {}
 
   function registerItem(item) {
@@ -106,6 +104,7 @@
     }
   }
 
+  setContext(LIST_CONTEXT, { onSelect, registerItem, setHovered, hovered })
 </script>
 
 <style>
@@ -154,7 +153,7 @@
 </style>
 
 <div class="list" bind:this={refs.root} on:keydown={onKeydown} tabindex="-1">
-	{#if search !== undefined}
+	{#if search !== null}
 		<div class="search">
 			<Search typeahead bind:ref={refs.search} bind:value={search} />
 		</div>

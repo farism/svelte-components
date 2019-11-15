@@ -9,6 +9,7 @@
   import { clickoutside } from '../actions/clickoutside'
   import { fasten } from '../actions/fasten'
   import { portal } from '../actions/portal'
+  import { checkSlot } from '../utils/checkSlot'
   import { isEventSource } from '../utils/isEventSource'
   import { wrapPromise } from '../utils/wrapPromise'
 
@@ -28,6 +29,8 @@
     show,
     hide
   })
+
+  const hasOverlay = checkSlot($$props, 'overlay')
 
   let originalPlacement = placement
 
@@ -136,7 +139,7 @@
   <slot name="trigger" />
 </span>
 
-{#if visible}
+{#if hasOverlay && visible}
   <div
     class="overlay"
     bind:this={refs.overlay}

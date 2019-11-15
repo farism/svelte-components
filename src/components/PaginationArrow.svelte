@@ -1,6 +1,7 @@
 <script>
   import Icon from './Icon'
 
+  export let disabled = false
   export let left = false
   export let right = false
 
@@ -33,6 +34,14 @@
     --pagination-arrow-color: var(--pagination-arrow-color-hover);
   }
 
+  .pagination-arrow:disabled {
+    --pagination-arrow-background-color: var(--pagination-arrow-background-color-disabled);
+    --pagination-arrow-border-color: var(--pagination-arrow-border-color-disabled);
+    --pagination-arrow-color: var(--pagination-arrow-color-disabled);
+
+    cursor: default;
+  }
+
   .pagination-arrow:focus {
     border-color: var(--focus-border-color);
     box-shadow: var(--focus-box-shadow);
@@ -40,6 +49,6 @@
   }
 </style>
 
-<button class="pagination-arrow" on:click>
+<button class="pagination-arrow" {disabled} on:click>
   <Icon icon="chevron-{icon}" />
 </button>

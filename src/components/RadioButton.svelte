@@ -1,79 +1,126 @@
 <script>
-  import Icon from './Icon'
+  import { getContext } from 'svelte'
+  import { get } from 'svelte/store'
+
+  import Ellipses from './Ellipses'
+  import Tooltip from './Tooltip'
+  import { RADIO_GROUP_CONTEXT } from './RadioGroup'
 
   export let ref = null
   export let disabled = false;
-  export let group = ''
+  export let tooltip = ''
   export let value = ''
 
-  const checked = group === value;
+  const context = getContext(RADIO_GROUP_CONTEXT)
 
-  const hasLabel = !!($$props.$$slots && !!$$props.$$slots.default)
+  const isDisabled = context.disabled || disabled
+
+  const name = context.name
+
+  const group = context.group
 </script>
 
 <style>
-  .radio {
-    align-items: center;
-    display: flex;
+  .radio-button {}
+
+  .active,
+  .radio-button:hover {
+    --radio-button-border-color: var(--radio-button-border-color-active);
   }
 
-  .checkmark {
+  .button {
     align-items: center;
-    color: var(--radio-checkmark-color);
-    background-color: var(--radio-checkmark-background-color);
-    border-color: var(--radio-checkmark-border-color);
-    border-radius: 100%;
-    border-style: var(--radio-checkmark-border-style);
-    border-width: var(--radio-checkmark-border-width);
-    box-sizing: border-box;
+    background: var(--radio-button-background-color);
+    border: var(--radio-button-border-width) solid var(--radio-button-border-color);
+    color: var(--radio-button-color);
     display: flex;
-    justify-content: center;
-    width: var(--radio-checkmark-size);
-    height: var(--radio-checkmark-size);
+    height: var(--radio-button-height);
+    padding: var(--radio-button-padding);
+
+    /* these must come after border */
+    border-left-width: 0;
+    border-right-width: 0;
   }
 
-  .label {
-    line-height: 0;
-    margin-left: var(--radio-spacing);
+  .border {
+    background: var(--radio-button-border-color);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: var(--radio-button-border-width);
+  }
+
+  .left {
+    left: 0;
+  }
+
+  .right {
+    right: -1px;
   }
 
   input {
     opacity: 0;
-    position: absolute;;
+    pointer-events: none;
+    position: absolute;
   }
 
-  .checked .checkmark {
-    --radio-checkmark-border-color: var(--color-blue-50);
-    --radio-checkmark-border-width: 6px;
+  input:checked + .button {
+    --radio-button-background-color: var(--radio-button-background-color-active);
+    --radio-button-color: var(--radio-button-color-active);
   }
 
-  .disabled {
-
-  }
-
-  input:focus + .checkmark {
+  input:focus + .button {
     border-color: var(--focus-border-color);
     box-shadow: var(--focus-box-shadow);
     outline: var(--focus-outline);
   }
+
+  input:checked + .button .right,
+  input:focus + .button .right {
+    display: none;
+  }
+
+  .disabled {
+    --radio-button-background-color: var(--radio-button-background-color-disabled);
+    --radio-button-border-color: var(--radio-button-border-color-disabled);
+    --radio-button-color: var(--radio-button-color-disabled);
+
+    pointer-events: none;
+  }
 </style>
 
-<label class="radio" class:checked class:disabled>
-  <input
-    type="radio"
-    bind:this={ref}
-    bind:group={group}
-    on:click
-    on:change
-    on:focus
-    on:blur
-    {disabled}
-    {value}
-  />
-  <span class="checkmark" />
-  {#if hasLabel}
-    <span class="label">
-      <slot />
+{#if tooltip}
+  <Tooltip>
+    <span slot="trigger">
+      <svelte:self tooltip={null} {disabled} {value}>
+        <slot />
+      </svelte:self>
     </span>
-  {/if}
-</label>
+    <span slot="message">
+      {tooltip}
+    </span>
+  </Tooltip>
+{:else}
+  <div
+    class="radio-button"
+    class:active={$group === value}
+    class:disabled={isDisabled}
+  >
+  <label>
+    <input
+      {name}
+      {value}
+      bind:group={$group}
+      disabled={isDisabled}
+      type="radio"
+    />
+    <div class="button">
+      <div class="border left"></div>
+      <Ellipses>
+        <slot />
+      </Ellipses>
+      <div class="border right"></div>
+    </div>
+  </label>
+  </div>
+{/if}

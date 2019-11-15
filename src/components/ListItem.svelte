@@ -88,12 +88,12 @@
 </style>
 
 <div
-  class="list-item"
+  bind:this={ref}
   class:active
   class:hovered="{$hovered === item}"
-  bind:this={ref}
-  on:mousemove={onMouseMove}
+  class="list-item"
   on:click={onClick}
+  on:mousemove={onMouseMove}
 >
   {#if hasLeftSlot}
     <div class="left">
