@@ -12,6 +12,10 @@
     --size-3xl: 48px;
     --size-4xl: 64px;
 
+    --border-radius-sm: 1px;
+    --border-radius-md: 2px;
+    --border-radius-lg: 4px;
+
     --color-black-100: #000000;
     --color-blue-10: #f0f6fe;
     --color-blue-20: #dcedff;
@@ -47,10 +51,6 @@
     --color-yellow-70: #d6ab27;
     --color-yellow-80: #c29816;
 
-    --border-radius-sm: 1px;
-    --border-radius-md: 2px;
-    --border-radius-lg: 4px;
-
     --shadow-10: -4px 0 5px rgba(112, 112, 112, 0.1);
     --shadow-20: 0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
     --shadow-30: 0 1px 4px rgba(40, 40, 40, 0.2), 0 0 3px rgba(40, 40, 40, 0.14), 0 2px 3px rgba(40, 40, 40, 0.12);
@@ -60,6 +60,12 @@
     --focus-border-color: var(--color-blue-50);
     --focus-box-shadow: 0 0 0 2px var(--color-blue-20);
     --focus-outline: none;
+
+    --display-mode-block: block;
+    --display-mode-flex: flex;
+    --display-mode-inline-block: inline-block;
+    --display-mode-inline-flex: inline-flex;
+    --display-mode: var(--display-mode-inline-block);
 
     /* COMPONENTS */
     --arrow-color: var(--color-black-100);
@@ -111,18 +117,18 @@
     --breadcrumbs-crumb-active-color: var(--color-gray-95);
     --breadcrumbs-spacing: 0 var(--size-sm);
 
-    --button-background-color: var(--color-black-100);
-    --button-background-color-hover: var(--color-white-80);
     --button-background-color-disabled: var(--color-gray-50);
-    --button-border-color: transparent;
-    --button-border-color-hover: transparent;
+    --button-background-color-hover: var(--color-white-80);
+    --button-background-color: var(--color-black-100);
     --button-border-color-disabled: var(--color-gray-50);
+    --button-border-color-hover: transparent;
+    --button-border-color: transparent;
     --button-border-radius: var(--border-radius-md);
     --button-border-style: solid;
     --button-border-width: 1px;
-    --button-color: var(--color-white-100);
-    --button-color-hover: var(--color-white-100);
     --button-color-disabled: var(--color-gray-50);
+    --button-color-hover: var(--color-white-100);
+    --button-color: var(--color-white-100);
     --button-font-size-lg: 14px;
     --button-font-size-md: 14px;
     --button-font-size-sm: 12px;
@@ -136,6 +142,8 @@
     --button-size-md: 32px;
     --button-size-sm: 24px;
     --button-size: var(--button-size-md);
+    --button-width: auto;
+
     --button-primary-background-color: var(--color-orange-60);
     --button-primary-background-color-hover: var(--color-orange-70);
     --button-primary-background-color-disabled: var(--color-gray-50);
@@ -172,9 +180,9 @@
     --button-form-color: var(--color-white-100);
     --button-form-color-hover: var(--color-white-100);
     --button-form-color-disabled: var(--color-white-100);
-    --button-dropdown-background-color: trasn;
-    --button-dropdown-background-color-hover: trasn;
-    --button-dropdown-background-color-disabled: trasn;
+    --button-dropdown-background-color: transparent;
+    --button-dropdown-background-color-hover: transparent;
+    --button-dropdown-background-color-disabled: transparent;
     --button-dropdown-border-color: var(--color-gray-50);
     --button-dropdown-border-color-hover: var(--color-gray-50);
     --button-dropdown-border-color-disabled: var(--color-gray-20);
@@ -223,8 +231,8 @@
     --checkbox-checkmark-size: var(--size-lg);
     --checkbox-spacing: var(--size-sm);
 
-    --clear-background-color-hover: var(--color-gray-70);
-    --clear-color: var(--color-gray-70);
+    --clear-background-color-hover: var(--color-gray-75);
+    --clear-color: var(--color-gray-75);
     --clear-color-hover: var(--color-white-100);
 
     --date-input-border-color: var(--color-gray-50);
@@ -436,6 +444,14 @@
     --tooltip-padding-v: var(--size-sm);
     --tooltip-webkit-dropshadow: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.23)) drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.16));
     --tooltip-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
+
+
+    --select-display-mode: inline-block;
+    --radio-group-display-mode: inline-flex;
+    --radio-button-display-mode: inline-flex;
+    --overlay-trigger-display-mode: inline-block;
+    --popover-display-mode: inline-block;
+    --tooltip-display-mode: inline-block;
   }
 </style>
 

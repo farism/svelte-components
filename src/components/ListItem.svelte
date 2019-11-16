@@ -16,7 +16,13 @@
 
   const hasRightSlot = checkSlot($$props, 'right')
 
-  const { hovered, onSelect, registerItem, setHovered } = getContext(LIST_CONTEXT)
+  const {
+    hovered,
+    multiple,
+    onSelect,
+    registerItem,
+    setHovered,
+  } = getContext(LIST_CONTEXT)
 
   const item = { group: false, value }
 
@@ -32,7 +38,7 @@
 
   onMount(function() {
     if (active || suggested) {
-      setHovered(item, true)
+      setHovered(item, !multiple)
     }
   })
 </script>

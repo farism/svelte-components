@@ -9,7 +9,6 @@
   import Banner from './components/Banner'
   import Breadcrumbs from './components/Breadcrumbs'
   import Button from './components/Button'
-  import ButtonGroup from './components/ButtonGroup'
   import Calendar from './components/Calendar'
   import Card from './components/Card'
   import Checkbox from './components/Checkbox'
@@ -26,6 +25,7 @@
   import ListItem from './components/ListItem'
   import Input from './components/Input'
   import Modal from './components/Modal'
+  import MultiSelect from './components/MultiSelect'
   import Notation from './components/Notation'
   import OverlayTrigger from './components/OverlayTrigger'
   import Popover from './components/Popover'
@@ -79,6 +79,9 @@
   let dateSelectValue = new Date()
   let pageValue = 4
   let buttonGroup = ['red', 'blue', 'green']
+  let multiselectOptions = getItems(100)
+  let multiselectSearch = ''
+  let multiselectValue = multiselectOptions.slice(0, 10)
 
   function getItems(size) {
     return range(0, size).map(function(i) {
@@ -109,7 +112,7 @@
 
     dateInputValue = d
 
-    tabs[0] = `${tabs[0]} appended extra content to to make overflow`
+    tabs[0] = `${tabs[0]} (appended extra content to to make overflow)`
   }, 5000)
 
   onMount(function(){
@@ -377,16 +380,6 @@
           <Button {loading} {disabled} primary dropdown iconRight="cog">Label goes here</Button>
           <Button {loading} {disabled} primary dropdown icon="cog">Label goes here dropdown should ellipses</Button>
         </div>
-      </div>
-
-      <div>
-        <h1>ButtonGroup</h1>
-
-        <ButtonGroup buttons={buttonGroup} let:button let:index>
-          <button>
-            {button} {index}
-          </button>
-        </ButtonGroup>
       </div>
 
       <div>
@@ -672,6 +665,16 @@
       </div>
 
       <div>
+        <h1>MultiSelect</h1>
+
+        <MultiSelect
+          bind:search={multiselectSearch}
+          bind:value={multiselectValue}
+          options={multiselectOptions}
+        />
+      </div>
+
+      <div>
         <h1>Notation</h1>
         <Notation required>
           * this field is required
@@ -742,6 +745,18 @@
               This is a click popover
             </div>
           </Popover>
+
+          <br />
+          <br />
+
+          <Popover block placement="right">
+            <span slot="trigger">
+              <Button>Click</Button>
+            </span>
+            <div slot="message">
+              This is a click popover
+            </div>
+          </Popover>
         </div>
       </div>
 
@@ -751,15 +766,19 @@
           hello world
         </Radio>
 
+        <br />
+        <br />
+
         <Radio bind:group={radioValue} value={1}>
           hello world
         </Radio>
 
         <br />
+        <br />
 
-        <!-- <div style="display:flex;">
+        <div style="display:flex;">
           <Radio bind:group={radioValue} value={1} /> custom label
-        </div> -->
+        </div>
 
         selected: {radioValue}
       </div>
@@ -780,11 +799,14 @@
           <RadioButton value="1" tooltip="test">
             button 1
           </RadioButton>
-          <RadioButton value="2" disabled tooltip="disabled still works">
+          <RadioButton value="2">
             button 2
           </RadioButton>
-          <RadioButton value="3">
+          <RadioButton value="3" disabled tooltip="disabled still works">
             button 3
+          </RadioButton>
+          <RadioButton value="4">
+            button 4
           </RadioButton>
         </RadioGroup>
 
@@ -799,6 +821,21 @@
             button 2
           </RadioButton>
           <RadioButton value="3">
+            button 3
+          </RadioButton>
+        </RadioGroup>
+
+        <br />
+        <br />
+
+        <RadioGroup block value="2" name="radio-group-3">
+          <RadioButton value="1">
+            button 1
+          </RadioButton>
+          <RadioButton value="2">
+            button 2
+          </RadioButton>
+          <RadioButton value="3" tooltip="block tooltip test">
             button 3
           </RadioButton>
         </RadioGroup>
@@ -836,6 +873,28 @@
           {selectValue}
 
           <br />
+          <br />
+
+          <Tooltip block>
+            <div slot="trigger">
+              <Select
+                placeholder="Select Item"
+                bind:search={selectSearch}
+                bind:value={selectValue}
+                block
+              >
+                {#each range(1, 20) as i}
+                  <SelectOption value="item {i}" selected={`item ${i}` === selectValue}>
+                    Item {i}
+                  </SelectOption>
+                {/each}
+              </Select>
+            </div>
+            <div slot="message">
+              This is a tooltip on a select
+            </div>
+          </Tooltip>
+
         </div>
       </div>
 

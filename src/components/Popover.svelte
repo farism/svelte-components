@@ -4,13 +4,14 @@
   import OverlayTrigger from './OverlayTrigger'
 
   export let refs = {}
-  export let placement = 'top'
-  export let trigger = 'click'
-  export let message = ''
-  export let beforeHide = noop
-  export let beforeShow = noop
   export let afterHide = noop
   export let afterShow = noop
+  export let beforeHide = noop
+  export let beforeShow = noop
+  export let block = false;
+  export let message = ''
+  export let placement = 'top'
+  export let trigger = 'click'
 
   function noop() {}
 </script>
@@ -19,6 +20,10 @@
   .popover {}
 
   .trigger {}
+
+  .block {
+    --overlay-trigger-display-mode: block;
+  }
 
   .overlay {
     --arrow-color: transparent;
@@ -41,7 +46,7 @@
   }
 </style>
 
-<div class="popover">
+<div class="popover" class:block>
   <OverlayTrigger
     bind:refs={refs.overlayTrigger}
     bind:placement

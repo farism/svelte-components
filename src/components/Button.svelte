@@ -48,9 +48,10 @@
     position: relative;
     user-select: none;
     transition: 0.1s background-color ease-out, 0.1s color ease-out;
+    width: var(--button-width);
   }
 
-  .block {
+  .button.block {
     max-width: 100%;
     width: 100%;
   }
@@ -66,15 +67,15 @@
   }
 
   .icon-only.sm {
-    width: var(--button-size-sm);
+    --button-width: var(--button-size-sm);
   }
 
   .icon-only.md {
-    width: var(--button-size-md);
+    --button-width: var(--button-size-md);
   }
 
   .icon-only.lg {
-    width: var(--button-size-lg);
+    --button-width: var(--button-size-lg);
   }
 
   .spinner {

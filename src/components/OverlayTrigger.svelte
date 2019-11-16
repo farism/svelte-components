@@ -117,8 +117,7 @@
 
 <style>
   .trigger {
-    display: inline-flex;
-    flex: 1 1 auto;
+    display: var(--overlay-trigger-display-mode);
   }
 
   .overlay {
@@ -128,7 +127,7 @@
   }
 </style>
 
-<span
+<div
   class="trigger"
   bind:this={refs.trigger}
   on:click={onClick}
@@ -137,7 +136,7 @@
   on:keydown={onKeyDown}
 >
   <slot name="trigger" />
-</span>
+</div>
 
 {#if hasOverlay && visible}
   <div

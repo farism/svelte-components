@@ -21,11 +21,16 @@
 </script>
 
 <style>
-  .radio-button {}
+  .radio-button {
+  }
 
   .active,
   .radio-button:hover {
     --radio-button-border-color: var(--radio-button-border-color-active);
+  }
+
+  .trigger {
+    display: var(--display-mode);
   }
 
   .button {
@@ -36,6 +41,7 @@
     display: flex;
     height: var(--radio-button-height);
     padding: var(--radio-button-padding);
+    text-align: center;
 
     /* these must come after border */
     border-left-width: 0;
@@ -75,7 +81,6 @@
     outline: var(--focus-outline);
   }
 
-  input:checked + .button .right,
   input:focus + .button .right {
     display: none;
   }

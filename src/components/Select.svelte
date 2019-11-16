@@ -24,9 +24,9 @@
   export let value = null
   export let visible = false
 
-  $: open = visible
+  let overlayTrigger
 
-  let overlayTrigger = null
+  $: open = visible
 
   function noop() {}
 
@@ -56,13 +56,16 @@
 </script>
 
 <style>
-  .select {}
-
-  .block,
-  .block .trigger {
-    display: inline-flex;
-    flex: 1 1 auto;
+  .select {
+    display: var(--select-display-mode);
   }
+
+  .block {
+    --select-display-mode: block;
+    --overlay-trigger-display-mode: block;
+  }
+
+  .trigger {}
 
   .overlay {}
 
@@ -74,8 +77,8 @@
 
 <div class="select" class:block bind:this="{refs.root}">
   <OverlayTrigger
-    bind:this="{overlayTrigger}"
-    bind:refs="{refs.overlayTrigger}"
+    bind:this={overlayTrigger}
+    bind:refs={refs.overlayTrigger}
     bind:placement
     bind:trigger
     bind:visible
@@ -85,9 +88,10 @@
     bind:afterShow
     bind:hideDelay
     bind:showDelay
+    {block}
   >
     <div slot="trigger" class="trigger">
-      <Button dropdown {block} {open} bind:ref="{refs.trigger}">
+      <Button dropdown bind:ref={refs.trigger} {open} {block}>
         {label || placeholder}
       </Button>
     </div>
@@ -98,7 +102,7 @@
       use:matchwidth={{ target: refs.overlayTrigger.trigger }}
     >
       <Card>
-        <List {search} onSelect="{onListSelect}" bind:refs="{refs.list}">
+        <List bind:refs={refs.list} onSelect={onListSelect} {search}>
           <slot />
         </List>
       </Card>

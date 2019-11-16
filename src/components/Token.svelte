@@ -20,6 +20,7 @@
     background-color: var(--token-background-color);
     border: 1px solid transparent;
     border-radius: calc(var(--token-height) / 2);
+    box-sizing: border-box;
     color: var(--token-color);
     cursor: default;
     display: inline-flex;

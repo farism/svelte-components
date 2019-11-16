@@ -24,12 +24,17 @@
 <style>
   .radio-group {
     align-items: center;
-    display: inline-flex;
+    display: var(--radio-group-display-mode);
   }
 
   .block {
-    display: flex;
-    width: 100%;
+    --overlay-trigger-display-mode: block;
+    --radio-group-display-mode: flex;
+    --radio-button-display-mode: block;
+  }
+
+  .block > :global(*) {
+    flex: 1 1 auto;
   }
 
   .radio-group > :global(*) {
@@ -41,6 +46,7 @@
     z-index: 2;
   }
 
+  .radio-group > :global(*.active),
   .radio-group > :global(*:focus-within) {
     z-index: 3;
   }
@@ -63,10 +69,6 @@
     border-right-width: 1px;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
-  }
-
-  .radio-group > :global(.tooltip:focus-within) {
-
   }
 </style>
 

@@ -1,3 +1,5 @@
+<svelte:options accessors={true} />
+
 <script context="module">
   export const LIST_CONTEXT = {};
 </script>
@@ -11,11 +13,10 @@
 	import ListItem from './ListItem'
   import Search from './Search'
 
-  let className = ''
-
   export let refs = {}
+  export let multiple = false
   export let onSelect = noop
-  export let search
+  export let search = null
 
   const hasHeaderSlot = checkSlot($$props, 'header')
 
@@ -85,8 +86,7 @@
     scrollElementIntoView(index, element)
   }
 
-  function onKeydown(e) {
-
+  export function onKeydown(e) {
     if (e.key === 'ArrowUp') {
       e.preventDefault()
 
@@ -104,7 +104,7 @@
     }
   }
 
-  setContext(LIST_CONTEXT, { onSelect, registerItem, setHovered, hovered })
+  setContext(LIST_CONTEXT, { onSelect, registerItem, setHovered, hovered, multiple })
 </script>
 
 <style>

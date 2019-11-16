@@ -3,6 +3,7 @@
   import ArrowContainer from './ArrowContainer'
   import OverlayTrigger from './OverlayTrigger'
 
+
   export let refs = {}
   export let block = false
   export let placement = 'top'
@@ -21,11 +22,11 @@
   .tooltip {}
 
   .trigger {
-    display: inline-flex;
+
   }
 
   .block {
-    display: flex;
+    --overlay-trigger-display-mode: block;
   }
 
   .overlay {
@@ -53,7 +54,7 @@
   }
 </style>
 
-<div class="tooltip" {style}>
+<div class="tooltip" class:block>
   <OverlayTrigger
     bind:refs={refs.overlayTrigger}
     bind:placement
@@ -63,7 +64,7 @@
     bind:afterHide
     bind:afterShow
   >
-    <div slot="trigger" class="trigger" class:block>
+    <div slot="trigger" class="trigger">
       <slot slot="trigger" name="trigger" />
     </div>
     <div slot="overlay" class="overlay" transition:flyplacement={{ placement }}>
