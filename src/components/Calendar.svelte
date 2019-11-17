@@ -74,11 +74,11 @@
     return format(new Date().setMonth(month), 'MMM')
   }
 
-  function onSelectMonth({ value }) {
+  function onSelectMonth(value) {
     date = setMonth(date, value)
   }
 
-  function onSelectYear({ value }) {
+  function onSelectYear(value) {
     date = setYear(date, value)
   }
 

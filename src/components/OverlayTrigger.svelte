@@ -18,6 +18,7 @@
   export let afterShow = noop
   export let beforeShow = noop
   export let beforeHide = noop
+  export let block = false
   export let hideDelay = 100
   export let placement = 'top'
   export let showDelay = 0
@@ -120,6 +121,15 @@
     display: var(--overlay-trigger-display-mode);
   }
 
+  .trigger.block {
+    --overlay-trigger-display-mode: block;
+  }
+
+  .trigger.block > * {
+    display: block;
+    width: 100%;
+  }
+
   .overlay {
     left: 0;
     position: fixed;
@@ -129,6 +139,7 @@
 
 <div
   class="trigger"
+  class:block
   bind:this={refs.trigger}
   on:click={onClick}
   on:mouseenter={onMouseEnter}

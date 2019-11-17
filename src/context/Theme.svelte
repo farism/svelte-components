@@ -103,8 +103,8 @@
     --banner-border-radius: var(--border-radius-md);
     --banner-box-shadow: var(--shadow-20);
     --banner-buttons-spacing: var(--size-xs);
-    --banner-dismiss-color: var(--color-gray-95);
     --banner-dismiss-background-color-hover: var(--color-gray-95);
+    --banner-dismiss-color: var(--color-gray-95);
     --banner-dismiss-size: var(--size-xl);
     --banner-padding: var(--size-sm) var(--banner-spacing);
     --banner-spacing: var(--size-lg);
@@ -218,12 +218,12 @@
     --card-height: 100%;
     --card-transition: box-shadow 0.2s ease-in-out;
 
-    --checkbox-checkmark-background-color: var(--color-white-100);
     --checkbox-checkmark-background-color-checked: var(--color-blue-50);
     --checkbox-checkmark-background-color-disabled: var(--color-gray-50);
-    --checkbox-checkmark-border-color: var(--color-gray-60);
+    --checkbox-checkmark-background-color: var(--color-white-100);
     --checkbox-checkmark-border-color-checked: transparent;
     --checkbox-checkmark-border-color-disabled: var(--color-gray-50);
+    --checkbox-checkmark-border-color: var(--color-gray-60);
     --checkbox-checkmark-border-radius: var(--border-radius-sm);
     --checkbox-checkmark-border-style: solid;
     --checkbox-checkmark-border-width: 2px;
@@ -232,8 +232,9 @@
     --checkbox-spacing: var(--size-sm);
 
     --clear-background-color-hover: var(--color-gray-75);
-    --clear-color: var(--color-gray-75);
+    --clear-background-color: transparent;
     --clear-color-hover: var(--color-white-100);
+    --clear-color: var(--color-gray-75);
 
     --date-input-border-color: var(--color-gray-50);
     --date-input-border-radius: var(--border-radius-md);
@@ -244,9 +245,9 @@
     --date-input-icon-spacing: var(--size-sm);
     --date-input-segment-background-color-focus: var(--color-blue-10);
     --date-input-segment-background-color: var(--color-white-100);
-    --date-input-segment-color: inherit;
-    --date-input-segment-color-has-value: var(--color-gray-95);
     --date-input-segment-color-focus: var(--color-gray-95);
+    --date-input-segment-color-has-value: var(--color-gray-95);
+    --date-input-segment-color: inherit;
     --date-input-segment-height: 24px;
 
     --empty-state-buttons-spacing: var(--size-xl);
@@ -276,16 +277,16 @@
     --input-error-border-color: var(--color-red-70);
     --input-font-size: 14px;
     --input-height: var(--size-2xl);
-    --input-placeholder-color: var(--color-gray-75);
     --input-padding-h: var(--size-md);
     --input-padding-v: 0;
+    --input-placeholder-color: var(--color-gray-75);
 
-    --link-color: var(--color-blue-65);
     --link-color-hover: var(--color-blue-65);
-    --link-gray-color: var(--color-gray-80);
+    --link-color: var(--color-blue-65);
     --link-gray-color-hover: var(--color-orange-60);
-    --link-white-color: var(--color-white-100);
+    --link-gray-color: var(--color-gray-80);
     --link-white-color-hover: var(--color-white-100);
+    --link-white-color: var(--color-white-100);
 
     --list-footer-border: 1px solid var(--color-gray-50);
     --list-footer-padding: var(--size-md) var(--list-padding);
@@ -308,8 +309,8 @@
     --modal-buttons-spacing: var(--size-sm);
     --modal-container-background-color: var(--color-white-100);
     --modal-container-max-height: 90vh;
-    --modal-container-min-width: 344px;
     --modal-container-max-width: 640px;
+    --modal-container-min-width: 344px;
     --modal-container-padding: var(--size-2xl) var(--size-3xl) var(--size-xl) var(--size-3xl);
     --modal-footer-margin-top: var(--size-3xl);
 
@@ -326,10 +327,10 @@
     --popover-background-color: var(--color-white-100);
     --popover-border-radius: var(--border-radius-md);
     --popover-max-width: 250px;
+    --popover-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
     --popover-padding-h: var(--size-lg);
     --popover-padding-v: var(--size-lg);
     --popover-webkit-dropshadow: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.23)) drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.16));
-    --popover-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
 
     --radio-button-background-color-active: var(--color-blue-50);
     --radio-button-background-color-disabled: var(--color-gray-50);
@@ -356,17 +357,17 @@
     --search-width: 248px;
 
     --spinner-circle-border-color: var(--color-gray-50);
-    --spinner-circle-border-width: 2px;
     --spinner-circle-border-width-lg: 4px;
+    --spinner-circle-border-width: 2px;
     --spinner-circle-inner-border-color: var(--color-blue-50);
     --spinner-circle-size-lg: var(--size-3xl);
     --spinner-circle-size-md: var(--size-xl);
     --spinner-circle-size-sm: var(--size-lg);
     --spinner-circle-size-xs: var(--size-md);
     --spinner-circle-size: var(--spinner-circle-size-md);
+    --spinner-label-max-width: 100px;
     --spinner-label-text-align: center;
     --spinner-label-text-transform: uppercase;
-    --spinner-label-max-width: 100px;
     --spinner-max-height: 400px;
     --spinner-min-height: 150px;
     --spinner-overlay-background-color: var(--color-white-100);
@@ -403,9 +404,9 @@
     --textarea-error-background-color: var(--input-error-background-color);
     --textarea-error-border-color: var(--input-error-border-color);
     --textarea-font-size: var(--input-font-size);
-    --textarea-placeholder-color: var(--input-placeholder-color);
     --textarea-padding-h: var(--input-padding-h);
     --textarea-padding-v: var(--size-sm);
+    --textarea-placeholder-color: var(--input-placeholder-color);
     --textarea-resize: both;
 
     --toast-background-color: var(--color-gray-70);
@@ -424,9 +425,13 @@
     --toast-success-background-color: var(--color-green-70);
     --toast-width: 550px;
 
-    --token-background-color: var(--color-blue-65);
-    --token-background-color-hover: var(--color-blue-85);
     --token-background-color-disabled: var(--color-gray-55);
+    --token-background-color-hover: var(--color-blue-85);
+    --token-background-color-focus: var(--color-blue-85);
+    --token-background-color: var(--color-blue-65);
+    --token-clear-background-color-hover: var(--token-color);
+    --token-clear-color-hover: var(--token-background-color-hover);
+    --token-clear-color: var(--token-color);
     --token-color: var(--color-white-100);
     --token-font-size: 14px;
     --token-height: var(--size-xl);
@@ -435,23 +440,20 @@
     --token-min-width: 48;
     --token-padding: 0 var(--size-md);
 
+
     --tooltip-background-color: rgba(19, 31, 51, 0.9);
     --tooltip-border-radius: var(--border-radius-md);
     --tooltip-color: var(--color-white-100);
     --tooltip-font-size: 12px;
     --tooltip-max-width: 200px;
+    --tooltip-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
     --tooltip-padding-h: var(--size-md);
     --tooltip-padding-v: var(--size-sm);
     --tooltip-webkit-dropshadow: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.23)) drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.16));
-    --tooltip-ms-dropshadow: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=3, Color='#000')";
 
-
-    --select-display-mode: inline-block;
     --radio-group-display-mode: inline-flex;
     --radio-button-display-mode: inline-flex;
     --overlay-trigger-display-mode: inline-block;
-    --popover-display-mode: inline-block;
-    --tooltip-display-mode: inline-block;
   }
 </style>
 

@@ -5,7 +5,7 @@
 </script>
 
 <script>
-  import { onDestroy, setContext } from 'svelte'
+  import { onDestroy, onMount, setContext, tick } from 'svelte'
   import { get, writable } from 'svelte/store'
 
 	import { scrollElementIntoView } from '../utils/scrollElementIntoView'
@@ -14,6 +14,8 @@
   import Search from './Search'
 
   export let refs = {}
+  export let autofocus = false
+  export let autohover = true
   export let multiple = false
   export let onSelect = noop
   export let search = null
@@ -40,10 +42,10 @@
     })
   }
 
-  function setHovered(item, autoScroll = false) {
+  function setHovered(item, shouldScroll = false) {
     hovered.set(item)
 
-    if (autoScroll) {
+    if (shouldScroll) {
       scrollToHovered()
     }
   }
@@ -104,7 +106,26 @@
     }
   }
 
-  setContext(LIST_CONTEXT, { onSelect, registerItem, setHovered, hovered, multiple })
+  onMount(async function() {
+    if (autofocus) {
+      await tick()
+
+      if(refs.search) {
+        refs.search.focus()
+      } else {
+        refs.self.focus()
+      }
+    }
+  })
+
+  setContext(LIST_CONTEXT, {
+    autohover,
+    hovered,
+    multiple,
+    onSelect,
+    registerItem,
+    setHovered,
+  })
 </script>
 
 <style>
@@ -152,7 +173,7 @@
   }
 </style>
 
-<div class="list" bind:this={refs.root} on:keydown={onKeydown} tabindex="-1">
+<div class="list" bind:this={refs.self} on:keydown={onKeydown} tabindex="-1">
 	{#if search !== null}
 		<div class="search">
 			<Search typeahead bind:ref={refs.search} bind:value={search} />

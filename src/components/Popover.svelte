@@ -19,12 +19,6 @@
 <style>
   .popover {}
 
-  .trigger {}
-
-  .block {
-    --overlay-trigger-display-mode: block;
-  }
-
   .overlay {
     --arrow-color: transparent;
     --arrow-color-fill: var(--popover-background-color);
@@ -46,25 +40,24 @@
   }
 </style>
 
-<div class="popover" class:block>
-  <OverlayTrigger
-    bind:refs={refs.overlayTrigger}
-    bind:placement
-    bind:trigger
-    bind:beforeHide
-    bind:beforeShow
-    bind:afterHide
-    bind:afterShow
-  >
-    <div slot="trigger" class="trigger">
-      <slot slot="trigger" name="trigger" />
-    </div>
-    <div slot="overlay" class="overlay" transition:flyplacement={{ placement }}>
-      <ArrowContainer {placement} target={refs.overlayTrigger.trigger}>
-        <span class="message">
-          <slot name="message" />
-        </span>
-      </ArrowContainer>
-    </div>
-  </OverlayTrigger>
-</div>
+<OverlayTrigger
+  bind:refs={refs.overlayTrigger}
+  bind:placement
+  bind:trigger
+  bind:beforeHide
+  bind:beforeShow
+  bind:afterHide
+  bind:afterShow
+  {block}
+>
+  <div slot="trigger" class="popover">
+    <slot name="trigger" />
+  </div>
+  <div slot="overlay" class="overlay" transition:flyplacement={{ placement }}>
+    <ArrowContainer {placement} target={refs.overlayTrigger.trigger}>
+      <span class="message">
+        <slot name="message" />
+      </span>
+    </ArrowContainer>
+  </div>
+</OverlayTrigger>

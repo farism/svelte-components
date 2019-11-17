@@ -4,6 +4,7 @@
 
   export let ref = null
   export let disabled = false
+  export let focused = false
   export let icon = ''
   export let onClear = null
 
@@ -30,10 +31,21 @@
     max-width: var(--token-max-width);
     min-width: var(--token-min-width);
     padding: var(--token-padding);
+    transition: 0.2s background-color ease-out;
   }
 
   .token:hover {
     --token-background-color: var(--token-background-color-hover);
+  }
+
+  .token.focused {
+    --token-background-color: var(--token-background-color-focus);
+    --token-clear-color: var(--token-background-color);
+    --clear-background-color: var(--token-color);
+
+    border-color: var(--focus-border-color);
+    box-shadow: var(--focus-box-shadow);
+    outline: var(--focus-outline);
   }
 
   .token.disabled {
@@ -70,9 +82,9 @@
   }
 
   .clear {
-    --clear-background-color-hover: var(--token-color);
-    --clear-color: var(--token-color);
-    --clear-color-hover: var(--token-background-color-hover);
+    --clear-background-color-hover: var(--token-clear-background-color-hover);
+    --clear-color-hover: var(--token-clear-color-hover);
+    --clear-color: var(--token-clear-color);
 
     margin-left: var(--size-sm);
   }
@@ -81,6 +93,7 @@
 <div
   class="token"
   class:disabled
+  class:focused
   class:showing-icon={icon}
   class:showing-clear={onClear}
   bind:this={ref}
@@ -95,7 +108,7 @@
   </span>
   {#if onClear}
     <span class="clear" on:click={onClickClear}>
-      <Clear sm {disabled} />
+      <Clear sm {disabled} tabindex={-1} />
     </span>
   {/if}
 </div>

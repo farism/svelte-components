@@ -5,7 +5,7 @@
   import { getBoundingClientRect} from '../utils/getBoundingClientRect'
   import Arrow from './Arrow'
 
-  export let ref = null
+  export let refs = {}
   export let target = null
   export let placement = 'top'
   export let arrow =  { width: 12, height: 6 };
@@ -18,6 +18,8 @@
 
   $: right = ['right', 'right-top', 'right-bottom'].includes(placement)
 
+  // we are assuming that width/height are based on top/down defaults,
+  // so flip them if it is left/right
   $: arrowHeight = left || right ? arrow.width : arrow.height
 
   $: arrowWidth = left || right ? arrow.height : arrow.width
@@ -27,8 +29,6 @@
     arrowWidth: `${arrowWidth}px`,
     arrowVisibility: `${target ? 'visible' : 'hidden'}`
   }
-
-  let arrowRef = null
 
   function arrowPosition(node) {
     function setPosition() {
@@ -42,27 +42,27 @@
         const height = Math.min(rect1.height, rect2.height)
 
         if (placement === 'top' || placement === 'bottom') {
-          arrowRef.style.left = `calc(50% - ${arrowWidth / 2}px)`
+          refs.arrow.style.left = `calc(50% - ${arrowWidth / 2}px)`
         }
 
         if (placement === 'top-left' || placement === 'bottom-left') {
-          arrowRef.style.left = `calc(${width / 2}px - ${arrowWidth / 2}px)`
+          refs.arrow.style.left = `calc(${width / 2}px - ${arrowWidth / 2}px)`
         }
 
         if (placement === 'top-right' || placement === 'bottom-right') {
-          arrowRef.style.right = `calc(${width / 2}px - ${arrowWidth / 2}px)`
+          refs.arrow.style.right = `calc(${width / 2}px - ${arrowWidth / 2}px)`
         }
 
         if (placement === 'left' || placement === 'right') {
-          arrowRef.style.top = `calc(50% - ${arrowHeight / 2}px`
+          refs.arrow.style.top = `calc(50% - ${arrowHeight / 2}px`
         }
 
         if (placement === 'left-top' || placement === 'right-top') {
-          arrowRef.style.top = `calc(${height / 2}px - ${arrowHeight / 2}px)`
+          refs.arrow.style.top = `calc(${height / 2}px - ${arrowHeight / 2}px)`
         }
 
         if (placement === 'left-bottom' || placement === 'right-bottom') {
-          arrowRef.style.bottom = `calc(${height / 2}px - ${arrowHeight / 2}px)`
+          refs.arrow.style.bottom = `calc(${height / 2}px - ${arrowHeight / 2}px)`
         }
       }
     }
@@ -132,13 +132,13 @@
   class:bottom
   class:left
   class:right
-  bind:this={ref}
-  use:arrowPosition={arrowRef}
+  bind:this={refs.self}
+  use:arrowPosition={refs.arrow}
   use:cssVars={styleVars}
 >
   <div class="container">
     <slot />
-    <span class="arrow" bind:this={arrowRef}>
+    <span class="arrow" bind:this={refs.arrow}>
       <Arrow
         up={bottom}
         down={top}

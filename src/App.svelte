@@ -480,6 +480,17 @@
             <DropdownItem value="item4">Item 4</DropdownItem>
             <DropdownItem value="item5">Item 5</DropdownItem>
           </Dropdown>
+
+          <br />
+          <br />
+
+          <Dropdown label="Secondary Dropdown" onSelect={console.log} block>
+            <DropdownItem value="item1">Item 1</DropdownItem>
+            <DropdownItem value="item2">Item 2</DropdownItem>
+            <DropdownItem value="item3">Item 3</DropdownItem>
+            <DropdownItem value="item4">Item 4</DropdownItem>
+            <DropdownItem value="item5">Item 5</DropdownItem>
+          </Dropdown>
         </div>
       </div>
 
@@ -671,6 +682,16 @@
           bind:search={multiselectSearch}
           bind:value={multiselectValue}
           options={multiselectOptions}
+        />
+
+        <br />
+        <br />
+
+        <MultiSelect
+          bind:search={multiselectSearch}
+          bind:value={multiselectValue}
+          options={multiselectOptions}
+          block
         />
       </div>
 

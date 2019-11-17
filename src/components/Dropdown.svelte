@@ -1,6 +1,4 @@
 <script>
-  import {onMount,tick} from 'svelte'
-
   import { matchwidth } from '../actions/matchwidth'
   import Button from './Button'
   import Card from './Card'
@@ -26,78 +24,63 @@
 
   $: open = visible
 
-  let overlayTrigger = null
+  let overlayTrigger
 
   function noop() {}
 
-  async function autofocus(node) {
-    await tick()
-
-    if (refs.list.search) {
-      refs.list.search.focus()
-    } else {
-      refs.list.root.focus()
-    }
-  }
-
-  function onListSelect(value, e) {
+  function onListSelect({ value }, e) {
     onSelect(value, e)
 
     overlayTrigger.hide(e)
+  }
+
+  function onAfterHide(e) {
+    refs.trigger.focus()
+
+    afterHide(e)
   }
 </script>
 
 <style>
   .dropdown {}
 
-  .block,
-  .block .trigger {
-    display: inline-flex;
-    flex: 1 1 auto;
-  }
-
-  .trigger {}
-
   .overlay {}
 
   .overlay :global(.list) {
     --list-max-height: var(--dropdown-overlay-max-height);
-    --list-max-width: var(--dropdown-overlay-max-width);
 
     outline: none;
   }
 </style>
 
-<div class="dropdown" class:block bind:this="{refs.root}">
-  <OverlayTrigger
-    bind:this={overlayTrigger}
-    bind:refs={refs.overlayTrigger}
-    bind:placement
-    bind:trigger
-    bind:visible
-    bind:beforeHide
-    bind:beforeShow
-    bind:afterHide
-    bind:afterShow
-    bind:hideDelay
-    bind:showDelay
+<OverlayTrigger
+  bind:this={overlayTrigger}
+  bind:refs={refs.overlayTrigger}
+  bind:placement
+  bind:trigger
+  bind:visible
+  bind:beforeHide
+  bind:beforeShow
+  bind:afterHide
+  bind:afterShow
+  bind:hideDelay
+  bind:showDelay
+  {block}
+>
+  <div slot="trigger" class="dropdown" class:block>
+    <Button bind:ref={refs.trigger} dropdown {block} {primary} {open}>
+      {label}
+    </Button>
+  </div>
+  <div
+    slot="overlay"
+    class="overlay"
+    use:matchwidth={{ target: refs.overlayTrigger.trigger }}
   >
-    <div slot="trigger" class="trigger">
-      <Button dropdown {block} {primary} {open} bind:this="{refs.trigger}">
-        {label}
-      </Button>
-    </div>
-    <div
-      slot="overlay"
-      class="overlay"
-      use:autofocus
-      use:matchwidth={{ target: refs.overlayTrigger.trigger }}
-    >
-      <Card>
-        <List {search} {searchable} onSelect={onListSelect} bind:refs={refs.list}>
-          <slot />
-        </List>
-      </Card>
-    </div>
-  </OverlayTrigger>
-</div>
+    <Card>
+      <List bind:refs={refs.list} onSelect={onListSelect} autofocus {search} {searchable}>
+        <slot />
+      </List>
+    </Card>
+  </div>
+</OverlayTrigger>

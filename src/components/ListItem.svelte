@@ -17,6 +17,7 @@
   const hasRightSlot = checkSlot($$props, 'right')
 
   const {
+    autohover,
     hovered,
     multiple,
     onSelect,
@@ -37,7 +38,7 @@
   }
 
   onMount(function() {
-    if (active || suggested) {
+    if (autohover && (active || suggested)) {
       setHovered(item, !multiple)
     }
   })

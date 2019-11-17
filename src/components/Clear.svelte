@@ -6,11 +6,12 @@
   export let sm = false
   export let lg = false
   export let md = !sm && !lg
+  export let tabindex = null
 </script>
 
 <style>
   button {
-    background-color: transparent;
+    background-color: var(--clear-background-color);
     border: 1px solid transparent;
     box-sizing: border-box;
     border-radius: 100%;
@@ -23,8 +24,8 @@
   }
 
   button:hover {
-    background-color: var(--clear-background-color-hover);
-    color: var(--clear-color-hover);
+    --clear-background-color: var(--clear-background-color-hover);
+    --clear-color: var(--clear-color-hover);
   }
 
   button:focus {
@@ -34,6 +35,6 @@
   }
 </style>
 
-<button bind:this={ref} on:click {disabled}>
+<button bind:this={ref} on:click {disabled} {tabindex}>
   <Icon icon="x" {sm} {md} {lg} />
 </button>
