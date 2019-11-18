@@ -82,6 +82,53 @@
   let multiselectOptions = getItems(100)
   let multiselectSearch = ''
   let multiselectValue = multiselectOptions.slice(0, 10)
+  let tableColumns = [
+    { key: 'first_name', label: 'First Name', sort: null },
+    { key: 'last_name', label: 'Last Name', sort: 'asc' },
+    { key: 'birth_date', label: 'Age', sort: null, transform: date => new Date().getFullYear() - date.getFullYear() },
+    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
+    { key: 'admin', label: 'Administrator', sort: false },
+    { key: 'hire_date', label: 'Hire Date', sort: null },
+    { key: 'first_name', label: 'First Name', sort: null },
+    { key: 'last_name', label: 'Last Name', sort: 'asc' },
+    { key: 'birth_date', label: 'Age', sort: null },
+    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
+    { key: 'admin', label: 'Administrator', sort: false },
+    { key: 'hire_date', label: 'Hire Date', sort: null },
+    { key: 'first_name', label: 'First Name', sort: null },
+    { key: 'last_name', label: 'Last Name', sort: 'asc' },
+    { key: 'birth_date', label: 'Age', sort: null },
+    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
+    { key: 'admin', label: 'Administrator', sort: false },
+    { key: 'hire_date', label: 'Hire Date', sort: null },
+    { key: 'first_name', label: 'First Name', sort: null },
+    { key: 'last_name', label: 'Last Name', sort: 'asc' },
+    { key: 'birth_date', label: 'Age', sort: null },
+    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
+    { key: 'admin', label: 'Administrator', sort: false },
+    { key: 'hire_date', label: 'Hire Date', sort: null },
+    { key: 'first_name', label: 'First Name', sort: null },
+    { key: 'last_name', label: 'Last Name', sort: 'asc' },
+    { key: 'birth_date', label: 'Age', sort: null },
+    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
+    { key: 'admin', label: 'Administrator', sort: false },
+    { key: 'hire_date', label: 'Hire Date', sort: null },
+    { key: 'first_name', label: 'First Name', sort: null },
+    { key: 'last_name', label: 'Last Name', sort: 'asc' },
+    { key: 'birth_date', label: 'Age', sort: null },
+    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
+    { key: 'admin', label: 'Administrator', sort: false },
+    { key: 'hire_date', label: 'Hire Date', sort: null },
+  ]
+  let tableData = range(0, 100).map(() => ({
+    first_name: 'john',
+    last_name: 'smith',
+    birth_date: new Date(),
+    favorite_color: 'blue',
+    admin: false,
+    hire_date: new Date(),
+  }))
+  let tableFooters = []
 
   function getItems(size) {
     return range(0, size).map(function(i) {
@@ -985,26 +1032,11 @@
       <div>
         <h1>Table</h1>
         <div>
-          <Table>
-
-          </Table>
-          <TableHeader>
-
-          </TableHeader>
-          <TableGroup>
-
-          </TableGroup>
-          <TableRow>
-            <TableColumn>
-              column 1
-            </TableColumn>
-            <TableColumn>
-              column 2
-            </TableColumn>
-            <TableColumn>
-              column 3
-            </TableColumn>
-          </TableRow>
+          <Table
+            columns={tableColumns}
+            data={tableData}
+            footers={tableFooters}
+          />
         </div>
       </div>
 

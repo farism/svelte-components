@@ -51,16 +51,6 @@
     })
   }
 
-  async function autofocus(node) {
-    await tick()
-
-    if (refs.list.search) {
-      refs.list.search.focus()
-    } else {
-      refs.list.root.focus()
-    }
-  }
-
   const throttledCheckOverflow = throttle(checkOverflow, 100)
 
   window.addEventListener('resize', throttledCheckOverflow)
@@ -189,9 +179,9 @@
             <Arrow down width={8} height={4} />
           </div>
         </div>
-        <div slot="overlay" class=more-overlay use:autofocus>
+        <div slot="overlay" class="more-overlay">
           <Card>
-            <List bind:refs="{refs.list}">
+            <List bind:refs="{refs.list}" autofocus>
               {#each overflowingTabs as tab, i}
                 <ListItem active={i === activeIndex - (tabs.length - overflowingTabs.length)}>
                   <slot {tab} />

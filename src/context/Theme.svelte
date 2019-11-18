@@ -69,7 +69,7 @@
 
     /* COMPONENTS */
     --arrow-color: var(--color-black-100);
-    --arrow-color-fill: var(--color-black-100);
+    --arrow-color-fill: var(--arrow-color);
 
     --avatar-background-color: var(--color-gray-100);
     --avatar-background-color-disabled: var(--color-gray-50);

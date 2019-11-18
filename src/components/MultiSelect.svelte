@@ -178,12 +178,18 @@
     beforeHide(e)
   }
 
-  function onAfterHide(e) {
+  function onAfterHide() {
     focused = null
 
     refs.input.focus()
 
-    afterHide(e)
+    afterHide()
+  }
+
+  function onAfterShow() {
+    refs.input.focus()
+
+    afterShow()
   }
 
   afterUpdate(function() {
@@ -289,7 +295,7 @@
   bind:beforeHide={onBeforeHide}
   bind:beforeShow
   bind:afterHide={onAfterHide}
-  bind:afterShow
+  bind:afterShow={onAfterShow}
   bind:hideDelay
   bind:showDelay
   {block}
@@ -329,7 +335,7 @@
         </div>
       {/if}
       <div class="arrow">
-        <Arrow down width={8} height={4} />
+        <Arrow up={open} down={!open} width={8} height={4} />
       </div>
     </div>
   </div>

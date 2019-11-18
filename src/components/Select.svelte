@@ -2,6 +2,7 @@
   import { matchwidth } from '../actions/matchwidth'
   import Button from './Button'
   import Card from './Card'
+  import Clear from './Clear'
   import List from './List'
   import OverlayTrigger from './OverlayTrigger'
 
@@ -33,6 +34,10 @@
     overlayTrigger.hide(e)
   }
 
+  function onClickClear(e) {
+    value = null
+  }
+
   function onAfterHide(e) {
     refs.trigger.focus()
 
@@ -43,10 +48,15 @@
 <style>
   .select {
     display: inline-block;
+    position: relative;
   }
 
   .select.block {
     display: block;
+  }
+
+  .clear-overlay {
+    pointer-events: none;
   }
 
   .overlay {}
@@ -75,6 +85,11 @@
     <Button dropdown bind:ref={refs.trigger} {open} {block}>
       {label || placeholder}
     </Button>
+    {#if value}
+      <div class="clear-overlay">
+        <Clear sm on:click={onClickClear} />
+      </div>
+    {/if}
   </div>
   <div
     slot="overlay"

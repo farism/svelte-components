@@ -14,8 +14,6 @@
   export let afterShow = noop
   export let value = null
 
-  $: console.log(value)
-
   function noop() {}
 
   function onBeforeHide(e) {
