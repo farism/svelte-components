@@ -60,7 +60,9 @@
   }
 
   function onClickDateInput(e) {
-    if (refs.segments.every(ref => ref !== e.target)) {
+    // if a user clicks on the date input but not into a segment,
+    // then automatically focus the first segment
+    if (!refs.segments.some(ref => ref === e.target)) {
       refs.segments[0].focus()
     }
   }

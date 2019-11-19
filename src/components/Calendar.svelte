@@ -41,22 +41,22 @@
 
   export let refs = {}
   export let value = null
-  export let displayDate = null
-  export let disabledDate = noop
+  export let date = null
+  export let disabled = noop
 
   const overlayTriggerContext = getContext(OVERLAYTRIGGER_CONTEXT)
 
-  $: date = displayDate || new Date()
+  $: viewDate = value || date || new Date()
 
-  $: month = date.getMonth()
+  $: month = viewDate.getMonth()
 
-  $: year = date.getFullYear()
+  $: year = viewDate.getFullYear()
 
   $: startYear = Math.max(0, year - 10)
 
   $: endYear = startYear + YEAR_RANGE
 
-  $: start = subDays(startOfMonth(date), getDay(startOfMonth(date)))
+  $: start = subDays(startOfMonth(viewDate), getDay(startOfMonth(viewDate)))
 
   $: end = addDays(start, DAYS_IN_CALENDAR - 1)
 
@@ -74,20 +74,20 @@
     return format(new Date().setMonth(month), 'MMM')
   }
 
-  function onSelectMonth(value) {
-    date = setMonth(date, value)
+  function onSelectMonth(e) {
+    viewDate = setMonth(viewDate, e.detail.value)
   }
 
-  function onSelectYear(value) {
-    date = setYear(date, value)
+  function onSelectYear(e) {
+    viewDate = setYear(viewDate, e.detail.value)
   }
 
   function onClickPreviousMonth(e) {
-    date = subMonths(date, 1)
+    viewDate = subMonths(viewDate, 1)
   }
 
   function onClickNextMonth(e) {
-    date = addMonths(date, 1)
+    viewDate = addMonths(viewDate, 1)
   }
 
   function onClickDay(e, day) {
@@ -206,7 +206,7 @@
         </div>
         <div class="dropdowns">
           <div class="month-dropdown">
-            <Dropdown bind:refs={refs.month} block onSelect={onSelectMonth} label={format(date, 'MMM')}>
+            <Dropdown bind:refs={refs.month} block on:select={onSelectMonth} label={format(viewDate, 'MMM')}>
               {#each range(0, 12) as i}
                 <DropdownItem value={i} active={month === i}>
                   {formatMonth(i)}
@@ -215,7 +215,7 @@
             </Dropdown>
           </div>
           <div class="year-dropdown">
-            <Dropdown bind:refs={refs.year} block onSelect={onSelectYear} label="{year}">
+            <Dropdown bind:refs={refs.year} block on:select={onSelectYear} label="{year}">
               {#each range(startYear, endYear) as i}
                 <DropdownItem value={i} active={year === i}>
                   {i}
@@ -241,8 +241,8 @@
             <div
               class="day"
               class:today={isToday(day)}
-              class:disabled={disabledDate(day)}
-              class:other-month={!isSameMonth(day, date)}
+              class:disabled={disabled(day)}
+              class:other-month={!isSameMonth(day, viewDate)}
               class:active={isSameDay(day, value)}
               on:click={function(e){
                 onClickDay(e, day)

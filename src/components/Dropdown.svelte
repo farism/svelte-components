@@ -1,4 +1,6 @@
 <script>
+  import { createEventDispatcher } from 'svelte'
+
   import { matchwidth } from '../actions/matchwidth'
   import Button from './Button'
   import Card from './Card'
@@ -13,7 +15,6 @@
   export let block = false
   export let hideDelay = 100
   export let label = ''
-  export let onSelect = noop
   export let placement = 'bottom-left'
   export let primary = false
   export let search = null
@@ -22,16 +23,18 @@
   export let trigger = 'click'
   export let visible = false
 
-  $: open = visible
+  const dispatch = createEventDispatcher()
 
   let overlayTrigger
 
+  $: open = visible
+
   function noop() {}
 
-  function onListSelect({ value }, e) {
-    onSelect(value, e)
-
+  function onListSelect({ detail: { selection, e } }) {
     overlayTrigger.hide(e)
+
+    dispatch('select', { selection, e })
   }
 
   function onAfterHide(e) {
@@ -78,7 +81,7 @@
     use:matchwidth={{ target: refs.overlayTrigger.trigger }}
   >
     <Card>
-      <List bind:refs={refs.list} onSelect={onListSelect} autofocus {search} {searchable}>
+      <List bind:refs={refs.list} bind:search on:select={onListSelect} autofocus {searchable}>
         <slot />
       </List>
     </Card>

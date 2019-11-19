@@ -26,7 +26,8 @@
     "lodash.throttle": "4.1.1",
     "sirv-cli": "0.4.5",
     "svelte-css-vars": "^0.0.1",
-    "ts-easing": "^0.2.0"
+    "ts-easing": "^0.2.0",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "build": "rollup -c",

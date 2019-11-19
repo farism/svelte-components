@@ -11,13 +11,13 @@ export function clickoutside(node: HTMLElement) {
     }
   }
 
-  window.addEventListener('click', handler)
+  window.addEventListener('mousedown', handler)
 
   // window.addEventListener('touchend', handler)
 
   return {
     destroy() {
-      window.removeEventListener('click', handler)
+      window.removeEventListener('mousedown', handler)
 
       // window.removeEventListener('touchend', handler)
     },

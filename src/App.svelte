@@ -47,12 +47,15 @@
   import TableRow from './components/TableRow'
   import TextArea from './components/TextArea'
   import TextEditor from './components/TextEditor'
+  import TieredSelect from './components/TieredSelect'
   import Toast from './components/Toast'
   import Token from './components/Token'
   import Tooltip from './components/Tooltip'
   import Theme from './context/Theme'
   import ZIndex from './context/ZIndex'
   import { autofocus } from './actions/autofocus'
+
+  import { data as tieredSelectData } from './data/tieredSelect'
 
   let checkboxValue = true
   let radioValue = 1
@@ -69,7 +72,8 @@
   }
   let listItems = getItems(100)
   let listSearch = 'search value'
-  let dropdownSearch = 'dropdown search'
+  let dropdownItems = getItems(20)
+  let dropdownSearch = 'item 1'
   let selectSearch = 'select search'
   let loading = false
   let disabled = false
@@ -88,39 +92,9 @@
     { key: 'birth_date', label: 'Age', sort: null, transform: date => new Date().getFullYear() - date.getFullYear() },
     { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
     { key: 'admin', label: 'Administrator', sort: false },
-    { key: 'hire_date', label: 'Hire Date', sort: null },
-    { key: 'first_name', label: 'First Name', sort: null },
-    { key: 'last_name', label: 'Last Name', sort: 'asc' },
-    { key: 'birth_date', label: 'Age', sort: null },
-    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
-    { key: 'admin', label: 'Administrator', sort: false },
-    { key: 'hire_date', label: 'Hire Date', sort: null },
-    { key: 'first_name', label: 'First Name', sort: null },
-    { key: 'last_name', label: 'Last Name', sort: 'asc' },
-    { key: 'birth_date', label: 'Age', sort: null },
-    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
-    { key: 'admin', label: 'Administrator', sort: false },
-    { key: 'hire_date', label: 'Hire Date', sort: null },
-    { key: 'first_name', label: 'First Name', sort: null },
-    { key: 'last_name', label: 'Last Name', sort: 'asc' },
-    { key: 'birth_date', label: 'Age', sort: null },
-    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
-    { key: 'admin', label: 'Administrator', sort: false },
-    { key: 'hire_date', label: 'Hire Date', sort: null },
-    { key: 'first_name', label: 'First Name', sort: null },
-    { key: 'last_name', label: 'Last Name', sort: 'asc' },
-    { key: 'birth_date', label: 'Age', sort: null },
-    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
-    { key: 'admin', label: 'Administrator', sort: false },
-    { key: 'hire_date', label: 'Hire Date', sort: null },
-    { key: 'first_name', label: 'First Name', sort: null },
-    { key: 'last_name', label: 'Last Name', sort: 'asc' },
-    { key: 'birth_date', label: 'Age', sort: null },
-    { key: 'favorite_color', label: 'Favorite Color', sort: 'desc' },
-    { key: 'admin', label: 'Administrator', sort: false },
-    { key: 'hire_date', label: 'Hire Date', sort: null },
+    { key: 'hire_date', label: 'Hire Date', sort: null }
   ]
-  let tableData = range(0, 100).map(() => ({
+  let tableData = range(0, 10).map(() => ({
     first_name: 'john',
     last_name: 'smith',
     birth_date: new Date(),
@@ -129,6 +103,7 @@
     hire_date: new Date(),
   }))
   let tableFooters = []
+  let tieredSelectValue = [1, 17]
 
   function getItems(size) {
     return range(0, size).map(function(i) {
@@ -432,7 +407,7 @@
       <div>
         <h1>Calendar</h1>
         <div>
-          <Calendar disabledDate={calendarDisabledDate} />
+          <Calendar disabled={calendarDisabledDate} />
 
           <br />
 
@@ -509,7 +484,18 @@
       <div>
         <h1>Dropdown</h1>
         <div>
-          <Dropdown label="Primary Dropdown" primary onSelect={console.log} bind:search={dropdownSearch}>
+          <Dropdown label="Primary Dropdown" primary on:select={console.log} bind:search={dropdownSearch}>
+            {#each dropdownItems as item}
+              {#if item.includes(dropdownSearch) || dropdownSearch === ""}
+                <DropdownItem value="{item}">{item}</DropdownItem>
+              {/if}
+            {/each}
+          </Dropdown>
+
+          <br />
+          <br />
+
+          <Dropdown label="Secondary Dropdown" on:select={console.log}>
             <DropdownItem value="item1">Item 1</DropdownItem>
             <DropdownItem value="item2">Item 2</DropdownItem>
             <DropdownItem value="item3">Item 3</DropdownItem>
@@ -520,18 +506,7 @@
           <br />
           <br />
 
-          <Dropdown label="Secondary Dropdown" onSelect={console.log}>
-            <DropdownItem value="item1">Item 1</DropdownItem>
-            <DropdownItem value="item2">Item 2</DropdownItem>
-            <DropdownItem value="item3">Item 3</DropdownItem>
-            <DropdownItem value="item4">Item 4</DropdownItem>
-            <DropdownItem value="item5">Item 5</DropdownItem>
-          </Dropdown>
-
-          <br />
-          <br />
-
-          <Dropdown label="Secondary Dropdown" onSelect={console.log} block>
+          <Dropdown label="Secondary Dropdown" on:select={console.log} block>
             <DropdownItem value="item1">Item 1</DropdownItem>
             <DropdownItem value="item2">Item 2</DropdownItem>
             <DropdownItem value="item3">Item 3</DropdownItem>
@@ -657,7 +632,9 @@
           <Card>
             <List onSearch={console.log} onSelect={console.log} bind:search={listSearch}>
               <div slot="header">
-                <Button>Header Button</Button>
+                <div style="padding: 8px 16px">
+                  <Button>Header Button</Button>
+                </div>
               </div>
 
               {#each listItems as item, i}
@@ -1069,6 +1046,21 @@
 
           <TextEditor />
         </div>
+      </div>
+
+      <div>
+        <h1>TieredSelect</h1>
+
+        {JSON.stringify(tieredSelectValue)}
+
+        <TieredSelect options={tieredSelectData} leafOnly={false} bind:value={tieredSelectValue} />
+
+        <br />
+        <br />
+
+        <TieredSelect options={tieredSelectData} bind:value={tieredSelectValue} />
+
+
       </div>
 
       <div>

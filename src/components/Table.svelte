@@ -159,7 +159,7 @@
   }
 
   .resize:hover .resize-bar {
-    width: 6px;
+    width: 4px;
   }
 
   .resize-bar {

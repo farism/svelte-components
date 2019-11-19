@@ -5,7 +5,7 @@
 </script>
 
 <script>
-  import { onDestroy, onMount, setContext, tick } from 'svelte'
+  import { createEventDispatcher, onDestroy, onMount, setContext, tick } from 'svelte'
   import { get, writable } from 'svelte/store'
 
 	import { scrollElementIntoView } from '../utils/scrollElementIntoView'
@@ -15,10 +15,13 @@
 
   export let refs = {}
   export let autofocus = false
-  export let autohover = true
+  export let autohighlight = true
   export let multiple = false
-  export let onSelect = noop
   export let search = null
+
+  const dispatch = createEventDispatcher()
+
+  const highlighted = writable(null)
 
   const hasHeaderSlot = checkSlot($$props, 'header')
 
@@ -26,14 +29,12 @@
 
   const items = []
 
-  const hovered = writable(null)
-
   function noop() {}
 
   function registerItem(item) {
     items.push(item)
 
-    hovered.update(function(current){
+    highlighted.update(function(current) {
       return current || item
     })
 
@@ -42,20 +43,20 @@
     })
   }
 
-  function setHovered(item, shouldScroll = false) {
-    hovered.set(item)
+  function setHighlighted(item, shouldScroll = false) {
+    highlighted.set(item)
 
     if (shouldScroll) {
-      scrollToHovered()
+      scrollToHighlighted()
     }
   }
 
-  function getHoveredIndex() {
-    return Math.max(0, items.indexOf(get(hovered)))
+  function getHighlightedIndex() {
+    return Math.max(0, items.indexOf(get(highlighted)))
   }
 
-  function setHoveredToPrevItem() {
-    const curIndex = getHoveredIndex()
+  function setHighlightedToPrevItem() {
+    const curIndex = getHighlightedIndex()
 
     // find the previous item, skipping over groups
     const prevIndex = items.reduceRight(function(acc, item, i) {
@@ -64,11 +65,11 @@
       return isGroup || acc < curIndex ? acc : i
     }, curIndex)
 
-    setHovered(items[prevIndex], true)
+    setHighlighted(items[prevIndex], true)
   }
 
-  function setHoveredToNextItem() {
-    const curIndex = getHoveredIndex()
+  function setHighlightedToNextItem() {
+    const curIndex = getHighlightedIndex()
 
     // find the next item, skipping over groups
     const nextIndex = items.reduce(function(acc, item, i) {
@@ -77,31 +78,39 @@
       return isGroup || acc > curIndex ? acc : i
     }, curIndex)
 
-    setHovered(items[nextIndex], true)
+    setHighlighted(items[nextIndex], true)
   }
 
-  function scrollToHovered() {
-    const index = getHoveredIndex()
+  function scrollToHighlighted() {
+    const index = getHighlightedIndex()
 
     const element = refs.items.children[index]
 
     scrollElementIntoView(index, element)
   }
 
+  function onSelect(selection, e) {
+    dispatch('select', { selection, e })
+  }
+
+  export function getHighlighted() {
+    return get(highlighted)
+  }
+
   export function onKeydown(e) {
     if (e.key === 'ArrowUp') {
       e.preventDefault()
 
-      setHoveredToPrevItem()
+      setHighlightedToPrevItem()
     } else if (e.key === 'ArrowDown') {
       e.preventDefault()
 
-      setHoveredToNextItem()
+      setHighlightedToNextItem()
     } else if (e.key === 'Enter') {
-      if (hovered) {
+      if (highlighted) {
         e.preventDefault()
 
-        onSelect(get(hovered), e)
+        onSelect(get(highlighted), e)
       }
     }
   }
@@ -119,12 +128,12 @@
   })
 
   setContext(LIST_CONTEXT, {
-    autohover,
-    hovered,
+    autohighlight,
+    highlighted,
     multiple,
     onSelect,
     registerItem,
-    setHovered,
+    setHighlighted,
   })
 </script>
 
@@ -139,7 +148,6 @@
 	.header {
     display: flex;
     flex: 0 0 auto;
-    padding: var(--list-header-padding);
   }
 
 	.search {

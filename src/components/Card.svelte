@@ -31,6 +31,6 @@
   }
 </style>
 
-<div class="card card-{level}">
+<div class="card card-{level}" on:keydown>
   <slot></slot>
 </div>

@@ -1,16 +1,18 @@
 <script>
     import { afterUpdate, tick } from 'svelte'
+    import { get } from 'svelte/store'
 
     import { matchwidth } from '../actions/matchwidth'
     import { isEventSource } from '../utils/isEventSource'
-    import Arrow from './Arrow'
+    import Breadcrumbs from './Breadcrumbs'
+    import Button from './Button'
     import Card from './Card'
     import Clear from './Clear'
     import Ellipses from './Ellipses'
+    import Icon from './Icon'
     import List from './List'
-    import MultiSelectOption from './MultiSelectOption'
+    import ListItem from './ListItem'
     import OverlayTrigger from './OverlayTrigger'
-    import Token from './Token'
 
     export let refs = { tokenClear: [] }
     export let afterHide = noop
@@ -20,6 +22,7 @@
     export let block = false
     export let disabled = false
     export let hideDelay = 100
+    export let leafOnly = true
     export let onSearch = null
     export let onSelect = noop
     export let options = []
@@ -28,27 +31,73 @@
     export let search = ''
     export let showDelay = 0
     export let trigger = 'click'
-    export let value = null
+    export let value = []
     export let visible = false
+
+    // the OverlayTrigger component instance
+    let overlayTrigger = null
 
     // the List component instance
     let list = null
 
-    // to update arrow direction
+    $: searching = search !== ''
+
+    $: path = options.filter(opt => value.includes(getId(opt)))
+
+    $: label = buildLabel(path)
+
+    $: viewPath = path
+
+    $: breadcrumbs = ['Home', ...viewPath.map(getLabel)]
+
+    $: groupId = viewPath.length > 0
+        ? getNextGroupId(viewPath[viewPath.length - 1])
+        : null
+
+    $: groupOptions = []
+
+    $: if (search !== '') {
+      let searchedOptions = options.filter(function(opt) {
+        return getLabel(opt).toLowerCase().includes(search.toLowerCase())
+      })
+
+      if (leafOnly) {
+        searchedOptions = searchedOptions.filter(function(opt){
+          return !getNextGroupId(opt)
+        })
+      }
+
+      groupOptions = searchedOptions.map(function(opt) {
+        return {
+          ...opt,
+          label: buildLabel(derivePath(opt))
+        }
+      })
+    } else {
+      groupOptions = options.filter(function(opt) {
+        return getGroupId(opt) === groupId
+      })
+    }
+
     $: open = visible
-
-    // for O(1) lookups
-    $: ids = value.reduce(reduceIds, {})
-
-    // $: opts = search ? options.filter(onSearch || searchFn) : options
 
     function noop() {}
 
-    // reduce the options to an object for O(1) lookups
-    function reduceIds(acc, option) {
-      acc[getId(option)] = true
+    function derivePath(option, path = []) {
+      const parent = options.find(function(opt) {
+        return opt.nextGroupId === option.groupId
+      })
 
-      return acc
+      if (parent) {
+        return derivePath(parent, [option, ...path])
+      } else {
+        return [option, ...path]
+      }
+    }
+
+    // default label builder
+    function buildLabel(path) {
+      return path.map(getLabel).join(' > ')
     }
 
     // the default search function if none is provided
@@ -56,47 +105,92 @@
       return getLabel(option).includes(search)
     }
 
+    // the default getGroupId function if none is provided
+    function getGroupId(option) {
+      return option.groupId
+    }
+
     // the default getId function if none is provided
     function getId(option) {
-      return typeof option === 'string' ? option : option.id
+      return option.id
+    }
+
+    // the default getNextGroupId function if none is provided
+    function getNextGroupId(option) {
+      return option.nextGroupId
     }
 
     // the default getLabel function if none is provided
     function getLabel(option) {
-      return typeof option === 'string' ? option : option.label
-    }
-
-    // function isSelected(option, ids) {
-    //   return ids[getId(option)] || false
-    // }
-
-    function onListSelect(selection, e) {
-
+      return option.label
     }
 
     function onClickClear(e) {
+      e.stopPropagation()
+
       value = []
 
       search = ''
+    }
 
+    function onClickNextTier(option, e) {
       e.stopPropagation()
+
+      viewPath = [...viewPath, option]
+    }
+
+    function onClickCrumb(index, e) {
+      e.stopPropagation()
+
+      viewPath = viewPath.splice(0, index)
+    }
+
+    function onListSelect({ detail: { selection, e } }) {
+      if (leafOnly && getNextGroupId(selection.value)) {
+        viewPath = [...viewPath, selection.value]
+      } else {
+        if (searching) {
+          value = derivePath(selection.value).map(getId)
+        } else {
+          value = [...viewPath, selection.value].map(getId)
+        }
+
+        overlayTrigger.hide(e)
+      }
     }
 
     function onKeydown(e) {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+
+        viewPath = viewPath.slice(0, -1)
+
+        // value = value.slice(0, -1)
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+
+        const highlighted = list.getHighlighted()
+
+        if (getNextGroupId(highlighted.value)) {
+          viewPath = [...viewPath, highlighted.value]
+        }
+      }
+    }
+
+    function onKeydownTrigger(e) {
       if (list) {
         list.onKeydown(e)
       }
 
-      if (e.key === 'ArrowLeft') {
-      } else if (e.key === 'ArrowRight') {
-      } else if(e.key === 'Backspace' && !e.repeat) {
-      }
+      onKeydown(e)
     }
 
-    function onAfterHide(e) {
-      refs.trigger.focus()
+    function onAfterHide() {
+      viewPath = path
 
-      afterHide(e)
+      search = ''
+
+      afterHide()
     }
 
     afterUpdate(function() {
@@ -105,20 +199,79 @@
   </script>
 
   <style>
-    .tiered-select {}
+    .tiered-select {
+      max-width: 248px;
+      position: relative;
+    }
+
+    .clear-overlay {
+      align-items: center;
+      bottom: 0;
+      display: flex;
+      justify-content: flex-end;
+      left: 0;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .clear {
+      margin-right: calc(var(--size-lg) + var(--size-sm) * 2);
+      pointer-events: all;
+    }
+
+    .breadcrumbs {
+      background-color: var(--color-gray-20);
+      display: flex;
+      flex: 1 1 auto;
+      margin-top: var(--size-sm);
+      padding: var(--size-xs) var(--size-lg);
+    }
+
+    .home {
+      height: var(--icon-size-sm);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .tiered-select :global(.button .label) {
+      margin-right: var(--size-xl);
+    }
 
     .overlay :global(.list) {
       max-height: 312px;
+      max-width: 248px;
       outline: none;
+    }
+
+    .overlay :global(.breadcrumbs) {
+      flex-wrap: wrap;
+    }
+
+    .overlay :global(.list-item .right .button) {
+      --button-border-color: transparent;
     }
   </style>
 
+<!--
+  <div>
+    {JSON.stringify(value)}
+  </div>
+
+  <div>
+    {JSON.stringify(path)}
+  </div> -->
+
   <OverlayTrigger
+    bind:this={overlayTrigger}
     bind:refs={refs.overlayTrigger}
     bind:placement
     bind:trigger
     bind:visible
-    bind:beforeHide={onBeforeHide}
+    bind:beforeHide
     bind:beforeShow
     bind:afterHide={onAfterHide}
     bind:afterShow
@@ -126,33 +279,71 @@
     bind:showDelay
     {block}
   >
-    <div slot="trigger" class="tiered-select" class:disabled class:block bind:this={refs.trigger}>
-      <Button dropdown {open}>
-        foo
+    <div
+      slot="trigger"
+      class="tiered-select"
+      class:disabled
+      bind:this={refs.trigger}
+      on:keydown={onKeydownTrigger}
+    >
+      <Button dropdown>
+        {label}
       </Button>
+      {#if value.length}
+        <div class="clear-overlay">
+          <div class="clear">
+            <Clear on:click={onClickClear} sm />
+          </div>
+        </div>
+      {/if}
     </div>
     <div
       slot="overlay"
       class="overlay"
       use:matchwidth={{ target: refs.overlayTrigger.trigger }}
     >
-      <Card>
-        <List
-          bind:this={list}
-          bind:refs={refs.list}
-          onSelect={onListSelect}
-          autohover={false}
-          multiple
-        >
-          {#each opts as option, i}
-            <slot>
-
-              <!-- <MultiSelectOption value={option} selected={isSelected(option, ids)}>
+      <Card on:keydown={onKeydown}>
+        {#each [groupOptions] as k (k)}
+          <List
+            bind:search
+            bind:this={list}
+            bind:refs={refs.list}
+            on:select={onListSelect}
+            on:keydown={onKeydown}
+            autofocus
+          >
+            <div slot="header" class="breadcrumbs" class:hidden={groupId === null || searching}>
+              <Breadcrumbs crumbs={breadcrumbs} let:crumb let:index>
+                <div class:home={index === 0} on:click={(e) => onClickCrumb(index, e)}>
+                  {#if index === 0}
+                    <Icon sm icon="home" />
+                  {:else}
+                    {crumb}
+                  {/if}
+                </div>
+              </Breadcrumbs>
+            </div>
+            {#each groupOptions as option}
+              <ListItem lines={10} value={option}>
                 {getLabel(option)}
-              </MultiSelectOption> -->
-            </slot>
-          {/each}
-        </List>
+                <div slot="right" class:hidden={searching}>
+                  {#if getNextGroupId(option)}
+                    {#if leafOnly}
+                      <Icon icon="chevron-right" />
+                    {:else}
+                      <Button
+                        sm
+                        secondary
+                        icon="chevron-right"
+                        on:click={(e) => onClickNextTier(option, e)}
+                      />
+                    {/if}
+                  {/if}
+                </div>
+              </ListItem>
+            {/each}
+          </List>
+        {/each}
       </Card>
     </div>
   </OverlayTrigger>

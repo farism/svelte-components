@@ -271,6 +271,7 @@
   class:loading
   bind:this={ref}
   disabled={disabled || loading}
+  on:click
 >
   {#if icon}
     <span class="icon">

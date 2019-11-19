@@ -97,7 +97,7 @@
         e.preventDefault();
 
         show(e)
-      } else if (['Escape', 'Esc'].includes(e.key)) {
+      } else if (['Escape', 'Esc', 'Tab'].includes(e.key)) {
         hide(e)
       }
     } else if (isEventSource(refs.overlay, e)) {

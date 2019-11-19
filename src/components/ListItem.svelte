@@ -7,7 +7,9 @@
 
   export let ref = null
   export let active = false
+  export let group = false
   export let left = null
+  export let lines = 1
   export let right = null
   export let suggested = false
   export let value = null
@@ -17,29 +19,29 @@
   const hasRightSlot = checkSlot($$props, 'right')
 
   const {
-    autohover,
-    hovered,
+    autohighlight,
+    highlighted,
     multiple,
     onSelect,
     registerItem,
-    setHovered,
+    setHighlighted,
   } = getContext(LIST_CONTEXT)
 
-  const item = { group: false, value }
+  const item = { group, value }
 
   registerItem(item)
 
-  function onMouseMove(e) {
-    setHovered(item)
+  function onClick(e) {
+    onSelect({ group, value }, e)
   }
 
-  function onClick(e) {
-    onSelect(item, e)
+  function onMouseMove(e) {
+    setHighlighted(item)
   }
 
   onMount(function() {
-    if (autohover && (active || suggested)) {
-      setHovered(item, !multiple)
+    if (autohighlight && (active || suggested)) {
+      setHighlighted(item, !multiple)
     }
   })
 </script>
@@ -51,12 +53,12 @@
     cursor: pointer;
     display: flex;
     font-size: var(--list-item-font-size);
-    height: var(--list-item-height);
+    line-height: var(--list-item-line-height);
     padding: var(--list-item-padding);
 	}
 
   .list-item:hover,
-  .hovered {
+  .highlighted {
     --list-item-background-color: var(--list-item-background-color-hover);
     --list-item-color: var(--list-item-color-hover);
   }
@@ -97,7 +99,7 @@
 <div
   bind:this={ref}
   class:active
-  class:hovered="{$hovered === item}"
+  class:highlighted="{$highlighted === item}"
   class="list-item"
   on:click={onClick}
   on:mousemove={onMouseMove}
@@ -108,13 +110,13 @@
     </div>
   {/if}
   <div class="center">
-    <Ellipses>
+    <Ellipses {lines}>
       <slot />
     </Ellipses>
   </div>
   {#if hasRightSlot}
-    <div class="left">
-      <slot name="left" />
+    <div class="right">
+      <slot name="right" />
     </div>
   {/if}
 </div>

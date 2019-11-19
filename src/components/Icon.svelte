@@ -37,7 +37,7 @@
   }
 </style>
 
-<span class="icon" class:sm class:md class:lg bind:this={ref}>
+<span class="icon" class:sm class:md class:lg bind:this={ref} on:click>
   <svg focusable="false" viewBox="0 0 1024 1024">
     <path d="{paths[icon]}" />
   </svg>

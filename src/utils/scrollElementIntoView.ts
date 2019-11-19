@@ -1,9 +1,9 @@
 export function scrollElementIntoView(index: number, element: HTMLElement) {
-  const parent = element.parentElement
-
-  if (!parent) {
+  if (!element || !element.parentElement) {
     return
   }
+
+  const parent = element.parentElement
 
   if (index === 0) {
     parent.scrollTop = 0

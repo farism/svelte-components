@@ -28,7 +28,7 @@
 
   function noop() {}
 
-  function onListSelect(selection, e) {
+  function onListSelect({ detail: { selection, e } }) {
     value = selection.value
 
     overlayTrigger.hide(e)
@@ -97,7 +97,7 @@
     use:matchwidth={{ target: refs.overlayTrigger.trigger }}
   >
     <Card>
-      <List bind:refs={refs.list} autofocus onSelect={onListSelect} {search}>
+      <List bind:refs={refs.list} autofocus on:select={onListSelect} {search}>
         <slot />
       </List>
     </Card>

@@ -97,7 +97,7 @@
     refs.input.focus()
   }
 
-  function onListSelect(selection, e) {
+  function onListSelect({ detail: { selection, e } }) {
     value = isSelected(selection.value, ids)
       ? value.filter(function(val) {
           return selection.value !== val
@@ -348,8 +348,8 @@
       <List
         bind:this={list}
         bind:refs={refs.list}
-        onSelect={onListSelect}
-        autohover={false}
+        on:select={onListSelect}
+        autohighlight={false}
         multiple
       >
         {#each opts as option, i}

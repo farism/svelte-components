@@ -13,24 +13,29 @@
     display: flex;
     font-size: 14px;
     line-height: 20px;
-    align-items: center;
-    display: flex;
+    white-space: nowrap;
   }
 
   .crumb {
+    align-items: center;
+    cursor: pointer;
     display: inline-flex;
   }
 
   .crumb:active {
-    color: --breadcrumbs-crumb-active-color;
+    --breadcrumbs-color: var(--breadcrumbs-crumb-active-color);
   }
 
   .crumb:hover {
-    color: --breadcrumbs-crumb-hover-color;
+    --breadcrumbs-color: var(--breadcrumbs-crumb-hover-color);
+
+    text-decoration: underline;
   }
 
   .crumb:last-child {
-    color: var(--breadcrumbs-active-color);
+    --breadcrumbs-color: var(--breadcrumbs-active-color);
+
+    cursor: default;
     font-weight: bold;
     text-decoration: none;
   }
@@ -45,7 +50,7 @@
 <div class="breadcrumbs">
   {#each crumbs as crumb, i}
     <div class="crumb">
-      <slot crumb={crumb} />
+      <slot crumb={crumb} index={i} />
     </div>
     {#if i < crumbs.length - 1}
       <div class="separator">

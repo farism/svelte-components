@@ -297,8 +297,8 @@
     --list-item-color-hover: var(--color-black-100);
     --list-item-color: var(--color-gray-95);
     --list-item-font-size: 14px;
-    --list-item-height: 28px;
-    --list-item-padding: 0 var(--list-padding);
+    --list-item-line-height: 20px;
+    --list-item-padding: var(--size-2xs) var(--list-padding);
     --list-items-padding: var(--size-sm) 0;
     --list-max-height: auto;
     --list-padding: var(--size-lg);

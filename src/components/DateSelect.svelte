@@ -65,7 +65,7 @@
     </div>
     <div slot="overlay" class="overlay" transition:flyplacement={{ placement }}>
       <Calendar
-        displayDate={value}
+        date={value}
         bind:value
         bind:refs={refs.calendar}
       />
