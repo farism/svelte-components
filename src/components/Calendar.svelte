@@ -75,11 +75,11 @@
   }
 
   function onSelectMonth(e) {
-    viewDate = setMonth(viewDate, e.detail.value)
+    viewDate = setMonth(viewDate, e.detail.selection.value)
   }
 
   function onSelectYear(e) {
-    viewDate = setYear(viewDate, e.detail.value)
+    viewDate = setYear(viewDate, e.detail.selection.value)
   }
 
   function onClickPreviousMonth(e) {

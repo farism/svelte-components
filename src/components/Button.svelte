@@ -253,6 +253,10 @@
     box-shadow: var(--focus-box-shadow);
     outline: var(--focus-outline);
   }
+
+  .button:disabled {
+    cursor: default;
+  }
 </style>
 
 <button

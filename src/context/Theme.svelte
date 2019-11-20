@@ -61,12 +61,6 @@
     --focus-box-shadow: 0 0 0 2px var(--color-blue-20);
     --focus-outline: none;
 
-    --display-mode-block: block;
-    --display-mode-flex: flex;
-    --display-mode-inline-block: inline-block;
-    --display-mode-inline-flex: inline-flex;
-    --display-mode: var(--display-mode-inline-block);
-
     /* COMPONENTS */
     --arrow-color: var(--color-black-100);
     --arrow-color-fill: var(--arrow-color);
@@ -298,7 +292,7 @@
     --list-item-color: var(--color-gray-95);
     --list-item-font-size: 14px;
     --list-item-line-height: 20px;
-    --list-item-padding: var(--size-2xs) var(--list-padding);
+    --list-item-padding: var(--size-xs) var(--list-padding);
     --list-items-padding: var(--size-sm) 0;
     --list-max-height: auto;
     --list-padding: var(--size-lg);

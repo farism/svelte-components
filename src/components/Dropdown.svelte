@@ -38,6 +38,7 @@
   }
 
   function onAfterHide(e) {
+    console.log(refs.trigger)
     refs.trigger.focus()
 
     afterHide(e)
@@ -64,7 +65,7 @@
   bind:visible
   bind:beforeHide
   bind:beforeShow
-  bind:afterHide
+  bind:afterHide={onAfterHide}
   bind:afterShow
   bind:hideDelay
   bind:showDelay

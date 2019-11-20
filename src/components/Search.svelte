@@ -50,22 +50,22 @@
 
 <style>
 	.search {
-    --clear-hover-background-color: var(--color-gray-70);
+    --clear-background-color-hover: var(--color-gray-70);
 
     display: inline-flex;
     position: relative;
     width: var(--search-width);
 	}
 
-  .search--icon-count-1 :global(input) {
+  .icon-count-1 :global(input) {
     padding-right: calc(var(--input-padding-h) + var(--search-icon-size));
   }
 
-  .search--icon-count-2 :global(input) {
-    padding-right: calc(var(--input-padding-h) +var(--search-icon-size) * 2);
+  .icon-count-2 :global(input) {
+    padding-right: calc(var(--input-padding-h) + var(--search-icon-size) * 2);
   }
 
-  .search--icon-count-2 {
+  .icon-count-2 {
     cursor: pointer;
   }
 
@@ -107,7 +107,7 @@
   }
 </style>
 
-<div class="search search--icon-count-{iconCount}">
+<div class="search icon-count-{iconCount}">
   <Input
     bind:ref
     bind:value

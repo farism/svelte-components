@@ -905,6 +905,7 @@
         <div>
           <Select
             placeholder="Select Item"
+            label="{selectValue}"
             bind:search={selectSearch}
             bind:value={selectValue}
           >

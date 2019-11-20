@@ -2,7 +2,7 @@
   import { matchwidth } from '../actions/matchwidth'
   import Button from './Button'
   import Card from './Card'
-  import Clear from './Clear'
+  import ClearOverlay from './ClearOverlay'
   import List from './List'
   import OverlayTrigger from './OverlayTrigger'
 
@@ -55,10 +55,6 @@
     display: block;
   }
 
-  .clear-overlay {
-    pointer-events: none;
-  }
-
   .overlay {}
 
   .overlay :global(.list) {
@@ -86,9 +82,7 @@
       {label || placeholder}
     </Button>
     {#if value}
-      <div class="clear-overlay">
-        <Clear sm on:click={onClickClear} />
-      </div>
+      <ClearOverlay on:click={onClickClear} />
     {/if}
   </div>
   <div

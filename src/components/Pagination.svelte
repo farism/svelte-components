@@ -49,6 +49,10 @@
     margin-left: var(--size-sm);
   }
 
+  .select :global(.clear-overlay) {
+    display: none;
+  }
+
   .spacer {
     height: var(--size-sm);
   }

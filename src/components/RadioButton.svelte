@@ -30,7 +30,6 @@
   }
 
   .trigger {
-    display: var(--display-mode);
   }
 
   .button {
