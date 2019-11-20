@@ -205,8 +205,8 @@ import range from 'lodash/range'
 // }
 // ]
 
-export const data = range(0, 100000).map((_, index) => {
-  const groupId = (index < 500) ? null : index % 500
+export const data = range(0, 1000000).map((_, index) => {
+  const groupId = (index < 1000) ? null : index % 1000
 
   return {
     id: index,

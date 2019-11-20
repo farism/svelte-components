@@ -40,8 +40,6 @@
     // the List component instance
     let list = null
 
-    $: searching = search !== ''
-
     $: path = options.filter(opt => value.includes(getId(opt)))
 
     $: label = buildLabel(path)
@@ -78,6 +76,8 @@
         return getGroupId(opt) === groupId
       })
     }
+
+    $: isSearching = search !== ''
 
     $: open = visible
 
@@ -131,6 +131,8 @@
       value = []
 
       search = ''
+
+      refs.trigger.focus()
     }
 
     function onClickNextTier(option, e) {
@@ -149,7 +151,7 @@
       if (leafOnly && getNextGroupId(selection.value)) {
         viewPath = [...viewPath, selection.value]
       } else {
-        if (searching) {
+        if (isSearching) {
           value = derivePath(selection.value).map(getId)
         } else {
           value = [...viewPath, selection.value].map(getId)
@@ -190,6 +192,8 @@
 
       search = ''
 
+      refs.trigger.focus()
+
       afterHide()
     }
 
@@ -226,6 +230,8 @@
       display: flex;
       flex: 1 1 auto;
       margin-top: var(--size-sm);
+      max-height: 68px;
+      overflow-y: auto;
       padding: var(--size-xs) var(--size-lg);
     }
 
@@ -256,15 +262,6 @@
     }
   </style>
 
-<!--
-  <div>
-    {JSON.stringify(value)}
-  </div>
-
-  <div>
-    {JSON.stringify(path)}
-  </div> -->
-
   <OverlayTrigger
     bind:this={overlayTrigger}
     bind:refs={refs.overlayTrigger}
@@ -283,10 +280,9 @@
       slot="trigger"
       class="tiered-select"
       class:disabled
-      bind:this={refs.trigger}
       on:keydown={onKeydownTrigger}
     >
-      <Button dropdown>
+      <Button bind:ref={refs.trigger} dropdown {open}>
         {label}
       </Button>
       {#if value.length}
@@ -312,7 +308,7 @@
             on:keydown={onKeydown}
             autofocus
           >
-            <div slot="header" class="breadcrumbs" class:hidden={groupId === null || searching}>
+            <div slot="header" class="breadcrumbs" class:hidden={groupId === null || isSearching}>
               <Breadcrumbs crumbs={breadcrumbs} let:crumb let:index>
                 <div class:home={index === 0} on:click={(e) => onClickCrumb(index, e)}>
                   {#if index === 0}
@@ -326,7 +322,7 @@
             {#each groupOptions as option}
               <ListItem lines={10} value={option}>
                 {getLabel(option)}
-                <div slot="right" class:hidden={searching}>
+                <div slot="right" class:hidden={isSearching}>
                   {#if getNextGroupId(option)}
                     {#if leafOnly}
                       <Icon icon="chevron-right" />
