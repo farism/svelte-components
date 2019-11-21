@@ -166,8 +166,6 @@
         e.preventDefault()
 
         viewPath = viewPath.slice(0, -1)
-
-        // value = value.slice(0, -1)
       } else if (e.key === 'ArrowRight') {
         e.preventDefault()
 

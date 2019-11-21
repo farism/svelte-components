@@ -35,6 +35,8 @@
   }
 
   function onClickClear(e) {
+    e.stopPropagation()
+
     value = null
   }
 

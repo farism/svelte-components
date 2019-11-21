@@ -32,7 +32,12 @@
     border-radius: var(--switch-toggle-border-radius);
     box-shadow: var(--switch-toggle-box-shadow);
     height: var(--switch-toggle-size);
+    transition: 0.2s width ease-out;
     width: var(--switch-toggle-size);
+  }
+
+  .track:active .toggle {
+    width: calc(var(--switch-toggle-size) * 1.5);
   }
 
   input {
@@ -56,6 +61,7 @@
     --switch-track-background-color: var(--switch-toggle-background-color-disabled);
 
     cursor: default;
+    pointer-events: none;
   }
 
   .checked.disabled .track {

@@ -154,7 +154,7 @@
     class="overlay"
     bind:this={refs.overlay}
     use:portal
-    use:clickoutside
+    use:clickoutside={{ refs: [refs.trigger] }}
     use:fasten={{ padding: 2, placement: placement, target: refs.trigger }}
     on:fastenflip={onFastenFlip}
     on:clickoutside={onClickOutside}

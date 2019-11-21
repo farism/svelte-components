@@ -774,9 +774,12 @@
       <div>
         <h1>Pagination</h1>
 
-        <div>
-          <Pagination bind:page={pageValue} perPage={100} total={1200} />
-        </div>
+        <Pagination bind:page={pageValue} perPage={100} total={900} />
+
+        <br/>
+        <br/>
+
+        <Pagination bind:page={pageValue} perPage={100} total={1700} />
       </div>
 
       <div>

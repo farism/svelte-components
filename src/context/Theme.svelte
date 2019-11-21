@@ -369,18 +369,18 @@
     --switch-background-color: var(--color-gray-60);
     --switch-toggle-background-color-checked: var(--color-white-100);
     --switch-toggle-background-color: var(--color-white-100);
-    --switch-toggle-border-radius: 100%;
+    --switch-toggle-border-radius: var(--switch-toggle-size);
     --switch-toggle-box-shadow: var(--shadow-20);
-    --switch-toggle-size: var(--size-md);
+    --switch-toggle-size: calc(var(--switch-track-height) - var(--switch-track-padding) * 2);
     --switch-track-background-color-checked-disabled: var(--color-gray-50);
     --switch-track-background-color-checked: var(--color-blue-65);
     --switch-track-background-color-disabled: var(--color-white-100);
     --switch-track-background-color: var(--color-gray-60);
-    --switch-track-border-radius: var(--size-lg);
+    --switch-track-border-radius: var(--switch-track-height);
     --switch-track-box-shadow: var(--shadow-20);
-    --switch-track-height: var(--size-lg);
+    --switch-track-height: 20px;
     --switch-track-padding: var(--size-2xs);
-    --switch-track-width: var(--size-2xl);
+    --switch-track-width: calc(var(--switch-track-height) * 2);
 
     --tabs-border-color: var(--color-orange-60);
     --tabs-border-width: var(--size-2xs);

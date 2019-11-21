@@ -87,7 +87,7 @@
     Page:
   </div>
   <div class="select">
-    <Select label="{page}" bind:value={page}>
+    <Select label={page} bind:value={page}>
       {#each range(1, pages > 10 ? pages : pages + 1) as i}
         <SelectOption value={i} selected={i === page}>
           {i}

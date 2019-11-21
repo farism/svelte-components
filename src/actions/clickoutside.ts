@@ -1,8 +1,19 @@
 import { isEventSource } from '../utils/isEventSource'
 
-export function clickoutside(node: HTMLElement) {
+interface ClickOutsideParams {
+  refs?: HTMLElement[]
+}
+
+export function clickoutside(
+  node: HTMLElement,
+  { refs = [] }: ClickOutsideParams = {}
+) {
   function handler(e: MouseEvent) {
-    if (!isEventSource(node, e)) {
+    const isSource = [...refs, node].some(function (el) {
+      return isEventSource(el, e)
+    })
+
+    if (!isSource) {
       node.dispatchEvent(
         new CustomEvent('clickoutside', {
           detail: e,
@@ -13,13 +24,13 @@ export function clickoutside(node: HTMLElement) {
 
   window.addEventListener('mousedown', handler)
 
-  // window.addEventListener('touchend', handler)
+  // window.addEventListener('touchstart', handler)
 
   return {
     destroy() {
       window.removeEventListener('mousedown', handler)
 
-      // window.removeEventListener('touchend', handler)
+      // window.removeEventListener('touchstart', handler)
     },
   }
 }
