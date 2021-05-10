@@ -22,7 +22,7 @@
     "classnames": "^2.2.6",
     "date-fns": "^2.7.0",
     "i18n-js": "^3.5.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.21",
     "lodash.throttle": "4.1.1",
     "sirv-cli": "0.4.5",
     "svelte-css-vars": "^0.0.1",
