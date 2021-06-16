@@ -2,7 +2,7 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "devDependencies": {
-    "postcss": "^7.0.21",
+    "postcss": "^7.0.36",
     "postcss-load-config": "^2.1.0",
     "rollup": "1.26.3",
     "rollup-plugin-commonjs": "10.1.0",
